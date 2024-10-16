@@ -4,7 +4,6 @@
   <div class="row">
     <div class="col-12">
 
-
       <nav aria-label="...">
         <ul class="pagination justify-content-center">
           <li class="page-item">
@@ -45,11 +44,15 @@
       </nav>
 
       <label>Cuantos usuarios mostrar:</label><br><br>
-      <div class="btn-group" role="group" aria-label="Basic outlined example">
-        <button type="button" class="btn btn-outline-primary" (click)="getPagesize(10)">10</button>
-        <button type="button" class="btn btn-outline-primary" (click)="getPagesize(50)">50</button>
-        <button type="button" class="btn btn-outline-primary" (click)="getPagesize(100)">100</button>
-      </div>
+
+      <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+          <li class="page-item"><a class="page-link" href="#" (click)="getPagesize(10)" [class.active]="size === 10">10</a></li>
+          <li class="page-item"><a class="page-link" href="#" (click)="getPagesize(50)" [class.active]="size === 50">50</a></li>
+          <li class="page-item"><a class="page-link" href="#" (click)="getPagesize(100)" [class.active]="size === 100">100</a></li>
+        </ul>
+      </nav>
+
       <br><br>
       <div>
         <button type="button" class="btn btn-outline-primary">Crear nuevo usuario</button>

@@ -51,6 +51,7 @@ export class UsuarioAdminPlistRoutedComponent implements OnInit {
   getPagesize( pagesize: number) {
     this.size = pagesize;
     this.getPage();
+    return false;
   }
 
 
