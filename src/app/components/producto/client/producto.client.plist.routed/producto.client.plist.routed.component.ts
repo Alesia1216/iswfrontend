@@ -68,18 +68,9 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
       });
   }
 
-  // edit(oProducto: IProducto) {
-  //   //navegar a la página de edición
-  //   this.oRouter.navigate(['admin/producto/edit', oProducto.id]);
-  // }
-
   // view(oProducto: IProducto) {
   //   //navegar a la página de edición
   //   this.oRouter.navigate(['admin/producto/view', oProducto.id]);
-  // }
-
-  // remove(oProducto: IProducto) {
-  //   this.oRouter.navigate(['admin/producto/delete/', oProducto.id]);
   // }
 
   goToPage(p: number) {

@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './producto.admin.create.routed.component.html',
   styleUrls: ['./producto.admin.create.routed.component.css']
 })
-export class Producto.admin.create.routedComponent implements OnInit {
+export class ProductoAdminCreateRoutedComponent implements OnInit {
 
   constructor() { }
 

@@ -1,0 +1,10 @@
+.bufon{
+  width: 350px;
+  height: 350px;
+  background-image: url("../../../animations/spritesheets/spritesheet.png");
+  animation: blink 0.55s steps(5) infinite alternate;
+}
+
+@keyframes blink {
+    to { background-position: -1750px; }
+  }

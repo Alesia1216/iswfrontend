@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';  // Importa LocationStrategy y PathLocationStrategy
+import { BrowserModule } from '@angular/platform-browser';
 
 import { MenuRoutedComponent } from './components/shared/menu.routed/menu.routed.component';
 
@@ -9,14 +10,21 @@ import { UsuarioAdminEditRoutedComponent } from './components/usuario/admin/usua
 import { UsuarioAdminPlistRoutedComponent } from './components/usuario/admin/usuario.admin.plist.routed/usuario.admin.plist.routed.component';
 import { UsuarioAdminViewRoutedComponent } from './components/usuario/admin/usuario.admin.view.routed/usuario.admin.view.routed.component';
 import { UsuarioAdminDeleteRoutedComponent } from './components/usuario/admin/usuario.admin.delete.routed/usuario.admin.delete.routed.component';
+
 import { UsuarioClientCreateRoutedComponent } from './components/usuario/client/usuario.client.create.routed/usuario.client.create.routed.component';
 import { UsuarioClientEditRoutedComponent } from './components/usuario/client/usuario.client.edit.routed/usuario.client.edit.routed.component';
 import { UsuarioClientPlistRoutedComponent } from './components/usuario/client/usuario.client.plist.routed/usuario.client.plist.routed.component';
 import { UsuarioClientViewRoutedComponent } from './components/usuario/client/usuario.client.view.routed/usuario.client.view.routed.component';
 import { UsuarioClientDeleteRoutedComponent } from './components/usuario/client/usuario.client.delete.routed/usuario.client.delete.routed.component';
 
+
+import { ProductoAdminCreateRoutedComponent } from './components/producto/admin/producto.admin.create.routed/producto.admin.create.routed.component';
+import { ProductoAdminEditRoutedComponent } from './components/producto/admin/producto.admin.edit.routed/producto.admin.edit.routed.component';
+import { ProductoAdminPlistRoutedComponent } from './components/producto/admin/producto.admin.plist.routed/producto.admin.plist.routed.component';
+import { ProductoAdminDeleteRoutedComponent } from './components/producto/admin/producto.admin.delete.routed/producto.admin.delete.routed.component';
+
 import { ProductoClientPlistRoutedComponent } from './components/producto/client/producto.client.plist.routed/producto.client.plist.routed.component';
-import { BrowserModule } from '@angular/platform-browser';
+
 
 export const routes: Routes = [
 
@@ -26,10 +34,10 @@ export const routes: Routes = [
 
 
     {path: 'usuario/admin/create', component: UsuarioAdminCreateRoutedComponent},
-    {path: 'usuario/admin/edit', component: UsuarioAdminEditRoutedComponent},
+    {path: 'usuario/admin/edit/:id', component: UsuarioAdminEditRoutedComponent},
     {path: 'usuario/admin/plist', component: UsuarioAdminPlistRoutedComponent},
     {path: 'usuario/admin/view', component: UsuarioAdminViewRoutedComponent},
-    {path: 'usuario/admin/delete', component: UsuarioAdminDeleteRoutedComponent},
+    {path: 'usuario/admin/delete/:id', component: UsuarioAdminDeleteRoutedComponent},
 
     {path: 'usuario/client/create', component: UsuarioClientCreateRoutedComponent},
     {path: 'usuario/client/edit', component: UsuarioClientEditRoutedComponent},
@@ -39,6 +47,11 @@ export const routes: Routes = [
 
 
     {path: 'producto/client/plist', component: ProductoClientPlistRoutedComponent},
+
+    {path: 'producto/admin/create', component: ProductoAdminCreateRoutedComponent},
+    {path: 'producto/admin/edit/:id', component: ProductoAdminEditRoutedComponent},
+    {path: 'producto/admin/plist', component: ProductoAdminPlistRoutedComponent},
+    {path: 'producto/admin/delete/:id', component: ProductoAdminDeleteRoutedComponent},
 
 
     //{path: '', component:},
