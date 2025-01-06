@@ -75,6 +75,12 @@
           <div class="card-body bg-pink">
             <h5 class="card-title">{{ producto.descripcion }}</h5>
             <p class="card-text">{{ producto.precio }}€</p>
+            @if(producto.unidades==1){
+              <p class="card-text text-danger"><small>Queda {{ producto.unidades }} unidad</small></p>
+            } @else {
+              <p class="card-text text-muted"><small>Quedan {{ producto.unidades }} unidades</small></p>
+            }
+           
             <a class="btn btn-pink" [routerLink]="['/producto/client/edit', producto.id]">Comprar</a>
           </div>
         </div>
