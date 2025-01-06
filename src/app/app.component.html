@@ -1,6 +1,5 @@
 
-
-<app-navbar-unrouted></app-navbar-unrouted>
-
-
-<router-outlet />
+<div [@pageTransition]="getOutletState(routerOutlet)">
+    <app-navbar-unrouted></app-navbar-unrouted>
+    <router-outlet #routerOutlet="outlet"></router-outlet> 
+  </div>

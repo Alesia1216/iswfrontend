@@ -15,6 +15,18 @@
   }
 
   .bg-pink {
-    background-color: #f472b6;
+    background-color: #fbcfe8;
+  }
+  
+  .page-item.active .page-link{
+    background-color: #fbcfe8;
+    border-color: #fbcfe8; 
+    color: white;
+  }
+
+  .page-item .page-link.active {
+    background-color: #fbcfe8; 
+    border-color: #fbcfe8; 
+    color: white; 
   }
   
