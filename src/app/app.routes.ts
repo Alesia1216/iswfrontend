@@ -20,6 +20,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 export const routes: Routes = [
 
+    { path: '', redirectTo: '/shared/menu', pathMatch: 'full' }, 
+
     {path: 'shared/menu', component: MenuRoutedComponent},
 
 

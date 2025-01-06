@@ -14,6 +14,22 @@
     border-color: #f472b6 !important;
   }
 
+  .btn-pink {
+    color: #f472b6; 
+    border-color: #f472b6;
+  }
+  
+  .btn-pink:hover {
+    color: white;
+    background-color: #f472b6;
+  }
+  
+  .btn-pink:active {
+    color: white !important;
+    background-color: #f472b6 !important;
+    border-color: #f472b6 !important;
+  }
+
   .bg-pink {
     background-color: #fbcfe8;
   }
@@ -23,10 +39,21 @@
     border-color: #fbcfe8; 
     color: white;
   }
+  .page-item .page-link:hover{
+    background-color: #f472b6;
+    border-color: #f472b6; 
+    color: white;
+  }
 
   .page-item .page-link.active {
     background-color: #fbcfe8; 
     border-color: #fbcfe8; 
+    color: white; 
+  }
+
+  .page-item .page-link.active:hover {
+    background-color: #f472b6; 
+    border-color: #f472b6; 
     color: white; 
   }
   

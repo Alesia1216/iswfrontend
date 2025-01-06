@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col text-center">
       <h2 class="my-2">
-        <i class="bi bi-journal"></i> <i class="bi bi-card-image"></i> <i class="bi bi-collection"></i>
+        <i class="bi bi-journal"></i>
        Catalogo de Productos
       </h2>
 
@@ -67,14 +67,15 @@
         </h5>
       </div>
 
-      <div class="d-flex flex-direction-row flex-wrap">
+      <div class="d-flex flex-direction-row flex-wrap justify-content-center">
 
         @for (producto of oPage?.content; track producto.id){
         <div class="card m-2" style="width: 18rem;">
           <!--<img src="assets/{{ producto.imagen }}" class="card-img-top" alt="..." /> -->
           <div class="card-body bg-pink">
             <h5 class="card-title">{{ producto.descripcion }}</h5>
-            <p class="card-text">{{ producto.precio }}</p>
+            <p class="card-text">{{ producto.precio }}€</p>
+            <a class="btn btn-pink" [routerLink]="['/producto/client/edit', producto.id]">Comprar</a>
           </div>
         </div>
         }
