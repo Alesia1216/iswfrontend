@@ -1,15 +1,23 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand " href="#">IswArt</a>
+    <a class="navbar-brand mx-5" href="#">IswArt</a>
+
+    <div class="d-flex ms-auto mx-4">
+      <button type="button" class="btn btn-outline-pink icon-15">
+        <i class="bi bi-person-circle"></i>
+      </button>
+    </div>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" [class.active]="
-              strRuta == '/home' || strRuta == '/' || strRuta == ''" aria-current="page" href="/home">Inicio</a>
+          <a class="nav-link" [class.active]="strRuta == 'shared/menu'" aria-current="page" href="/shared/menu">Inicio</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [class.active]="strRuta == '/admin/periodo/plist'" href="/admin/periodo/plist">Catalogo productos</a>

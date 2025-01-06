@@ -1,2 +1,20 @@
+.btn-outline-pink {
+    color: #f472b6; 
+    border-color: #fbcfe8;
+  }
+  
+  .btn-outline-pink:hover {
+    color: white;
+    background-color: #fbcfe8;
+  }
+  
+  .btn-outline-pink:active {
+    color: white !important;
+    background-color: #f472b6 !important;
+    border-color: #f472b6 !important;
+  }
 
-
+  .bg-pink {
+    background-color: #f472b6;
+  }
+  
