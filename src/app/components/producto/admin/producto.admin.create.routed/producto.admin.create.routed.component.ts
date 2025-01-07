@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule} from '@angular/router';
+import { Router, RouterModule} from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -13,14 +13,14 @@ import {
 import { IProducto } from '../../../../model/producto.interface';
 import { ProductoService } from '../../../../service/producto.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 declare let bootstrap: any;
 @Component({
-  selector: 'app-producto.admin.create.routed',
-  templateUrl: './producto.admin.create.routed.component.html',
-  styleUrls: ['./producto.admin.create.routed.component.css'],
-  standalone: true,
-  imports: [RouterModule, MatFormFieldModule, MatInputModule, MatSelectModule, ReactiveFormsModule]
+    selector: 'app-producto.admin.create.routed',
+    templateUrl: './producto.admin.create.routed.component.html',
+    styleUrls: ['./producto.admin.create.routed.component.css'],
+    imports: [RouterModule, MatFormFieldModule, MatInputModule, MatSelectModule, ReactiveFormsModule, CommonModule]
 })
 
 export class ProductoAdminCreateRoutedComponent implements OnInit {
@@ -46,28 +46,26 @@ export class ProductoAdminCreateRoutedComponent implements OnInit {
 
   createForm() {
     this.oProductoForm = new FormGroup({
-      nombre: new FormControl('', [
+      descripcion: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50),
       ]),
-      apellido1: new FormControl('', [
+      estilo: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50),
       ]),
-      apellido2: new FormControl(''),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      id_tipousuario: new FormControl('', [Validators.required, Validators.min(1)]),
+      unidades: new FormControl('', [Validators.required, Validators.min(1)]),
+      precio: new FormControl('', [Validators.required, Validators.min(1)]),
     });
   }
 
   updateForm() {
-    this.oProductoForm?.controls['nombre'].setValue('');
-    this.oProductoForm?.controls['apellido1'].setValue('');
-    this.oProductoForm?.controls['apellido2'].setValue('');
-    this.oProductoForm?.controls['email'].setValue('');
-    this.oProductoForm?.controls['id_tipousuario'].setValue('');
+    this.oProductoForm?.controls['descripcion'].setValue('');
+    this.oProductoForm?.controls['estilo'].setValue('');
+    this.oProductoForm?.controls['unidades'].setValue('');
+    this.oProductoForm?.controls['precio'].setValue('');
   }
 
   showModal(mensaje: string) {
@@ -96,10 +94,10 @@ export class ProductoAdminCreateRoutedComponent implements OnInit {
       this.oProductoService.create(this.oProductoForm?.value).subscribe({
         next: (oProducto: IProducto) => {
           this.oProducto = oProducto;
-          this.showModal('Usuario creado con el id: ' + this.oProducto.id);
+          this.showModal('Producto creado con la descipción: ' + this.oProducto.descripcion);
         },
         error: (err: HttpErrorResponse) => {
-          this.showModal('Error al crear el usuario');
+          this.showModal('Error al crear el producto');
           console.log(err);
         },
       });

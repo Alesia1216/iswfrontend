@@ -13,11 +13,10 @@ import { TrimPipe } from '../../../../pipe/trim.pipe';
 import { BotoneraService } from '../../../../service/botonera.service';
 
 @Component({
-  selector: 'app-producto.admin.plist.routed',
-  templateUrl: './producto.admin.plist.routed.component.html',
-  styleUrls: ['./producto.admin.plist.routed.component.css'],
-  standalone: true,
-  imports: [CommonModule, FormsModule, TrimPipe, RouterModule],
+    selector: 'app-producto.admin.plist.routed',
+    templateUrl: './producto.admin.plist.routed.component.html',
+    styleUrls: ['./producto.admin.plist.routed.component.css'],
+    imports: [CommonModule, FormsModule, TrimPipe, RouterModule]
 })
 export class ProductoAdminPlistRoutedComponent implements OnInit {
 

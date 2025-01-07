@@ -47,31 +47,29 @@ export class UsuarioService {
   get(id: number): Observable<IUsuario> {
     let URL: string = '';
     URL += this.serverURL;
-    URL += '/' + id;
+    URL += '/get/' + id;
     return this.oHttp.get<IUsuario>(URL);
   }
 
   create(oUsuario: IUsuario): Observable<IUsuario> {
     let URL: string = '';
     URL += this.serverURL;
+    URL += '/create';
     return this.oHttp.put<IUsuario>(URL, oUsuario);
   }
 
   update(oUsuario: IUsuario): Observable<IUsuario> {
     let URL: string = '';
     URL += this.serverURL;
+    URL += '/update';
     return this.oHttp.post<IUsuario>(URL, oUsuario);
   }
 
-  getOne(id: number): Observable<IUsuario> {
+  delete(id: number) {
     let URL: string = '';
     URL += this.serverURL;
-    URL += '/' + id;
-    return this.oHttp.get<IUsuario>(URL);
-  }
-
-  delete(id: number) {
-    return this.oHttp.delete(this.serverURL + '/' + id);
+    URL += '/delete/' + id;
+    return this.oHttp.delete(URL);
   }
 
 }

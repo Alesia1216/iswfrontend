@@ -47,31 +47,29 @@ export class CompraService {
   get(id: number): Observable<ICompra> {
     let URL: string = '';
     URL += this.serverURL;
-    URL += '/' + id;
+    URL += '/get/' + id;
     return this.oHttp.get<ICompra>(URL);
   }
 
   create(oCompra: ICompra): Observable<ICompra> {
     let URL: string = '';
     URL += this.serverURL;
+    URL += '/create';
     return this.oHttp.put<ICompra>(URL, oCompra);
   }
 
   update(oCompra: ICompra): Observable<ICompra> {
     let URL: string = '';
     URL += this.serverURL;
+    URL += '/update';
     return this.oHttp.post<ICompra>(URL, oCompra);
   }
 
-  getOne(id: number): Observable<ICompra> {
+  delete(id: number) {
     let URL: string = '';
     URL += this.serverURL;
-    URL += '/' + id;
-    return this.oHttp.get<ICompra>(URL);
-  }
-
-  delete(id: number) {
-    return this.oHttp.delete(this.serverURL + '/' + id);
+    URL += '/delete/' + id;
+    return this.oHttp.delete(URL);
   }
 
 }

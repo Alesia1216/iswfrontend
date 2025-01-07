@@ -9,74 +9,64 @@
       <form [formGroup]="oProductoForm!" (ngSubmit)="onSubmit()" novalidate>
         <div class="row mt-4">
           <mat-form-field>
-            <mat-label>Nombre</mat-label>
+            <mat-label>Descripcion</mat-label>
             <input
               matInput
-              formControlName="nombre"
-              placeholder="Pon aquí tu nombre"
+              formControlName="descripcion"
+              placeholder="Escribe la descripcion del producto"
             />
             <mat-hint align="start">De 3 caracteres a 50 caracteres</mat-hint>
-            @if (oProductoForm?.get('nombre')?.hasError('required')){
-            <mat-error> El campo nombre es obligatorio </mat-error>
-            } @if (oProductoForm?.get('nombre')?.hasError('minlength')){
-            <mat-error> El nombre debe ser mas largo </mat-error>
-            } @if (oProductoForm?.get('nombre')?.hasError('maxlength')){
-            <mat-error> El nombre debe ser mas corto </mat-error>
+            @if (oProductoForm?.get('descripcion')?.hasError('required')){
+            <mat-error>La descripcion es obligatoria </mat-error>
+            } @if (oProductoForm?.get('descripcion')?.hasError('minlength')){
+            <mat-error> La descripcion debe ser mas larga </mat-error>
+            } @if (oProductoForm?.get('descripcion')?.hasError('maxlength')){
+            <mat-error> La descripcion debe ser mas corta </mat-error>
             }
           </mat-form-field>
         </div>
         <div class="row mt-4">
           <mat-form-field>
-            <mat-label>Primer Apellido</mat-label>
-            <input
-              matInput
-              formControlName="apellido1"
-              placeholder="Escribe tu primer apellido"
-            />
+            <mat-label>Estilo</mat-label>
+            <mat-select formControlName="estilo" placeholder="Selecciona el estilo del dibujo">
+              <mat-option value="personaje">Personaje</mat-option>
+              <mat-option value="paisaje">Paisaje</mat-option>
+              <mat-option value="concepto">Concepto</mat-option>
+              <mat-option value="variado">Variado</mat-option>
+            </mat-select>
             <mat-hint align="start">De 3 caracteres a 50 caracteres</mat-hint>
-            @if (oProductoForm?.get('apellido1')?.hasError('required')) {
-            <mat-error>Debes introducir un primer apellido</mat-error>
-            } @if (oProductoForm?.get('apellido1')?.hasError('minlength')) {
-            <mat-error>Debes introducir un apellido mas largo</mat-error>
-            } @if (oProductoForm?.get('nombre')?.hasError('maxlength')) {
-            <mat-error>Debes introducir un apellido mas corto</mat-error>
-            }
+            <mat-error *ngIf="oProductoForm?.get('estilo')?.hasError('required')">
+              Debes seleccionar un estilo
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="row mt-4">
           <mat-form-field>
-            <mat-label>Segundo Apellido</mat-label>
+            <mat-label>Unidades</mat-label>
             <input
               matInput
-              formControlName="apellido2"
-              placeholder="Escribe tu segundo apellido"
-            />
-          </mat-form-field>
-        </div>
-        <div class="row mt-4">
-          <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input
-              matInput
-              formControlName="email"
-              placeholder="Pon aquí tu email"
+              formControlName="unidades"
+              placeholder="Pon aquí las unidades que tenemos del producto"
               required
             />
-            <mat-hint align="start">Formato email</mat-hint>
-            @if (oProductoForm?.get('email')?.hasError('required')) {
-            <mat-error>Debes introducir un email</mat-error>
-            } @if (oProductoForm?.get('email')?.hasError('email')) {
-            <mat-error>Debes introducir un email correcto</mat-error>
-            }
+            <mat-hint align="start">De 1 a 999</mat-hint>
+            @if (oProductoForm?.get('unidades')?.hasError('required')) {
+            <mat-error>Debes introducir las unidades</mat-error>
+            } 
           </mat-form-field>
           <div class="row mt-4">
             <mat-form-field>
-              <mat-label>Tipousuario</mat-label>
+              <mat-label>Precio</mat-label>
               <input
                 matInput
-                formControlName="id_tipousuario"
-                placeholder="Escribe el tipo de usuario"
+                formControlName="precio"
+                placeholder="Escribe el precio del producto"
+                required
               />
+              <mat-hint align="start">Debe ser un numero decimar</mat-hint>
+              @if (oProductoForm?.get('precio')?.hasError('required')) {
+              <mat-error>Debes introducir el precio</mat-error>
+              } 
             </mat-form-field>
           </div>
         </div>
@@ -117,7 +107,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Contante</h5>
+        <h5 class="modal-title" id="exampleModalLabel">IswArt</h5>
         <button
           type="button"
           class="btn-close"

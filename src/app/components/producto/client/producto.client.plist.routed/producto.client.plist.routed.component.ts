@@ -14,11 +14,10 @@ import { BotoneraService } from '../../../../service/botonera.service';
 
 
 @Component({
-  selector: 'app-producto.client.plist.routed',
-  templateUrl: './producto.client.plist.routed.component.html',
-  styleUrls: ['./producto.client.plist.routed.component.css'],
-  standalone: true,
-  imports: [CommonModule, FormsModule, TrimPipe, RouterModule],
+    selector: 'app-producto.client.plist.routed',
+    templateUrl: './producto.client.plist.routed.component.html',
+    styleUrls: ['./producto.client.plist.routed.component.css'],
+    imports: [CommonModule, FormsModule, TrimPipe, RouterModule]
 })
 export class ProductoClientPlistRoutedComponent implements OnInit {
 

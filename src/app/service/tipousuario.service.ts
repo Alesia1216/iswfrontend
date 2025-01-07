@@ -47,31 +47,29 @@ export class TipousuarioService {
   get(id: number): Observable<ITipousuario> {
     let URL: string = '';
     URL += this.serverURL;
-    URL += '/' + id;
+    URL += '/get/' + id;
     return this.oHttp.get<ITipousuario>(URL);
   }
 
   create(oTipousuario: ITipousuario): Observable<ITipousuario> {
     let URL: string = '';
     URL += this.serverURL;
+    URL += '/create';
     return this.oHttp.put<ITipousuario>(URL, oTipousuario);
   }
 
   update(oTipousuario: ITipousuario): Observable<ITipousuario> {
     let URL: string = '';
     URL += this.serverURL;
+    URL += '/update';
     return this.oHttp.post<ITipousuario>(URL, oTipousuario);
   }
 
-  getOne(id: number): Observable<ITipousuario> {
+  delete(id: number) {
     let URL: string = '';
     URL += this.serverURL;
-    URL += '/' + id;
-    return this.oHttp.get<ITipousuario>(URL);
-  }
-
-  delete(id: number) {
-    return this.oHttp.delete(this.serverURL + '/' + id);
+    URL += '/delete/' + id;
+    return this.oHttp.delete(URL);
   }
 
 }

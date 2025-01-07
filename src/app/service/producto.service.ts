@@ -47,31 +47,29 @@ export class ProductoService {
   get(id: number): Observable<IProducto> {
     let URL: string = '';
     URL += this.serverURL;
-    URL += '/' + id;
+    URL += '/get/' + id;
     return this.oHttp.get<IProducto>(URL);
   }
 
-  create(oUsuario: IProducto): Observable<IProducto> {
+  create(oProducto: IProducto): Observable<IProducto> {
     let URL: string = '';
     URL += this.serverURL;
-    return this.oHttp.put<IProducto>(URL, oUsuario);
+    URL += '/create';
+    return this.oHttp.put<IProducto>(URL, oProducto);
   }
 
-  update(oUsuario: IProducto): Observable<IProducto> {
+  update(oProducto: IProducto): Observable<IProducto> {
     let URL: string = '';
     URL += this.serverURL;
-    return this.oHttp.post<IProducto>(URL, oUsuario);
-  }
-
-  getOne(id: number): Observable<IProducto> {
-    let URL: string = '';
-    URL += this.serverURL;
-    URL += '/' + id;
-    return this.oHttp.get<IProducto>(URL);
+    URL += '/update';
+    return this.oHttp.post<IProducto>(URL, oProducto);
   }
 
   delete(id: number) {
-    return this.oHttp.delete(this.serverURL + '/' + id);
+    let URL: string = '';
+    URL += this.serverURL;
+    URL += '/delete/' + id;
+    return this.oHttp.delete(URL);
   }
 
 }
