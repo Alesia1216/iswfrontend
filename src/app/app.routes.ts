@@ -25,6 +25,8 @@ import { ProductoAdminDeleteRoutedComponent } from './components/producto/admin/
 
 import { ProductoClientPlistRoutedComponent } from './components/producto/client/producto.client.plist.routed/producto.client.plist.routed.component';
 
+import { ComisionClientBookRoutedComponent } from './components/producto/client/comision.client.book.routed/comision.client.book.routed.component';
+
 
 export const routes: Routes = [
 
@@ -53,6 +55,7 @@ export const routes: Routes = [
     {path: 'producto/admin/plist', component: ProductoAdminPlistRoutedComponent},
     {path: 'producto/admin/delete/:id', component: ProductoAdminDeleteRoutedComponent},
 
+    {path: 'comision/client/book', component: ComisionClientBookRoutedComponent},
 
     //{path: '', component:},
 
