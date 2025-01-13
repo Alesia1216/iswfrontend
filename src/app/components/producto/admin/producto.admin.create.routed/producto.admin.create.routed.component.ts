@@ -83,7 +83,7 @@ export class ProductoAdminCreateRoutedComponent implements OnInit {
 
   hideModal = () => {
     this.myModal.hide();
-    this.oRouter.navigate(['/producto/admin/view/' + this.oProducto?.id]);
+    this.oRouter.navigate(['/producto/view/' + this.oProducto?.id]);
   }
 
   onSubmit() {
@@ -94,7 +94,7 @@ export class ProductoAdminCreateRoutedComponent implements OnInit {
       this.oProductoService.create(this.oProductoForm?.value).subscribe({
         next: (oProducto: IProducto) => {
           this.oProducto = oProducto;
-          this.showModal('Producto creado con la descipción: ' + this.oProducto.descripcion);
+          this.showModal('Producto: ' + this.oProducto.descripcion + ' creado');
         },
         error: (err: HttpErrorResponse) => {
           this.showModal('Error al crear el producto');

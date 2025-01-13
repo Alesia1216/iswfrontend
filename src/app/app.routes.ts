@@ -26,6 +26,7 @@ import { ProductoAdminDeleteRoutedComponent } from './components/producto/admin/
 import { ProductoClientPlistRoutedComponent } from './components/producto/client/producto.client.plist.routed/producto.client.plist.routed.component';
 
 import { ComisionClientBookRoutedComponent } from './components/producto/client/comision.client.book.routed/comision.client.book.routed.component';
+import { ProductoViewRoutedComponent } from './components/producto/producto.view.routed/producto.view.routed.component';
 
 
 export const routes: Routes = [
@@ -38,14 +39,12 @@ export const routes: Routes = [
     {path: 'usuario/admin/create', component: UsuarioAdminCreateRoutedComponent},
     {path: 'usuario/admin/edit/:id', component: UsuarioAdminEditRoutedComponent},
     {path: 'usuario/admin/plist', component: UsuarioAdminPlistRoutedComponent},
-    {path: 'usuario/admin/view', component: UsuarioAdminViewRoutedComponent},
+    {path: 'usuario/admin/view/:id', component: UsuarioAdminViewRoutedComponent},
     {path: 'usuario/admin/delete/:id', component: UsuarioAdminDeleteRoutedComponent},
 
-    {path: 'usuario/client/create', component: UsuarioClientCreateRoutedComponent},
-    {path: 'usuario/client/edit', component: UsuarioClientEditRoutedComponent},
+
     {path: 'usuario/client/plist', component: UsuarioClientPlistRoutedComponent},
-    {path: 'usuario/client/view', component: UsuarioClientViewRoutedComponent},
-    {path: 'usuario/client/delete', component: UsuarioClientDeleteRoutedComponent},
+    {path: 'usuario/client/view/:id', component: UsuarioClientViewRoutedComponent},
 
 
     {path: 'producto/client/plist', component: ProductoClientPlistRoutedComponent},
@@ -54,6 +53,8 @@ export const routes: Routes = [
     {path: 'producto/admin/edit/:id', component: ProductoAdminEditRoutedComponent},
     {path: 'producto/admin/plist', component: ProductoAdminPlistRoutedComponent},
     {path: 'producto/admin/delete/:id', component: ProductoAdminDeleteRoutedComponent},
+
+    {path: 'producto/view/:id', component: ProductoViewRoutedComponent},
 
     {path: 'comision/client/book', component: ComisionClientBookRoutedComponent},
 
