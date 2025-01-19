@@ -1,0 +1,25 @@
+<div class="container mt-4 d-flex align-items-center justify-content-center" style="height: 100vh;">
+  <div class="card bg-pink" style="width: 55rem; height: 40rem;">
+    <div class="card-body d-flex flex-column align-items-center justify-content-center text-center" 
+         style="height: 100%;">
+      <h5 class="card-title my-5" style="font-size: 2rem; font-weight: bold;">
+        {{ oProducto?.descripcion }}
+      </h5>
+      <h6 class="card-subtitle mb-4 text-muted" style="font-size: 1.5rem;">
+        {{ oProducto?.precio }}€
+      </h6>
+      <p class="card-text" style="font-size: 1.2rem;">
+        Este dibujo es del estilo {{ oProducto?.estilo }}
+      </p>
+      @if(oProducto.unidades==1){
+        <p class="card-text text-danger" style="font-size: 1.2rem;">Queda {{ oProducto?.unidades }} unidad</p>
+      } @else {
+        <p class="card-text text-muted" style="font-size: 1.2rem;">Quedan {{ oProducto?.unidades }} unidades</p>
+      }
+      <div>
+        <a class="btn btn-warning mx-2" [routerLink]="['/producto/admin/edit/', oProducto.id]"><i class="bi bi-pencil"></i></a>
+        <a class="btn btn-danger mx-2"  [routerLink]="['/producto/admin/delete/', oProducto.id]"><i class="bi bi-trash"></i></a>
+      </div>  
+    </div>
+  </div>
+</div>

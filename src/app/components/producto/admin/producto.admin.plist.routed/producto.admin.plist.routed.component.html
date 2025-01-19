@@ -85,7 +85,7 @@
               <p class="card-text text-muted"><small>Quedan {{ producto.unidades }} unidades</small></p>
             }  
             <a class="btn btn-warning mx-2" (click)="edit(producto)"><i class="bi bi-pencil"></i></a>
-            <a class="btn btn-info mx-2" [routerLink]="['/producto/view/', producto.id]"><i class="bi bi-eye"></i></a>
+            <a class="btn btn-info mx-2" [routerLink]="['/producto/admin/view/', producto.id]"><i class="bi bi-eye"></i></a>
             <a class="btn btn-danger mx-2"  (click)="remove(producto)"><i class="bi bi-trash"></i></a>
           </div>
         </div>

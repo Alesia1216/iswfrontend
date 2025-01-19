@@ -26,7 +26,8 @@ import { ProductoAdminDeleteRoutedComponent } from './components/producto/admin/
 import { ProductoClientPlistRoutedComponent } from './components/producto/client/producto.client.plist.routed/producto.client.plist.routed.component';
 
 import { ComisionClientBookRoutedComponent } from './components/producto/client/comision.client.book.routed/comision.client.book.routed.component';
-import { ProductoViewRoutedComponent } from './components/producto/producto.view.routed/producto.view.routed.component';
+import { ProductoAdminViewRoutedComponent } from './components/producto/admin/producto.admin.view.routed/producto.admin.view.routed.component';
+import { ProductoClientViewRoutedComponent } from './components/producto/client/producto.client.view.routed/producto.client.view.routed.component';
 
 
 export const routes: Routes = [
@@ -46,15 +47,16 @@ export const routes: Routes = [
     {path: 'usuario/client/plist', component: UsuarioClientPlistRoutedComponent},
     {path: 'usuario/client/view/:id', component: UsuarioClientViewRoutedComponent},
 
-
-    {path: 'producto/client/plist', component: ProductoClientPlistRoutedComponent},
-
+    
     {path: 'producto/admin/create', component: ProductoAdminCreateRoutedComponent},
     {path: 'producto/admin/edit/:id', component: ProductoAdminEditRoutedComponent},
     {path: 'producto/admin/plist', component: ProductoAdminPlistRoutedComponent},
     {path: 'producto/admin/delete/:id', component: ProductoAdminDeleteRoutedComponent},
+    {path: 'producto/admin/view/:id', component: ProductoAdminViewRoutedComponent},
 
-    {path: 'producto/view/:id', component: ProductoViewRoutedComponent},
+    {path: 'producto/client/plist', component: ProductoClientPlistRoutedComponent},
+    {path: 'producto/client/view/:id', component: ProductoClientViewRoutedComponent},
+
 
     {path: 'comision/client/book', component: ComisionClientBookRoutedComponent},
 

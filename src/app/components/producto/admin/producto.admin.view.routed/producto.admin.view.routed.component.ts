@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ProductoService } from '../../../service/producto.service';
-import { IProducto } from '../../../model/producto.interface';
+import { IProducto } from '../../../../model/producto.interface';
+import { ProductoService } from '../../../../service/producto.service';
 
 @Component({
-  selector: 'app-producto.view.routed',
-  templateUrl: './producto.view.routed.component.html',
-  styleUrls: ['./producto.view.routed.component.css']
+  selector: 'app-producto.admin.view.routed',
+  templateUrl: './producto.admin.view.routed.component.html',
+  styleUrls: ['./producto.admin.view.routed.component.css'],
+  standalone: true,
+  imports: [RouterModule]
 })
-export class ProductoViewRoutedComponent implements OnInit {
+export class ProductoAdminViewRoutedComponent implements OnInit {
 
   id: number = 0;
   route: string = '';
