@@ -1,16 +1,69 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { IUsuario } from '../../../../model/usuario.interface';
+import { UsuarioService } from '../../../../service/usuario.service';
+import { TrimPipe } from '../../../../pipe/trim.pipe';
+
+
+declare let bootstrap: any;
 
 @Component({
     selector: 'app-usuario.admin.delete.routed',
     templateUrl: './usuario.admin.delete.routed.component.html',
     styleUrls: ['./usuario.admin.delete.routed.component.css'],
-    standalone: false
+    standalone: true,
+    imports:[ RouterModule, TrimPipe] ,
 })
 export class UsuarioAdminDeleteRoutedComponent implements OnInit {
 
-  constructor() { }
+  oUsuario: IUsuario | null = null;
+  strMessage: string = '';
+  myModal: any;
 
-  ngOnInit() {
+  constructor(
+    private oUsuarioService: UsuarioService,
+    private oActivatedRoute: ActivatedRoute,
+    private oRouter: Router
+  ) { }
+
+  ngOnInit(): void {
+    let id = this.oActivatedRoute.snapshot.params['id'];
+    this.oUsuarioService.get(id).subscribe({
+      next: (oUsuario: IUsuario) => {
+        this.oUsuario = oUsuario;
+      },
+      error: (err: HttpErrorResponse) => {
+        this.showModal('Error al cargar el usuario');
+      },
+    });
+  }
+
+  showModal(mensaje: string) {
+    this.strMessage = mensaje;
+    this.myModal = new bootstrap.Modal(document.getElementById('mimodal'), {
+      keyboard: false,
+    });
+    this.myModal.show();
+  }
+
+  delete(): void {
+    this.oUsuarioService.delete(this.oUsuario!.id).subscribe({
+      next: (data) => {
+        this.showModal(
+          'Usuario ' + this.oUsuario!.nombre + ' ha sido borrado'
+        );
+      },
+      error: (err: HttpErrorResponse) => {
+        this.showModal('Error al borrar el usuario');
+      },
+    });
+  }
+
+  hideModal = () => {
+    this.myModal.hide();
+    this.oRouter.navigate(['/usuario/admin/plist']);
   }
 
 }
+
