@@ -4,6 +4,7 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';  // Im
 import { BrowserModule } from '@angular/platform-browser';
 
 import { MenuRoutedComponent } from './components/shared/menu.routed/menu.routed.component';
+import { LoginRoutedComponent } from './components/shared/login.routed/login.routed.component';
 
 import { UsuarioAdminCreateRoutedComponent } from './components/usuario/admin/usuario.admin.create.routed/usuario.admin.create.routed.component';
 import { UsuarioAdminEditRoutedComponent } from './components/usuario/admin/usuario.admin.edit.routed/usuario.admin.edit.routed.component';
@@ -11,11 +12,7 @@ import { UsuarioAdminPlistRoutedComponent } from './components/usuario/admin/usu
 import { UsuarioAdminViewRoutedComponent } from './components/usuario/admin/usuario.admin.view.routed/usuario.admin.view.routed.component';
 import { UsuarioAdminDeleteRoutedComponent } from './components/usuario/admin/usuario.admin.delete.routed/usuario.admin.delete.routed.component';
 
-import { UsuarioClientCreateRoutedComponent } from './components/usuario/client/usuario.client.create.routed/usuario.client.create.routed.component';
-import { UsuarioClientEditRoutedComponent } from './components/usuario/client/usuario.client.edit.routed/usuario.client.edit.routed.component';
-import { UsuarioClientPlistRoutedComponent } from './components/usuario/client/usuario.client.plist.routed/usuario.client.plist.routed.component';
 import { UsuarioClientViewRoutedComponent } from './components/usuario/client/usuario.client.view.routed/usuario.client.view.routed.component';
-import { UsuarioClientDeleteRoutedComponent } from './components/usuario/client/usuario.client.delete.routed/usuario.client.delete.routed.component';
 
 
 import { ProductoAdminCreateRoutedComponent } from './components/producto/admin/producto.admin.create.routed/producto.admin.create.routed.component';
@@ -33,8 +30,9 @@ import { ProductoClientViewRoutedComponent } from './components/producto/client/
 export const routes: Routes = [
 
     { path: '', redirectTo: '/shared/menu', pathMatch: 'full' }, 
-
     {path: 'shared/menu', component: MenuRoutedComponent},
+
+    {path: 'login', component: LoginRoutedComponent},
 
 
     {path: 'usuario/admin/create', component: UsuarioAdminCreateRoutedComponent},
@@ -44,7 +42,6 @@ export const routes: Routes = [
     {path: 'usuario/admin/delete/:id', component: UsuarioAdminDeleteRoutedComponent},
 
 
-    {path: 'usuario/client/plist', component: UsuarioClientPlistRoutedComponent},
     {path: 'usuario/client/view/:id', component: UsuarioClientViewRoutedComponent},
 
     

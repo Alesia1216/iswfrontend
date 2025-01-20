@@ -9,7 +9,7 @@ import { IPage } from '../model/model.interface';
   providedIn: 'root'
 })
 export class UsuarioService {
- serverURL: string = serverURL + '/producto';
+ serverURL: string = serverURL + '/usuario';
 
   constructor(private oHttp: HttpClient) { }
 

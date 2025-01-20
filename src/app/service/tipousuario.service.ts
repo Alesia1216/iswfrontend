@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TipousuarioService {
- serverURL: string = serverURL + '/producto';
+ serverURL: string = serverURL + '/tipousuario';
 
   constructor(private oHttp: HttpClient) { }
 
