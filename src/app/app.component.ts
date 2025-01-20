@@ -8,7 +8,7 @@ import { MenuRoutedComponent } from './components/shared/menu.routed/menu.routed
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, NavbarUnroutedComponent, MenuRoutedComponent],
+    imports: [RouterOutlet, NavbarUnroutedComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
     template: `

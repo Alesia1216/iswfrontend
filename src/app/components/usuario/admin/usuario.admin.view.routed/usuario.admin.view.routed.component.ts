@@ -4,14 +4,14 @@ import { Router, RouterModule } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IUsuario } from '../../../../model/usuario.interface';
 import { UsuarioService } from '../../../../service/usuario.service';
-import { TrimPipe } from '../../../../pipe/trim.pipe';
+
 
 @Component({
     selector: 'app-usuario.admin.view.routed',
     templateUrl: './usuario.admin.view.routed.component.html',
     styleUrls: ['./usuario.admin.view.routed.component.css'],
     standalone: true,
-    imports: [RouterModule, TrimPipe]
+    imports: [RouterModule]
 })
 export class UsuarioAdminViewRoutedComponent implements OnInit {
 

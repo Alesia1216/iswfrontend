@@ -109,7 +109,7 @@ export class UsuarioAdminCreateRoutedComponent implements OnInit {
 
   hideModal = () => {
     this.myModal.hide();
-    this.oRouter.navigate(['/usuario/view/' + this.oUsuario?.id]);
+    this.oRouter.navigate(['/usuario/admin/view/' + this.oUsuario?.id]);
   }
 
   onSubmit() {
