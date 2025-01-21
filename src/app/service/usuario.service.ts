@@ -51,6 +51,13 @@ export class UsuarioService {
     return this.oHttp.get<IUsuario>(URL);
   }
 
+  getbyEmail(email: string): Observable<IUsuario> {
+    let URL: string = '';
+    URL += this.serverURL;
+    URL += '/getbyemail/' + email;
+    return this.oHttp.get<IUsuario>(URL);
+  }
+
   create(oUsuario: IUsuario): Observable<IUsuario> {
     let URL: string = '';
     URL += this.serverURL;

@@ -5,6 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { MenuRoutedComponent } from './components/shared/menu.routed/menu.routed.component';
 import { LoginRoutedComponent } from './components/shared/login.routed/login.routed.component';
+import { LogoutRoutedComponent } from './components/shared/logout.routed/logout.routed.component';
+
 
 import { UsuarioAdminCreateRoutedComponent } from './components/usuario/admin/usuario.admin.create.routed/usuario.admin.create.routed.component';
 import { UsuarioAdminEditRoutedComponent } from './components/usuario/admin/usuario.admin.edit.routed/usuario.admin.edit.routed.component';
@@ -33,6 +35,7 @@ export const routes: Routes = [
     {path: 'shared/menu', component: MenuRoutedComponent},
 
     {path: 'login', component: LoginRoutedComponent},
+    {path: 'logout', component: LogoutRoutedComponent},
 
 
     {path: 'usuario/admin/create', component: UsuarioAdminCreateRoutedComponent},

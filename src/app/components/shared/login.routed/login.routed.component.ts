@@ -5,6 +5,7 @@ import { LoginService } from '../../../service/login.service';
 import { ILogindata } from '../../../model/logindata.interface';
 import { SessionService } from '../../../service/session.service';
 import { IJwt } from '../../../model/jwt.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login.routed',
@@ -20,7 +21,8 @@ export class LoginRoutedComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private oLoginService: LoginService,
-    private oSessionService: SessionService
+    private oSessionService: SessionService,
+    private oRouter: Router
   ){
     this.loginForm = this.fb.group({
       email: [''],
@@ -36,10 +38,14 @@ export class LoginRoutedComponent implements OnInit {
       const loginData: ILogindata = this.loginForm.value;
       this.oLoginService.login(loginData).subscribe({
         next: (response : string) => {
+
           console.log('Login successful:', response);
-          this.oSessionService.setToken(response);
+          this.oSessionService.setToken(response); //guardamos el token en el local storage = session iniciada
+          alert('Bienvenido a IswArt');
+          this.oSessionService.login(); //notificamos del log in 
           //let parsedToken : IJwt = this.oSessionService.parseJwt(response);
           //console.log('Token parseado:', parsedToken);
+          this.oRouter.navigate(['/shared/menu']);
         },
         error: (err) => {
           console.error('Login failed:', err);

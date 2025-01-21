@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { IJwt } from '../model/jwt.interface';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
+
+  subjectLogin : Subject<string> = new Subject<string>();
+  subjectLogout : Subject<string> = new Subject<string>();
 
 constructor() { }
 
@@ -20,7 +24,6 @@ constructor() { }
 
 
   isSessionActive(): boolean {
-    //return this.getToken() != null;
     const token = this.getToken();
     if (token) {
       let parsedToken = this.parseJwt(token);
@@ -62,6 +65,23 @@ constructor() { }
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
     return JSON.parse(jsonPayload);
-}
+  }
+
+  onLogin(): Subject<string> {
+    return this.subjectLogin;
+  }
+
+  onLogout(): Subject<string> {
+    return this.subjectLogout;
+  }
+
+  login(): void {
+    this.subjectLogin.next('login');
+  }
+
+  logout(): void {
+    this.subjectLogout.next('logout');
+  }
+
 
 }
