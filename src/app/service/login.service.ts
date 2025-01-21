@@ -16,7 +16,7 @@ export class LoginService {
     let URL: string = '';
     URL += this.serverURL;
     URL += '/login';
-    return this.oHttp.post<String>(URL, oLogindata);
+    return this.oHttp.post<string>(URL, oLogindata);
   }
 
 }
