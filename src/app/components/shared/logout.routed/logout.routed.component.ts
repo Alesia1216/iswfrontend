@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../../../service/session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logout.routed',
@@ -10,7 +11,8 @@ import { SessionService } from '../../../service/session.service';
 export class LogoutRoutedComponent implements OnInit {
 
   constructor(
-    private oSessionService: SessionService
+    private oSessionService: SessionService,
+    private oRouter: Router
   ) { }
 
   ngOnInit() {
@@ -18,6 +20,7 @@ export class LogoutRoutedComponent implements OnInit {
 
   logout(){
     this.oSessionService.logout();
+    this.oRouter.navigate(['/shared/menu']);
   }
 
 }

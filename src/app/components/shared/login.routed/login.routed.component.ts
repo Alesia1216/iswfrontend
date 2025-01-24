@@ -40,8 +40,6 @@ export class LoginRoutedComponent implements OnInit {
         next: (response : string) => {
           this.oSessionService.login(response); //notificamos del log in 
           alert('Bienvenid@ a IswArt');
-          //let parsedToken : IJwt = this.oSessionService.parseJwt(response);
-          //console.log('Token parseado:', parsedToken);
           this.oRouter.navigate(['/shared/menu']);
         },
         error: (err) => {
