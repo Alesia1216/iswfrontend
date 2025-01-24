@@ -7,10 +7,10 @@ import { Subject } from 'rxjs';
 })
 export class SessionService {
 
-  subjectLogin : Subject<string> = new Subject<string>();
-  subjectLogout : Subject<string> = new Subject<string>();
+  subjectLogin: Subject<string> = new Subject<string>();
+  subjectLogout: Subject<string> = new Subject<string>();
 
-constructor() { }
+  constructor() { }
 
   //login
   private setToken(strToken: string): void {
@@ -30,11 +30,11 @@ constructor() { }
       const now = Date.now() / 1000;
       if (parsedToken.exp > now) {
         return true;
-      }else{
+      } else {
         this.deleteToken();
         return false;
       }
-    }else{
+    } else {
       return false;
     }
   }
@@ -42,13 +42,13 @@ constructor() { }
   getSessionEmail(): string {
     const token = this.getToken();
     if (token) {
-      if(this.isSessionActive()){
-        let parsedToken : IJwt = this.parseJwt(token);
+      if (this.isSessionActive()) {
+        let parsedToken: IJwt = this.parseJwt(token);
         return parsedToken.email;
-      }else{
+      } else {
         return '';
       }
-    }else{
+    } else {
       return '';
     }
   }
@@ -58,13 +58,19 @@ constructor() { }
   }
 
 
-  private parseJwt (token: string) : IJwt {
+  private parseJwt(token: string): IJwt {
     var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+    if (base64Url === undefined) {
+      console.log('Token invalido');
+      // create empty IJwt
+      return { jti: '', email: '', sub: '', iss: '', iat: 0, exp: 0 };
+    } else {
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
+      }).join(''));
+      return JSON.parse(jsonPayload);
+    }
   }
 
   onLogin(): Subject<string> {
