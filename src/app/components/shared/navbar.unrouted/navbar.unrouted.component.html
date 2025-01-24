@@ -6,38 +6,17 @@
       <button type="button" class="btn btn-outline-pink icon-15">
         @if(activeSession){
           <a class="nav-link" 
-          [class.active]="strRuta == '/login'" 
           href="/usuario/client/view/{{oUsuario.id}}">
           <i class="bi bi-person-circle"></i>
           {{oUsuario.nombre}}
           </a>
         }@else{
           <a class="nav-link" 
-          [class.active]="strRuta == '/login'" 
           href="/login">
           <i class="bi bi-person-circle"></i>
           Log in
         </a>
       }
-        <!--
-          AQUI HAGO QUE SI NO ESTAS LOGEADO TE LLEVA AL LOGIN SI NO AL VIEW (NO VA PORQUE PARA EL VIEW
-          NECESITO EL ID DEL USUARIO LOGEADO)
-          @if(activeSession){
-
-          <a class="nav-link" 
-          [class.active]="strRuta == '/login'" 
-          href="/usuario/client/view">
-          <i class="bi bi-person-circle"></i>
-          </a>
-         
-        }@else{
-          <a class="nav-link" 
-          [class.active]="strRuta == '/login'" 
-          href="/login">
-          <i class="bi bi-person-circle"></i>
-        </a>
-        }
-         -->
       </button>
     </div>
 
