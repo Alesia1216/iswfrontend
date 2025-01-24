@@ -18,8 +18,6 @@ export class LogoutRoutedComponent implements OnInit {
 
   logout(){
     this.oSessionService.logout();
-    this.oSessionService.deleteToken();
-
   }
 
 }

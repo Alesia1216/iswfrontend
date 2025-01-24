@@ -13,12 +13,12 @@ export class SessionService {
 constructor() { }
 
   //login
-  setToken(strToken: string): void {
+  private setToken(strToken: string): void {
     localStorage.setItem('token', strToken);
   }
 
   //logout
-  deleteToken(): void {
+  private deleteToken(): void {
     localStorage.removeItem('token');
   }
 
@@ -75,11 +75,13 @@ constructor() { }
     return this.subjectLogout;
   }
 
-  login(): void {
+  login(strToken: string): void {
+    this.setToken('token');
     this.subjectLogin.next('login');
   }
 
   logout(): void {
+    this.deleteToken();
     this.subjectLogout.next('logout');
   }
 
