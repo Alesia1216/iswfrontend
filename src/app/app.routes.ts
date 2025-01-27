@@ -30,15 +30,16 @@ import { ComisionClientBookRoutedComponent } from './components/producto/client/
 import { ProductoAdminViewRoutedComponent } from './components/producto/admin/producto.admin.view.routed/producto.admin.view.routed.component';
 import { ProductoClientViewRoutedComponent } from './components/producto/client/producto.client.view.routed/producto.client.view.routed.component';
 import { AdminGuard } from './guards/admin.guard';
+import { AdminOrClientGuard } from './guards/adminorclient.guard';
 
 
 export const routes: Routes = [
 
     { path: '', redirectTo: '/shared/menu', pathMatch: 'full' }, 
-    {path: 'shared/menu', component: MenuRoutedComponent},
+    {path: 'shared/menu', component: MenuRoutedComponent, canActivate: [AdminOrClientGuard]},
 
-    {path: 'login', component: LoginRoutedComponent},
-    {path: 'logout', component: LogoutRoutedComponent},
+    {path: 'login', component: LoginRoutedComponent, canActivate: [AdminOrClientGuard]},
+    {path: 'logout', component: LogoutRoutedComponent, canActivate: [AdminOrClientGuard]},
 
 
     {path: 'usuario/admin/create', component: UsuarioAdminCreateRoutedComponent, canActivate: [AdminGuard]},
@@ -57,11 +58,11 @@ export const routes: Routes = [
     {path: 'producto/admin/delete/:id', component: ProductoAdminDeleteRoutedComponent, canActivate: [AdminGuard]},
     {path: 'producto/admin/view/:id', component: ProductoAdminViewRoutedComponent, canActivate: [AdminGuard]},
 
-    {path: 'producto/client/plist', component: ProductoClientPlistRoutedComponent},
-    {path: 'producto/client/view/:id', component: ProductoClientViewRoutedComponent},
+    {path: 'producto/client/plist', component: ProductoClientPlistRoutedComponent, canActivate: [AdminOrClientGuard]},
+    {path: 'producto/client/view/:id', component: ProductoClientViewRoutedComponent, canActivate: [AdminOrClientGuard]},
 
 
-    {path: 'comision/client/book', component: ComisionClientBookRoutedComponent},
+    {path: 'comision/client/book', component: ComisionClientBookRoutedComponent, canActivate: [AdminOrClientGuard]},
 
     //{path: '', component:},
 
