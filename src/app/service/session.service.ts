@@ -6,10 +6,12 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class SessionService {
-  subjectLogin: Subject<void> = new Subject<void>();
+
+
+    subjectLogin: Subject<void> = new Subject<void>();
     subjectLogout: Subject<void> = new Subject<void>();
 
-    private getToken(): string | null {
+    public getToken(): string | null {
         return localStorage.getItem('token');
     }
 

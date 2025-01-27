@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';  // Importa LocationStrategy y PathLocationStrategy
 import { BrowserModule } from '@angular/platform-browser';
 
+
+
 import { MenuRoutedComponent } from './components/shared/menu.routed/menu.routed.component';
 import { LoginRoutedComponent } from './components/shared/login.routed/login.routed.component';
 import { LogoutRoutedComponent } from './components/shared/logout.routed/logout.routed.component';
@@ -27,6 +29,7 @@ import { ProductoClientPlistRoutedComponent } from './components/producto/client
 import { ComisionClientBookRoutedComponent } from './components/producto/client/comision.client.book.routed/comision.client.book.routed.component';
 import { ProductoAdminViewRoutedComponent } from './components/producto/admin/producto.admin.view.routed/producto.admin.view.routed.component';
 import { ProductoClientViewRoutedComponent } from './components/producto/client/producto.client.view.routed/producto.client.view.routed.component';
+import { AdminGuard } from './guards/admin.guard';
 
 
 export const routes: Routes = [
@@ -38,21 +41,21 @@ export const routes: Routes = [
     {path: 'logout', component: LogoutRoutedComponent},
 
 
-    {path: 'usuario/admin/create', component: UsuarioAdminCreateRoutedComponent},
-    {path: 'usuario/admin/edit/:id', component: UsuarioAdminEditRoutedComponent},
-    {path: 'usuario/admin/plist', component: UsuarioAdminPlistRoutedComponent},
-    {path: 'usuario/admin/view/:id', component: UsuarioAdminViewRoutedComponent},
-    {path: 'usuario/admin/delete/:id', component: UsuarioAdminDeleteRoutedComponent},
+    {path: 'usuario/admin/create', component: UsuarioAdminCreateRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'usuario/admin/edit/:id', component: UsuarioAdminEditRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'usuario/admin/plist', component: UsuarioAdminPlistRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'usuario/admin/view/:id', component: UsuarioAdminViewRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'usuario/admin/delete/:id', component: UsuarioAdminDeleteRoutedComponent, canActivate: [AdminGuard]},
 
 
     {path: 'usuario/client/view/:id', component: UsuarioClientViewRoutedComponent},
 
     
-    {path: 'producto/admin/create', component: ProductoAdminCreateRoutedComponent},
-    {path: 'producto/admin/edit/:id', component: ProductoAdminEditRoutedComponent},
-    {path: 'producto/admin/plist', component: ProductoAdminPlistRoutedComponent},
-    {path: 'producto/admin/delete/:id', component: ProductoAdminDeleteRoutedComponent},
-    {path: 'producto/admin/view/:id', component: ProductoAdminViewRoutedComponent},
+    {path: 'producto/admin/create', component: ProductoAdminCreateRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'producto/admin/edit/:id', component: ProductoAdminEditRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'producto/admin/plist', component: ProductoAdminPlistRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'producto/admin/delete/:id', component: ProductoAdminDeleteRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'producto/admin/view/:id', component: ProductoAdminViewRoutedComponent, canActivate: [AdminGuard]},
 
     {path: 'producto/client/plist', component: ProductoClientPlistRoutedComponent},
     {path: 'producto/client/view/:id', component: ProductoClientViewRoutedComponent},
