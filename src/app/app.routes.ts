@@ -49,7 +49,7 @@ export const routes: Routes = [
     {path: 'usuario/admin/delete/:id', component: UsuarioAdminDeleteRoutedComponent, canActivate: [AdminGuard]},
 
 
-    {path: 'usuario/client/view/:id', component: UsuarioClientViewRoutedComponent},
+    {path: 'usuario/client/view/:id', component: UsuarioClientViewRoutedComponent, canActivate: [AdminOrClientGuard]},
 
     
     {path: 'producto/admin/create', component: ProductoAdminCreateRoutedComponent, canActivate: [AdminGuard]},

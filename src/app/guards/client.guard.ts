@@ -8,7 +8,7 @@ import { UsuarioService } from '../service/usuario.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ContableGuard implements CanActivate {
+export class ClientGuard implements CanActivate {
 
   constructor( 
     private oSessionService: SessionService, 
