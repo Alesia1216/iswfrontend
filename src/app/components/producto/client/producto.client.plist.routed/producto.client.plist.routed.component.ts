@@ -11,6 +11,9 @@ import { ProductoService } from '../../../../service/producto.service';
 import { IPage } from '../../../../model/model.interface';
 import { TrimPipe } from '../../../../pipe/trim.pipe';
 import { BotoneraService } from '../../../../service/botonera.service';
+import { SessionService } from '../../../../service/session.service';
+import { UsuarioService } from '../../../../service/usuario.service';
+import { IUsuario } from '../../../../model/usuario.interface';
 
 
 @Component({
@@ -22,6 +25,7 @@ import { BotoneraService } from '../../../../service/botonera.service';
 export class ProductoClientPlistRoutedComponent implements OnInit {
 
   oPage: IPage<IProducto> | null = null;
+  oUsuario : IUsuario | null = null
   //
   nPage: number = 0; // 0-based server count
   nRpp: number = 10;
@@ -38,6 +42,8 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
   constructor(
     private oProductoService: ProductoService,
     private oBotoneraService: BotoneraService,
+    private oSessionService: SessionService,
+    private oUsuarioService : UsuarioService,
     private oRouter: Router
   ) { 
     this.debounceSubject.pipe(debounceTime(10)).subscribe((value) => {
@@ -48,6 +54,7 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
 
   ngOnInit() {
     this.getPage();
+    this.getLoggedUser();
   }
 
   getPage() {
@@ -67,10 +74,24 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
       });
   }
 
-  // view(oProducto: IProducto) {
-  //   //navegar a la página de edición
-  //   this.oRouter.navigate(['admin/producto/view', oProducto.id]);
-  // }
+  //hacer una funcion que llame al session service, y si la sesion esta activa, devolver true
+  //si esta activa conseguir el email
+  //con el email hacer una llamada al servidor para que me devuelva el usuario
+
+  getLoggedUser() {
+    if( this.oSessionService.isSessionActive() ){
+      let email: string = this.oSessionService.getSessionEmail();
+      this.oUsuarioService.getbyEmail(email).subscribe({
+        next: (data: IUsuario) => {
+          this.oUsuario = data;
+        },
+        error: (err: HttpErrorResponse) => {
+          console.log(err);
+        },
+      })
+        
+    }
+  }
 
   goToPage(p: number) {
     if (p) {

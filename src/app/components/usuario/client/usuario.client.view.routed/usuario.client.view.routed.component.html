@@ -4,7 +4,9 @@
          style="height: 100%;">
       <h5 class="card-title my-5" style="font-size: 2rem; font-weight: bold;">
         {{ (oUsuario.nombre + ' ' + oUsuario.apellido1 + ' ' + oUsuario.apellido2)}}
-        <a href="/usuario/admin/plist" class="btn btn-pink px-1 py-0 mx-2"><i class="bi bi-fingerprint fs-5"></i></a>
+        @if(oUsuario.tipousuario.id == 1){
+          <a href="/usuario/admin/plist" class="btn btn-pink px-1 py-0 mx-2"><i class="bi bi-fingerprint fs-5"></i></a>
+        }
       </h5>
       <p class="card-text"><i class="bi bi-person-vcard-fill"></i> Tipo de usuario: {{ oUsuario.tipousuario?.descripcion }}</p>
       <p class="card-text"><i class="bi bi-envelope-heart"></i> {{ oUsuario.email }}</p>
