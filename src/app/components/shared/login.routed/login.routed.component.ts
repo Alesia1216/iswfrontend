@@ -6,6 +6,7 @@ import { ILogindata } from '../../../model/logindata.interface';
 import { SessionService } from '../../../service/session.service';
 import { IJwt } from '../../../model/jwt.interface';
 import { Router } from '@angular/router';
+import { CryptoService } from '../../../service/crypto.service';
 
 @Component({
   selector: 'app-login.routed',
@@ -22,6 +23,7 @@ export class LoginRoutedComponent implements OnInit {
     private fb: FormBuilder,
     private oLoginService: LoginService,
     private oSessionService: SessionService,
+    private oCryptoService: CryptoService,
     private oRouter: Router
   ){
     this.loginForm = this.fb.group({
@@ -35,6 +37,8 @@ export class LoginRoutedComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      const hashedPassword = this.oCryptoService.getHashSHA256(this.loginForm.value.password); 
+      this.loginForm.value.password = hashedPassword;
       const loginData: ILogindata = this.loginForm.value;
       this.oLoginService.login(loginData).subscribe({
         next: (response : string) => {

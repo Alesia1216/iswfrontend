@@ -35,11 +35,11 @@ import { AdminOrClientGuard } from './guards/adminorclient.guard';
 
 export const routes: Routes = [
 
-    { path: '', redirectTo: '/shared/menu', pathMatch: 'full' }, 
-    {path: 'shared/menu', component: MenuRoutedComponent, canActivate: [AdminOrClientGuard]},
+    { path: '', redirectTo: '/shared/menu', pathMatch: 'full'}, 
+    {path: 'shared/menu', component: MenuRoutedComponent },
 
-    {path: 'login', component: LoginRoutedComponent, canActivate: [AdminOrClientGuard]},
-    {path: 'logout', component: LogoutRoutedComponent, canActivate: [AdminOrClientGuard]},
+    {path: 'login', component: LoginRoutedComponent},
+    {path: 'logout', component: LogoutRoutedComponent},
 
 
     {path: 'usuario/admin/create', component: UsuarioAdminCreateRoutedComponent, canActivate: [AdminGuard]},
