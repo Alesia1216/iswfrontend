@@ -17,6 +17,13 @@
         <p class="card-text text-muted" style="font-size: 1.2rem;">Quedan {{ oProducto.unidades }} unidades</p>
       }
       <div>
+        <button
+          class="btn btn-warning mx-2"
+          [routerLink]="['/producto/admin/plist']"
+        >
+          <i class="bi bi-list"></i>
+          Volver 
+        </button>
         <a class="btn btn-warning mx-2" [routerLink]="['/producto/admin/edit/', oProducto.id]"><i class="bi bi-pencil"></i></a>
         <a class="btn btn-danger mx-2"  [routerLink]="['/producto/admin/delete/', oProducto.id]"><i class="bi bi-trash"></i></a>
       </div>  

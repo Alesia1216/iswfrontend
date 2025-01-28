@@ -9,6 +9,13 @@
       <p class="card-text"><i class="bi bi-telephone"></i> {{ oUsuario.telefono }}</p>
       <p class="card-text"><i class="bi bi-geo-alt"></i> {{ oUsuario.direccion }}</p>
       <div>
+        <button
+          class="btn btn-warning mx-2"
+          [routerLink]="['/usuario/admin/plist']"
+        >
+          <i class="bi bi-list"></i>
+          Volver 
+        </button>
         <a class="btn btn-warning mx-2" [routerLink]="['/usuario/admin/edit/', oUsuario.id]"><i class="bi bi-pencil"></i></a>
         <a class="btn btn-danger mx-2"  [routerLink]="['/usuario/admin/delete/', oUsuario.id]"><i class="bi bi-trash"></i></a>
       </div>  

@@ -15,6 +15,7 @@ import { IUsuario } from '../../../../model/usuario.interface';
 import { UsuarioService } from '../../../../service/usuario.service';
 import { TipousuarioService } from '../../../../service/tipousuario.service';
 import { ITipousuario } from '../../../../model/tipousuario.interface';
+import { CryptoService } from '../../../../service/crypto.service';
 
 declare let bootstrap: any;
 
@@ -39,7 +40,8 @@ export class UsuarioAdminCreateRoutedComponent implements OnInit {
   constructor(
     private oUsuarioService: UsuarioService,
     private oRouter: Router,
-    private oTipousuarioService: TipousuarioService
+    private oTipousuarioService: TipousuarioService,
+    private oCryptoService: CryptoService
   ) { }
 
   ngOnInit() {
@@ -113,19 +115,19 @@ export class UsuarioAdminCreateRoutedComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.oUsuarioForm?.value);
     if (this.oUsuarioForm?.invalid) {
       this.showModal('Formulario inválido');
       return;
     } else {
-      const formValue = { ...this.oUsuarioForm?.value };
+      const formValue = { ...this.oUsuarioForm?.value }; 
+        formValue.password = this.oCryptoService.getHashSHA256(formValue.password); 
       const selectedTipoUsuario = this.tiposDeUsuario.find(
-        (tipo) => tipo.id === formValue.tipousuario
+        (tipo) => tipo.id === this.oUsuarioForm?.value.tipousuario
       );
       if (selectedTipoUsuario) {
-        formValue.tipousuario = selectedTipoUsuario; // Establece el objeto completo
+        formValue.tipousuario = selectedTipoUsuario;
       }
-      this.oUsuarioService.create(this.oUsuarioForm?.value).subscribe({
+      this.oUsuarioService.create(formValue).subscribe({
         next: (oUsuario: IUsuario) => {
           this.oUsuario = oUsuario;
           this.showModal('Usuario ' + this.oUsuario.nombre + ' creado');
