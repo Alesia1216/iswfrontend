@@ -23,6 +23,7 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "crypto-js": "^4.2.0",
+    "jspdf": "^2.5.2",
     "primeicons": "^7.0.0",
     "primeng": "^19.0.2",
     "rxjs": "~7.8.0",

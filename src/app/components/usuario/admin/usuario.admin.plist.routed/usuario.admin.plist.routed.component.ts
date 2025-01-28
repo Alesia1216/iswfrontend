@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { jsPDF } from "jspdf";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -117,4 +117,48 @@ export class UsuarioAdminPlistRoutedComponent implements OnInit {
     this.debounceSubject.next(this.strFiltro);
     console.log(this.strFiltro);
   }
+
+  generarInforme() {
+    if (!this.oPage || !this.oPage.content) {
+      console.error('No hay datos disponibles para generar el informe.');
+      return;
+    }
+  
+    let doc = new jsPDF();
+  
+    // Encabezado del documento
+    doc.setFontSize(30);
+    doc.setTextColor(40);
+    doc.text('Informe de Usuarios', 50, 20);
+  
+    doc.setFontSize(14);
+  
+    let y = 40; // Posición inicial en el eje Y
+  
+    this.oPage.content.forEach((usuario, index) => {
+      let x = 30; // Posición inicial en X para cada fila
+  
+      // Nombre del producto en negrita
+      doc.setFontSize(15);
+      doc.setTextColor(0, 0, 0);
+      doc.text(usuario.nombre + ' ' + usuario.apellido1 + ' ' + usuario.apellido2 , x, y);
+  
+      // Precio del producto
+      x += 60; // Espacio para el precio
+      doc.setFontSize(12);
+      doc.setTextColor(50, 50, 50);
+      doc.text(`${usuario.email}€`, x, y);
+  
+      // Cantidad disponible
+      x += 70; // Espacio para el stock
+      doc.setFontSize(12);
+      doc.setTextColor(50, 50, 50);
+      doc.text(`${usuario.telefono}`, x, y);
+  
+      y += 10; // Espacio entre filas
+    });
+  
+    doc.save('InformeProductos.pdf');
+  }
+
 }
