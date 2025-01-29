@@ -31,6 +31,7 @@ import { ProductoAdminViewRoutedComponent } from './components/producto/admin/pr
 import { ProductoClientViewRoutedComponent } from './components/producto/client/producto.client.view.routed/producto.client.view.routed.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AdminOrClientGuard } from './guards/adminorclient.guard';
+import { AboutmeRoutedComponent } from './components/shared/aboutme.routed/aboutme.routed.component';
 
 
 export const routes: Routes = [
@@ -40,7 +41,6 @@ export const routes: Routes = [
 
     {path: 'login', component: LoginRoutedComponent},
     {path: 'logout', component: LogoutRoutedComponent},
-
 
     {path: 'usuario/admin/create', component: UsuarioAdminCreateRoutedComponent, canActivate: [AdminGuard]},
     {path: 'usuario/admin/edit/:id', component: UsuarioAdminEditRoutedComponent, canActivate: [AdminGuard]},
@@ -63,6 +63,8 @@ export const routes: Routes = [
 
 
     {path: 'comision/client/book', component: ComisionClientBookRoutedComponent, canActivate: [AdminOrClientGuard]},
+
+    {path: 'aboutme', component: AboutmeRoutedComponent},
 
     //{path: '', component:},
 

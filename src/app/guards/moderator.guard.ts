@@ -45,7 +45,7 @@ canActivate(
         });
     } else {
         // Si la sesión no está activa, redirige al login
-        this.oRouter.navigate(['/shared/menu']);
+        this.oRouter.navigate(['/login']);
         return of(false); // Impide el acceso
     }
   }

@@ -42,7 +42,7 @@ canActivate(): Observable<boolean> {
             });
         });
     } else {
-        this.oRouter.navigate(['/shared/menu']);
+        this.oRouter.navigate(['/login']);
         return of(false); 
     }
   }
