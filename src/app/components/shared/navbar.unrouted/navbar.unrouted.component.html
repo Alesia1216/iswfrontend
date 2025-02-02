@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand mx-5" href="#">IswArt</a>
+    <a class="navbar-brand mx-5" href="#" style="font-size: 1.8rem;">IswArt</a>
 
     <div class="d-flex ms-auto mx-4">
-      <button type="button" class="btn btn-outline-pink icon-15">
+      <button type="button" class="btn btn-outline-pink icon-15" style="font-size: 1.4rem;">
         @if(activeSession){
           <a class="nav-link" 
           href="/usuario/client/view/{{oUsuario.id}}">
@@ -11,7 +11,7 @@
           {{oUsuario.nombre}}
           </a>
         }@else{
-          <a class="nav-link" 
+          <a class="nav-link" style="font-size: 1.4rem;" 
           href="/login">
           <i class="bi bi-person-circle"></i>
           Log in
@@ -37,13 +37,13 @@
           <a class="nav-link" [class.active]="strRuta.startsWith('/comision/')" href="/comision/client/book"><i class="bi bi-chat-left-heart fs-5"></i> Comision personalizada</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class.active]="strRuta == '/admin/apunte/plist'" href="/aboutme"><i class="bi bi-info-circle fs-5"></i> About me</a>
+          <a class="nav-link" [class.active]="strRuta.startsWith('/aboutme')" href="/aboutme"><i class="bi bi-info-circle fs-5"></i> Sobre mi</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class.active]="strRuta == '/admin/subcuenta/plist'" href="/admin/subcuenta/plist"><i class="bi bi-telephone fs-5"></i> Contact</a>
+          <a class="nav-link" [class.active]="strRuta.startsWith('/contact')" href="/admin/subcuenta/plist"><i class="bi bi-telephone fs-5"></i> Contacto</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class.active]="strRuta == '/admin/asiento/plist'" href="/admin/asiento/plist"><i class="bi bi-bag-heart fs-5"></i> Pedidos</a>
+          <a class="nav-link" [class.active]="strRuta.startsWith('/carrito')" href="/admin/asiento/plist"><i class="bi bi-cart4"></i> Carrito</a>
         </li>
       </ul>
     </div>

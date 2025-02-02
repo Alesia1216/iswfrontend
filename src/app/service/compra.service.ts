@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CompraService {
- serverURL: string = serverURL + '/producto';
+ serverURL: string = serverURL + '/compra';
 
   constructor(private oHttp: HttpClient) { }
 
@@ -70,6 +70,13 @@ export class CompraService {
     URL += this.serverURL;
     URL += '/delete/' + id;
     return this.oHttp.delete(URL);
+  }
+
+  getHistorial(){
+    let URL: string = '';
+    URL += this.serverURL;
+    URL += '/historial';
+    return this.oHttp.get<ICompra[]>(URL);
   }
 
 }

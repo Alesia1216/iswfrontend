@@ -5,17 +5,23 @@
       <h5 class="card-title my-5" style="font-size: 2rem; font-weight: bold;">
         {{ (oUsuario.nombre + ' ' + oUsuario.apellido1 + ' ' + oUsuario.apellido2)}}
         @if(oUsuario.tipousuario.id == 1){
-          <a href="/usuario/admin/plist" class="btn btn-pink px-1 py-0 mx-2"><i class="bi bi-fingerprint fs-5"></i></a>
+          <a href="/usuario/admin/plist" class="btn btn-pink px-1 py-0 mx-2"><i class="bi bi-fingerprint fs-4"></i></a>
         }
       </h5>
       <p class="card-text"><i class="bi bi-person-vcard-fill"></i> Tipo de usuario: {{ oUsuario.tipousuario?.descripcion }}</p>
       <p class="card-text"><i class="bi bi-envelope-heart"></i> {{ oUsuario.email }}</p>
       <p class="card-text"><i class="bi bi-telephone"></i> {{ oUsuario.telefono }}</p>
       <p class="card-text"><i class="bi bi-geo-alt"></i> {{ oUsuario.direccion }}</p>
-      <button type="button" class="btn btn-pink icon-15" (click)="logout()">
+      <div class="d-flex justify-content-center mt-4">
+      <button type="button" class="btn btn-pink icon-15 mx-2" style="font-size: x-large;" [routerLink]="['/pedido/client/list']">
+        <i class="bi bi-bag-heart-fill"></i>
+        Historial pedidos
+      </button>  
+      <button type="button" class="btn btn-pink icon-15 mx-2" style="font-size: x-large;" (click)="logout()">
         <i class="bi bi-person-circle"></i>
         Log out
       </button>  
+      </div>
     </div>
   </div>
 </div>

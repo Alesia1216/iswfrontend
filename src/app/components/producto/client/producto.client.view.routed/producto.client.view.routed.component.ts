@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IProducto } from '../../../../model/producto.interface';
 import { ProductoService } from '../../../../service/producto.service';
@@ -7,7 +7,8 @@ import { ProductoService } from '../../../../service/producto.service';
 @Component({
   selector: 'app-producto.client.view.routed',
   templateUrl: './producto.client.view.routed.component.html',
-  styleUrls: ['./producto.client.view.routed.component.css']
+  styleUrls: ['./producto.client.view.routed.component.css'],
+  imports: [RouterModule]
 })
 export class ProductoClientViewRoutedComponent implements OnInit {
 
@@ -23,9 +24,7 @@ export class ProductoClientViewRoutedComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.id = this.oActivatedRoute.snapshot.params['id'];
-
     this.getOne();
   }
 
