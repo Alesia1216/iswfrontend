@@ -128,8 +128,7 @@ export class UsuarioClientCreateRoutedComponent implements OnInit {
           this.showModal('Usuario ' + this.oUsuario.nombre + ' creado');
         },
         error: (err: HttpErrorResponse) => {
-          this.showModal('Error al crear el usuario');
-          console.log(err);
+          this.showModal('Error al crear el usuario: ' + err.error.message);
         },
       });
     }
