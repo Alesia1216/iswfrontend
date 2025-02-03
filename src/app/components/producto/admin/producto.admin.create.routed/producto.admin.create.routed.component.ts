@@ -97,8 +97,7 @@ export class ProductoAdminCreateRoutedComponent implements OnInit {
           this.showModal('Producto: ' + this.oProducto.descripcion + ' creado');
         },
         error: (err: HttpErrorResponse) => {
-          this.showModal('Error al crear el producto');
-          console.log(err);
+          this.showModal('Error al crear el producto: ' + err.error.message);
         },
       });
     }

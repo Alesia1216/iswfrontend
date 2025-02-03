@@ -139,9 +139,8 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
           this.updateForm();
           this.showModal('Producto ' + this.oProducto.descripcion + ' actualizado');
         },
-        error: (error: HttpErrorResponse) => {
-          this.showModal('Error al actualizar el producto');
-          console.error(error);
+        error: (err: HttpErrorResponse) => {
+          this.showModal('Error al actualizar el producto: '+ err.error.message);
         },
       });
     }

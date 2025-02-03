@@ -158,8 +158,7 @@ export class UsuarioClientEditRoutedComponent implements OnInit {
           this.showModal('Genial, ha actualizado con éxito su perfil');
         },
         error: (err: HttpErrorResponse) => {
-          this.showModal('Ha habido un error al actualizar su perfil');
-          console.log(err);
+          this.showModal('Ha habido un error al actualizar su perfil: ' + err.error.message);
         },
       });
     }
