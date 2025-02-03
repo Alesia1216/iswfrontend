@@ -60,16 +60,17 @@ export class CompraClientComprarRoutedComponent implements OnInit {
 
   comprar(){
 
-    this.oCompra.fecha = DateTime.now();
+    //this.oCompra.fecha = DateTime.now().setZone("local");
+    //const now = DateTime.now().setZone("Europe/Madrid");
+    //console.log("Fecha con zona horaria:", now.toISO());
+    this.oCompra.fecha = DateTime.now().plus({ hours: 1 }); 
+    //esto lo hago porque la zona horaria es UTC y para que este en la nuestra debe ser +1
     this.oCompra.producto = this.oProducto;
     this.oCompra.usuario = this.oUsuario;
 
     this.oCompraService.create(this.oCompra).subscribe({
       next: (data: any) => {
-        console.log(data);
-        
         this.oProducto.unidades = this.oProducto.unidades - 1;
-
         this.oProductoService.update(this.oProducto).subscribe({
           next: (data: any) => {
             console.log(data);
@@ -78,7 +79,6 @@ export class CompraClientComprarRoutedComponent implements OnInit {
             console.log(err);
           }
         });
-
         alert('¡Muchas gracias por tu compra!');
         this.oRouter.navigate(['/producto/client/plist']);
       },
