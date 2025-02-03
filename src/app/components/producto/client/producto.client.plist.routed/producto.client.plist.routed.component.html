@@ -5,7 +5,7 @@
         <i class="bi bi-palette"></i>
        Catalogo de Productos
        @if(oUsuario?.tipousuario?.id == 1){
-        <a href="/producto/admin/plist" class="btn btn-pink px-1 py-0"><i class="bi bi-fingerprint fs-5"></i></a>
+        <a href="/producto/admin/plist" class="btn btn-outline-pink px-1 py-0"><i class="bi bi-fingerprint fs-5"></i></a>
        }
       </h2>
       <div class="d-inline-flex mx-2">
@@ -83,8 +83,8 @@
               <p class="card-text text-muted"><small>Quedan {{ producto.unidades }} unidades</small></p>
             }
            
-            <a class="btn btn-pink" [routerLink]="['/comprar/', producto.id]">Comprar</a>
-            <a class="btn btn-pink mx-2" [routerLink]="['/producto/client/view/', producto.id]"><i class="bi bi-eye"></i></a>
+            <a class="btn btn-outline-pink" [routerLink]="['/comprar/', producto.id]">Comprar</a>
+            <a class="btn btn-outline-pink mx-2" [routerLink]="['/producto/client/view/', producto.id]"><i class="bi bi-eye"></i></a>
           </div>
         </div>
         }

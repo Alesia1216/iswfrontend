@@ -34,6 +34,9 @@ import { ProductoClientViewRoutedComponent } from './components/producto/client/
 import { ComisionClientBookRoutedComponent } from './components/producto/client/comision.client.book.routed/comision.client.book.routed.component';
 
 import { CompraClientComprarRoutedComponent } from './components/compra/compra.client.comprar.routed/compra.client.comprar.routed.component';
+import { UsuarioClientCreateRoutedComponent } from './components/usuario/client/usuario.client.create.routed/usuario.client.create.routed.component';
+import { UsuarioClientEditRoutedComponent } from './components/usuario/client/usuario.client.edit.routed/usuario.client.edit.routed.component';
+import { ClientGuard } from './guards/client.guard';
 
 
 export const routes: Routes = [
@@ -53,6 +56,8 @@ export const routes: Routes = [
     {path: 'usuario/admin/delete/:id', component: UsuarioAdminDeleteRoutedComponent, canActivate: [AdminGuard]},
 
     {path: 'usuario/client/view/:id', component: UsuarioClientViewRoutedComponent, canActivate: [AdminOrClientGuard]},
+    {path: 'usuario/client/create', component: UsuarioClientCreateRoutedComponent},
+    {path: 'usuario/client/edit/:id', component: UsuarioClientEditRoutedComponent, canActivate: [AdminOrClientGuard]},
 
     
     {path: 'producto/admin/create', component: ProductoAdminCreateRoutedComponent, canActivate: [AdminGuard]},

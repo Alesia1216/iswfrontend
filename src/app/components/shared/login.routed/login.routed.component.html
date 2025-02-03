@@ -13,8 +13,10 @@
       <label for="password">Password</label>
       <input type="password" class="form-control" id="password" formControlName="password" autocomplete="on">
     </div>
-    <button type="submit" class="btn btn-pink my-3">Login</button>
+    <button type="submit" class="btn btn-outline-pink my-3">LOGIN</button>
   </form>
-  
+  <p> Si no tienes cuenta regístrate</p>
+  <i class="bi bi-caret-down-fill"></i>
+  <button class="btn btn-outline-pink my-2" [routerLink]="['/usuario/client/create']">SIGN UP</button>
 
 </div>

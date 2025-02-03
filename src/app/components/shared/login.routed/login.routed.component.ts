@@ -5,14 +5,14 @@ import { LoginService } from '../../../service/login.service';
 import { ILogindata } from '../../../model/logindata.interface';
 import { SessionService } from '../../../service/session.service';
 import { IJwt } from '../../../model/jwt.interface';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CryptoService } from '../../../service/crypto.service';
 
 @Component({
   selector: 'app-login.routed',
   templateUrl: './login.routed.component.html',
   styleUrls: ['./login.routed.component.css'],
-  imports: [ ReactiveFormsModule ],
+  imports: [ ReactiveFormsModule, RouterLink ],
   standalone: true,
 })
 export class LoginRoutedComponent implements OnInit {

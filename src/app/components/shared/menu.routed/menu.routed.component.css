@@ -8,3 +8,7 @@
 @keyframes blink {
     to { background-position: -1750px; }
   }
+
+button{
+    font-size: 1.3rem;
+}
