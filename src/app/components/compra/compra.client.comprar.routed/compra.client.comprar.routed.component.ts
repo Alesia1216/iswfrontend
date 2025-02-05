@@ -71,7 +71,7 @@ export class CompraClientComprarRoutedComponent implements OnInit {
     this.oCompraService.create(this.oCompra).subscribe({
       next: (data: any) => {
         this.oProducto.unidades = this.oProducto.unidades - 1;
-        this.oProductoService.update(this.oProducto).subscribe({
+        this.oProductoService.updateStock(this.oProducto).subscribe({
           next: (data: any) => {
             console.log(data);
           },

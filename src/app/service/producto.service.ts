@@ -65,6 +65,13 @@ export class ProductoService {
     return this.oHttp.post<IProducto>(URL, oProducto);
   }
 
+  updateStock(oProducto: IProducto): Observable<IProducto> {
+    let URL: string = '';
+    URL += this.serverURL;
+    URL += '/updatestock';
+    return this.oHttp.post<IProducto>(URL, oProducto);
+  }
+
   delete(id: number) {
     let URL: string = '';
     URL += this.serverURL;
