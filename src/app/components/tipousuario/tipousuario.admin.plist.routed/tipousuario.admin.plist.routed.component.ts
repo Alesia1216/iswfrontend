@@ -5,23 +5,24 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { debounceTime, Subject } from 'rxjs';
-import { UsuarioService } from '../../../../service/usuario.service';
-import { IPage } from '../../../../model/model.interface';
-import { TrimPipe } from '../../../../pipe/trim.pipe';
-import { BotoneraService } from '../../../../service/botonera.service';
-import { IUsuario } from '../../../../model/usuario.interface';
+import { TrimPipe } from '../../../pipe/trim.pipe';
+import { ITipousuario } from '../../../model/tipousuario.interface';
+import { IPage } from '../../../model/model.interface';
+import { TipousuarioService } from '../../../service/tipousuario.service';
+import { BotoneraService } from '../../../service/botonera.service';
+
 
 @Component({
-    selector: 'app-usuario.admin.plist.routed',
-    templateUrl: './usuario.admin.plist.routed.component.html',
-    styleUrls: ['./usuario.admin.plist.routed.component.css'],
+    selector: 'app-tipousuario.admin.plist.routed',
+    templateUrl: './tipousuario.admin.plist.routed.component.html',
+    styleUrls: ['./tipousuario.admin.plist.routed.component.css'],
     standalone: true,
-    imports: [CommonModule, FormsModule, TrimPipe, RouterModule],
+    imports: [CommonModule, FormsModule, RouterModule],
 })
-export class UsuarioAdminPlistRoutedComponent implements OnInit {
+export class TipousuarioAdminPlistRoutedComponent implements OnInit {
 
  
-  oPage: IPage<IUsuario> | null = null;
+  oPage: IPage<ITipousuario> | null = null;
   //
   nPage: number = 0; // 0-based server count
   nRpp: number = 10;
@@ -37,7 +38,7 @@ export class UsuarioAdminPlistRoutedComponent implements OnInit {
 
   constructor(
 
-    private oUsuarioService: UsuarioService,
+    private oTipousuarioService: TipousuarioService,
     private oBotoneraService: BotoneraService,
     private oRouter: Router
   ) { 
@@ -52,10 +53,10 @@ export class UsuarioAdminPlistRoutedComponent implements OnInit {
   }
 
   getPage() {
-    this.oUsuarioService
+    this.oTipousuarioService
       .getPage(this.nPage, this.nRpp, this.strField, this.strDir, this.strFiltro)
       .subscribe({
-        next: (oPageFromServer: IPage<IUsuario>) => {
+        next: (oPageFromServer: IPage<ITipousuario>) => {
           this.oPage = oPageFromServer;
           this.arrBotonera = this.oBotoneraService.getBotonera(
             this.nPage,
@@ -68,16 +69,16 @@ export class UsuarioAdminPlistRoutedComponent implements OnInit {
       });
   }
 
-   edit(oUsuario: IUsuario) {
-     this.oRouter.navigate(['/usuario/admin/edit', oUsuario.id]);
+   edit(oTipousuario: ITipousuario) {
+     this.oRouter.navigate(['/tipousuario/admin/edit', oTipousuario.id]);
    }
 
-   view(oUsuario: IUsuario) {
-     this.oRouter.navigate(['/usuario/admin/view', oUsuario.id]);
+   view(oTipousuario: ITipousuario) {
+     this.oRouter.navigate(['/usuario/admin/view', oTipousuario.id]);
    }
 
-   remove(oUsuario: IUsuario) {
-     this.oRouter.navigate(['/usuario/admin/delete', oUsuario.id]);
+   remove(oTipousuario: ITipousuario) {
+     this.oRouter.navigate(['/tipousuario/admin/delete', oTipousuario.id]);
    }
 
   goToPage(p: number) {
@@ -135,30 +136,18 @@ export class UsuarioAdminPlistRoutedComponent implements OnInit {
   
     let y = 40; // Posición inicial en el eje Y
   
-    this.oPage.content.forEach((usuario, index) => {
+    this.oPage.content.forEach((tipousuario, index) => {
       let x = 30; // Posición inicial en X para cada fila
   
       // Nombre del producto en negrita
       doc.setFontSize(15);
       doc.setTextColor(0, 0, 0);
-      doc.text(usuario.nombre + ' ' + usuario.apellido1 + ' ' + usuario.apellido2 , x, y);
-  
-      // Precio del producto
-      x += 60; // Espacio para el precio
-      doc.setFontSize(12);
-      doc.setTextColor(50, 50, 50);
-      doc.text(`${usuario.email}€`, x, y);
-  
-      // Cantidad disponible
-      x += 70; // Espacio para el stock
-      doc.setFontSize(12);
-      doc.setTextColor(50, 50, 50);
-      doc.text(`${usuario.telefono}`, x, y);
+      doc.text(tipousuario.id + ' : ' + tipousuario.descripcion + ' ' , x, y);
   
       y += 10; // Espacio entre filas
     });
   
-    doc.save('InformeUsuarios.pdf');
+    doc.save('InformeTiposDeUsuarios.pdf');
   }
 
 }

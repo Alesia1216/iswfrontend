@@ -3,22 +3,20 @@
     <div class="card-body d-flex flex-column align-items-center justify-content-center text-center" 
          style="height: 100%;">
       <h5 class="card-title my-5" style="font-size: 2rem; font-weight: bold;">
-        {{ (oUsuario?.nombre + ' ' + oUsuario?.apellido1 + ' ' + oUsuario?.apellido2) | trim:15 }}
+        {{ oTipousuario!.descripcion }}
       </h5>
-      <p class="card-text"><i class="bi bi-envelope-heart"></i> {{ oUsuario?.email }}</p>
-      <p class="card-text"><i class="bi bi-telephone"></i> {{ oUsuario?.telefono }}</p>
-      <p class="card-text"><i class="bi bi-geo-alt"></i> {{ oUsuario?.direccion }}</p>
+      <p class="card-text"> Id: {{ oTipousuario!.id }}</p>
       <div class="d-flex justify-content-center mt-4">
-        <p class="fs-3">¿Seguro que desea borrar el usuario?</p>
+        <p class="fs-3">¿Seguro que desea borrar el tipo de usuario?</p>
       </div>
     
       <div class="d-flex justify-content-center mt-4">
         <button
           class="btn btn-warning mt-4 mx-1"
-          [routerLink]="['/usuario/admin/plist']"
+          [routerLink]="['/tipousuario/admin/plist']"
         >
           <i class="bi bi-list"></i>
-          Volver al listado de usuarios
+          Volver al listado de tipos de usuario
         </button>
         <button class="btn btn-danger mt-4 mx-1" (click)="delete()">
           <i class="bi bi-trash"></i>

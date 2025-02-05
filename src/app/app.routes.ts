@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AdminGuard } from './guards/admin.guard';
 import { AdminOrClientGuard } from './guards/adminorclient.guard';
+import { ClientGuard } from './guards/client.guard';
 
 import { MenuRoutedComponent } from './components/shared/menu.routed/menu.routed.component';
 import { LoginRoutedComponent } from './components/shared/login.routed/login.routed.component';
@@ -19,6 +20,8 @@ import { UsuarioAdminViewRoutedComponent } from './components/usuario/admin/usua
 import { UsuarioAdminDeleteRoutedComponent } from './components/usuario/admin/usuario.admin.delete.routed/usuario.admin.delete.routed.component';
 
 import { UsuarioClientViewRoutedComponent } from './components/usuario/client/usuario.client.view.routed/usuario.client.view.routed.component';
+import { UsuarioClientCreateRoutedComponent } from './components/usuario/client/usuario.client.create.routed/usuario.client.create.routed.component';
+import { UsuarioClientEditRoutedComponent } from './components/usuario/client/usuario.client.edit.routed/usuario.client.edit.routed.component';
 
 
 import { ProductoAdminCreateRoutedComponent } from './components/producto/admin/producto.admin.create.routed/producto.admin.create.routed.component';
@@ -34,9 +37,13 @@ import { ProductoClientViewRoutedComponent } from './components/producto/client/
 import { ComisionClientBookRoutedComponent } from './components/producto/client/comision.client.book.routed/comision.client.book.routed.component';
 
 import { CompraClientComprarRoutedComponent } from './components/compra/compra.client.comprar.routed/compra.client.comprar.routed.component';
-import { UsuarioClientCreateRoutedComponent } from './components/usuario/client/usuario.client.create.routed/usuario.client.create.routed.component';
-import { UsuarioClientEditRoutedComponent } from './components/usuario/client/usuario.client.edit.routed/usuario.client.edit.routed.component';
-import { ClientGuard } from './guards/client.guard';
+
+
+import { TipousuarioAdminCreateRoutedComponent } from './components/tipousuario/tipousuario.admin.create.routed/tipousuario.admin.create.routed.component';
+import { TipousuarioAdminEditRoutedComponent } from './components/tipousuario/tipousuario.admin.edit.routed/tipousuario.admin.edit.routed.component';
+import { TipousuarioAdminPlistRoutedComponent } from './components/tipousuario/tipousuario.admin.plist.routed/tipousuario.admin.plist.routed.component';
+import { TipousuarioAdminDeleteRoutedComponent } from './components/tipousuario/tipousuario.admin.delete.routed/tipousuario.admin.delete.routed.component';
+import { TipousuarioAdminViewRoutedComponent } from './components/tipousuario/tipousuario.admin.view.routed/tipousuario.admin.view.routed.component';
 
 
 export const routes: Routes = [
@@ -68,6 +75,13 @@ export const routes: Routes = [
 
     {path: 'producto/client/plist', component: ProductoClientPlistRoutedComponent, canActivate: [AdminOrClientGuard]},
     {path: 'producto/client/view/:id', component: ProductoClientViewRoutedComponent, canActivate: [AdminOrClientGuard]},
+
+
+    {path: 'tipousuario/admin/create', component: TipousuarioAdminCreateRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'tipousuario/admin/edit/:id', component: TipousuarioAdminEditRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'tipousuario/admin/plist', component: TipousuarioAdminPlistRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'tipousuario/admin/delete/:id', component: TipousuarioAdminDeleteRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'tipousuario/admin/view/:id', component: TipousuarioAdminViewRoutedComponent, canActivate: [AdminGuard]},
 
 
     {path: 'comision/client/book', component: ComisionClientBookRoutedComponent, canActivate: [AdminOrClientGuard]},

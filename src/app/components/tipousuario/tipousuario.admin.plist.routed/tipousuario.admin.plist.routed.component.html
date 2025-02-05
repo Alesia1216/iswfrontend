@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col text-center">
       <h2 class="my-2">
-        <i class="bi bi-person-circle"></i>
-       Lista de Usuarios
+        <i class="bi bi-people"></i>
+        Lista de tipos de usuarios
       </h2>
 
       <div class="d-inline-flex mx-2">
@@ -54,7 +54,7 @@
       </nav>
       <br>
       <div d-flex flex-direction-row justify-content-center>
-        <a class="btn btn-outline-pink mx-2" [routerLink]="['/usuario/admin/create']">Añadir usuario <i class="bi bi-plus"></i></a>
+        <a class="btn btn-outline-pink mx-2" [routerLink]="['/tipousuario/admin/create']">Añadir tipo de usuario <i class="bi bi-plus"></i></a>
         <a class="btn btn-outline-pink mx-2" (click)="generarInforme()">Generar informe <i class="bi bi-filetype-pdf"></i></a>
       </div>
 
@@ -74,16 +74,15 @@
 
       <div class="d-flex flex-direction-row flex-wrap justify-content-center">
 
-        @for (usuario of oPage?.content; track usuario.id){
+        @for (tipousuario of oPage?.content; track tipousuario.id){
         <div class="card m-2" style="width: 18rem;">
           <div class="card-body bg-pink">
-            <h5 class="card-title">  {{ (usuario.nombre + ' ' + usuario.apellido1 + ' ' + usuario.apellido2) | trim:15 }}</h5>
-            <p class="card-text"><i class="bi bi-envelope-heart"></i> {{ usuario.email }}</p>
-            <p class="card-text"><i class="bi bi-telephone"></i> {{ usuario.telefono }}</p>
-            <p class="card-text"><i class="bi bi-geo-alt"></i> {{ usuario.direccion }}</p>
-            <a class="btn btn-warning mx-2" (click)="edit(usuario)"><i class="bi bi-pencil"></i></a>
-            <a class="btn btn-info mx-2" [routerLink]="['/usuario/admin/view/', usuario.id]"><i class="bi bi-eye"></i></a>
-            <a class="btn btn-danger mx-2"  (click)="remove(usuario)"><i class="bi bi-trash"></i></a>
+            <h5 class="card-title">Id: {{ tipousuario.id }}</h5>
+            <p class="card-text">  {{ tipousuario.descripcion }} </p>
+           
+            <a class="btn btn-warning mx-2" (click)="edit(tipousuario)"><i class="bi bi-pencil"></i></a>
+            <a class="btn btn-info mx-2" [routerLink]="['/tipousuario/admin/view/', tipousuario.id]"><i class="bi bi-eye"></i></a>
+            <a class="btn btn-danger mx-2"  (click)="remove(tipousuario)"><i class="bi bi-trash"></i></a>
           </div>
         </div>
         }
