@@ -11,6 +11,7 @@ import { MenuRoutedComponent } from './components/shared/menu.routed/menu.routed
 import { LoginRoutedComponent } from './components/shared/login.routed/login.routed.component';
 import { LogoutRoutedComponent } from './components/shared/logout.routed/logout.routed.component';
 import { AboutmeRoutedComponent } from './components/shared/aboutme.routed/aboutme.routed.component';
+import { ContactRoutedComponent } from './components/shared/contact.routed/contact.routed.component';
 
 
 import { UsuarioAdminCreateRoutedComponent } from './components/usuario/admin/usuario.admin.create.routed/usuario.admin.create.routed.component';
@@ -54,6 +55,7 @@ export const routes: Routes = [
     {path: 'login', component: LoginRoutedComponent},
     {path: 'logout', component: LogoutRoutedComponent},
     {path: 'aboutme', component: AboutmeRoutedComponent},
+    {path: 'contact', component: ContactRoutedComponent},
 
 
     {path: 'usuario/admin/create', component: UsuarioAdminCreateRoutedComponent, canActivate: [AdminGuard]},

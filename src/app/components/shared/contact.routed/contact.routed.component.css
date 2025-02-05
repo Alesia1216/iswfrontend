@@ -1,0 +1,6 @@
+.contact-card {
+    transition: transform 0.3s ease-in-out;
+  }
+  .contact-card:hover {
+    transform: scale(1.05);
+  }
