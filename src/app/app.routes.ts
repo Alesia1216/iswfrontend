@@ -38,6 +38,7 @@ import { ProductoClientViewRoutedComponent } from './components/producto/client/
 import { ComisionClientBookRoutedComponent } from './components/producto/client/comision.client.book.routed/comision.client.book.routed.component';
 
 import { CompraClientComprarRoutedComponent } from './components/compra/compra.client.comprar.routed/compra.client.comprar.routed.component';
+import { CompraClientHistorialRoutedComponent } from './components/compra/compra.client.historial.routed/compra.client.historial.routed.component';
 
 
 import { TipousuarioAdminCreateRoutedComponent } from './components/tipousuario/tipousuario.admin.create.routed/tipousuario.admin.create.routed.component';
@@ -90,6 +91,7 @@ export const routes: Routes = [
 
 
     {path: 'comprar/:id', component: CompraClientComprarRoutedComponent},
+    {path: 'compra/historial/:id', component: CompraClientHistorialRoutedComponent},
 
 
     //{path: '', component:},

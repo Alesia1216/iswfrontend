@@ -56,8 +56,30 @@
     border-color: #f472b6; 
     color: white; 
   }
+
+  .table-pink,
+  .table-pink th,
+  .table-pink td {
+      background-color: #fbcfe8 !important;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+  }
   
-html, body { height: 100%; }
-/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
-body { margin: 0;font-family: "Swanky and Moo Moo", serif;font-weight: 700;font-style: normal; font-size: x-large;}
+  .table-pink tbody tr {
+      transition: transform 0.3s ease;
+  }
+  
+  .table-pink tbody tr:hover {
+      background-color: #f472b6 !important;
+      transform: scale(1.02);
+  }
+  
+  .table-pink tbody tr:hover th,
+  .table-pink tbody tr:hover td {
+      background-color: inherit !important;
+  }
+
+  
+  html, body { height: 100%; }
+  /*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
+  body { margin: 0;font-family: "Swanky and Moo Moo", serif;font-weight: 700;font-style: normal; font-size: x-large;}
 

@@ -44,6 +44,39 @@ export class CompraService {
     return this.oHttp.get<IPage<ICompra>>(URL, httpOptions);
   }
 
+  getHistorial(
+    id_usuario: number,
+    page: number,
+    size: number,
+    field: string,
+    dir: string,
+    filtro: string
+  ): Observable<IPage<ICompra>> {
+    let URL: string = '';
+    URL += this.serverURL;
+    URL += '/getHistorial/' + id_usuario;
+    if (!page) {
+      page = 0;
+    }
+    URL += '?page=' + page;
+    if (!size) {
+      size = 10;
+    }
+    URL += '&size=' + size;
+    if (field) {
+      URL += '&sort=' + field;
+      if (dir === 'asc') {
+        URL += ',asc';
+      } else {
+        URL += ',desc';
+      }
+    }
+    if (filtro) {
+      URL += '&filter=' + filtro;
+    }
+    return this.oHttp.get<IPage<ICompra>>(URL, httpOptions);
+  }
+
   get(id: number): Observable<ICompra> {
     let URL: string = '';
     URL += this.serverURL;
@@ -72,11 +105,5 @@ export class CompraService {
     return this.oHttp.delete(URL);
   }
 
-  getHistorial(){
-    let URL: string = '';
-    URL += this.serverURL;
-    URL += '/historial';
-    return this.oHttp.get<ICompra[]>(URL);
-  }
 
 }
