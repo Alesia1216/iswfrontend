@@ -7,6 +7,8 @@ import { SessionService } from '../../../service/session.service';
 import { IJwt } from '../../../model/jwt.interface';
 import { Router, RouterLink } from '@angular/router';
 import { CryptoService } from '../../../service/crypto.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-login.routed',

@@ -1,0 +1,45 @@
+<div class="container d-flex flex-column text-center align-items-center my-5 custom-container">
+  <h2>Cuentame ¿en qué estabas pensando?</h2>
+
+  <form class="mt-4 w-100" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Área de texto -->
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Descripción</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        placeholder="Escribe tus pensamientos aquí..."
+        rows="5"
+      ></textarea>
+      <mat-error *ngIf="form.get('description')?.hasError('required')">
+        La descripción es obligatoria.
+      </mat-error>
+      <mat-error *ngIf="form.get('description')?.hasError('minlength')">
+        La descripción debe tener al menos 5 caracteres.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Botón para añadir imagen de referencia -->
+    <div class="w-100 mb-3">
+      <label for="imageInput" class="form-label">Añadir imagen de referencia (opcional)</label>
+      <input
+        id="imageInput"
+        type="file"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Botón de enviar -->
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="w-100"
+      [disabled]="form.invalid"
+    >
+      Enviar
+    </button>
+  </form>
+</div>

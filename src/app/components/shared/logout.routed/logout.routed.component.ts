@@ -23,4 +23,8 @@ export class LogoutRoutedComponent implements OnInit {
     this.oRouter.navigate(['/shared/menu']);
   }
 
+  goMenu(){
+    this.oRouter.navigate(['/shared/menu']);
+  }
+
 }

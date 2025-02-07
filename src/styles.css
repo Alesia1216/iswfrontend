@@ -1,6 +1,23 @@
-.btn-outline-pink {
-    color: #f472b6; 
+  /*Botones*/
+
+  .btn-outline-pink {
+    color: #f472b6;
     border-color: #f472b6;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+  
+  .btn-outline-pink::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    width: 0%;
+    height: 2px;
+    background-color: #f472b6; /* Color inicial */
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+    transform: translateX(-50%); /* Centra la línea */
   }
   
   .btn-outline-pink:hover {
@@ -8,20 +25,23 @@
     background-color: #f472b6 !important;
   }
   
-  .btn-outline-pink:active {
-    color: white !important;
-    background-color: #f472b6 !important;
-    border-color: #f472b6 !important;
+  /* Cambio de color y ancho de la línea en hover */
+  .btn-outline-pink:hover::after {
+    width: 90%; /* La línea ahora ocupa el 90% del botón */
+    background-color: #fff; /* Línea blanca cuando el botón es rosa */
   }
+  
 
   .btn-pink {
-    color: #fbcfe8; 
-    border-color: #fbcfe8;
+    color: #f472b6;
+    border-color: #f472b6;
+    transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
   }
   
   .btn-pink:hover {
-    color: white;
-    background-color: #f472b6;
+    color: white !important;
+    background-color: #e0539c !important;
+    border-color: #e0539c !important;
   }
   
   .btn-pink:active {
@@ -30,10 +50,54 @@
     border-color: #f472b6 !important;
   }
 
-  .bg-pink {
+  /*Backgrounds*/
+
+  .bg-pink-normal {
     background-color: #fbcfe8;
   }
+
+  .bg-pink {
+    background-color: #fbcfe8;
+    transition: all 0.3s ease-in-out;
+  }
   
+  .bg-pink:hover {
+    background-color: #f472b6;
+    color: #fbcfe8;
+    transform: scale(1.05);
+    border-radius: 5px;
+  }
+  
+  .bg-pink:hover * {
+    color: #fbcfe8 !important;
+    border-color: #fbcfe8 !important;
+  }
+  
+  /* Asegurar que los botones cambian bien */
+  .bg-pink:hover .btn-outline-pink {
+    border-color: #fbcfe8 !important;
+    color: #fbcfe8 !important;
+  }
+  
+  /* Corregir el color del icono */
+  .bg-pink:hover .btn-outline-pink i {
+    color: #fbcfe8 !important;
+  }
+  
+  /* Ajustar cuando el botón está en hover */
+  .bg-pink:hover .btn-outline-pink:hover {
+    background-color: #fbcfe8 !important;
+    color: #f472b6 !important;
+  }
+  
+  /* Asegurar que el icono también cambia en hover del botón */
+  .bg-pink:hover .btn-outline-pink:hover i {
+    color: #f472b6 !important;
+  }
+
+  
+  /*Pagination items*/
+
   .page-item.active .page-link{
     background-color: #fbcfe8;
     border-color: #fbcfe8; 
@@ -56,6 +120,8 @@
     border-color: #f472b6; 
     color: white; 
   }
+
+  /*Tablas*/
 
   .table-pink,
   .table-pink th,
