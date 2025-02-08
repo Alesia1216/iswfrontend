@@ -4,7 +4,7 @@ import { IPage } from '../../../model/model.interface';
 import { debounceTime, Subject } from 'rxjs';
 import { CompraService } from '../../../service/compra.service';
 import { BotoneraService } from '../../../service/botonera.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { HttpErrorResponse } from '@angular/common/http';
 import jsPDF from 'jspdf';
@@ -45,7 +45,7 @@ export class CompraClientHistorialRoutedComponent implements OnInit {
     private oCompraService: CompraService,
     private oBotoneraService: BotoneraService,
     private oActivatedRoute: ActivatedRoute,
-    private datePipe: DatePipe
+    private oRouter: Router
   ) { 
     this.debounceSubject.pipe(debounceTime(10)).subscribe((value) => {
       this.getPage();
@@ -88,17 +88,11 @@ export class CompraClientHistorialRoutedComponent implements OnInit {
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   }
 
-  //  edit(oCompra: ICompra) {
-  //    this.oRouter.navigate(['/compra/admin/edit', oCompra.id]);
-  //  }
 
-   //view(oCompra: ICompra) {
-     //this.oRouter.navigate(['/Compra/admin/view', oCompra.id]);
-   //}
+   view(oCompra: ICompra) {
+     this.oRouter.navigate(['/compra/view/', oCompra.id]);
+   }
 
-  //  remove(oCompra: ICompra) {
-  //    this.oRouter.navigate(['/Compra/admin/delete', oCompra.id]);
-  //  }
 
   goToPage(p: number) {
     if (p) {

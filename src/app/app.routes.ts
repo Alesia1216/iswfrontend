@@ -38,6 +38,7 @@ import { ProductoClientViewRoutedComponent } from './components/producto/client/
 import { CompraClientComprarRoutedComponent } from './components/compra/compra.client.comprar.routed/compra.client.comprar.routed.component';
 import { CompraClientHistorialRoutedComponent } from './components/compra/compra.client.historial.routed/compra.client.historial.routed.component';
 import { CompraClientComisionRoutedComponent } from './components/compra/compra.client.comision.routed/compra.client.comision.routed.component';
+import { CompraClientViewRoutedComponent } from './components/compra/compra.client.view.routed/compra.client.view.routed.component';
 
 
 import { TipousuarioAdminCreateRoutedComponent } from './components/tipousuario/tipousuario.admin.create.routed/tipousuario.admin.create.routed.component';
@@ -87,8 +88,9 @@ export const routes: Routes = [
 
 
     {path: 'compra/comision', component: CompraClientComisionRoutedComponent, canActivate: [AdminOrClientGuard]},
-    {path: 'compra/:id', component: CompraClientComprarRoutedComponent},
-    {path: 'compra/historial/:id', component: CompraClientHistorialRoutedComponent},
+    {path: 'compra/:id', component: CompraClientComprarRoutedComponent, canActivate: [AdminOrClientGuard]},
+    {path: 'compra/historial/:id', component: CompraClientHistorialRoutedComponent, canActivate: [AdminOrClientGuard]},
+    {path: 'compra/view/:id', component: CompraClientViewRoutedComponent, canActivate: [AdminOrClientGuard]}
 
 ];
 

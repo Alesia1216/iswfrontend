@@ -82,7 +82,7 @@
         <tbody>
           @for (compra of oPage?.content; track compra.id){
 
-          <tr>
+          <tr  (click)="view(compra)" class="clickable-row">
             <th>{{ compra.producto.descripcion }}</th>
             <td>{{ compra.producto.estilo }}</td>
             <td>{{ formatDate(compra.fecha.toString()) }}</td>
