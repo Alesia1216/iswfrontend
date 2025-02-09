@@ -2,13 +2,10 @@
   <div class="row">
     <div class="col text-center">
       <h2 class="my-2">
-        <i class="bi bi-palette"></i>
-       Catalogo de Productos
-       @if(oUsuario?.tipousuario?.id == 1){
-        <a href="/producto/admin/plist" class="btn btn-pink px-1 py-0"><i class="bi bi-fingerprint fs-5"></i></a>
-        <a href="/compra/admin/plist" class="btn btn-pink px-1 py-0 mx-2"><i class="bi bi-list-stars fs-5"></i></a>
-       }
+        <i class="bi bi-list-stars"></i>
+        Historial de pedidos
       </h2>
+
       <div class="d-inline-flex mx-2">
         <input type="text" class="form-control" placeholder="Buscar" (keyup)="filter($event)" [(ngModel)]="strFiltro" />
       </div>
@@ -55,8 +52,11 @@
           </li>
         </ul>
       </nav>
-
-      <div class="d-flex justify-content-between">
+      <br>
+      <div class=" d-flex flex-direction-row justify-content-center">
+        <a class="btn btn-outline-pink mx-2" (click)="generarInforme()">Generar informe <i class="bi bi-filetype-pdf"></i></a>
+      </div>
+      <div class="d-flex justify-content-between my-5">
         @if (strFiltro.length>0) {
         <h5 class="text-muted">
           Filtrado por: <span class="text-danger">{{ strFiltro }}</span>
@@ -70,27 +70,29 @@
         </h5>
       </div>
 
-      <div class="d-flex flex-direction-row flex-wrap justify-content-center">
+      <table class="table table-pink">
+        <thead>
+          <tr>
+            <th scope="col">Id de compra</th>
+            <th scope="col">Comprador</th>
+            <th scope="col">Producto adquirido</th>
+            <th scope="col">Fecha de compra</th>
+            <th scope="col">Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (compra of oPage?.content; track compra.id){
 
-        @for (producto of oPage?.content; track producto.id){
-        <div class="card m-2" style="width: 18rem;">
-          <!--<img src="assets/{{ producto.imagen }}" class="card-img-top" alt="..." /> -->
-          <div class="card-body bg-pink">
-            <h5 class="card-title">{{ producto.descripcion | trim:10 }} </h5>
-            <p class="card-text">{{ producto.precio }}€</p>
-            @if(producto.unidades==1){
-              <p class="card-text text-danger"><small>Queda {{ producto.unidades }} unidad</small></p>
-            } @else {
-              <p class="card-text text-muted"><small>Quedan {{ producto.unidades }} unidades</small></p>
-            }
-           
-            <a class="btn btn-pink" [routerLink]="['/compra/', producto.id]">Comprar</a>
-            <a class="btn btn-pink mx-2" [routerLink]="['/producto/client/view/', producto.id]"><i class="bi bi-eye"></i></a>
-          </div>
-        </div>
+          <tr  (click)="view(compra)" class="clickable-row">
+            <th>{{ compra.id }}</th>
+            <td>{{ compra.usuario.nombre + ' ' + compra.usuario.apellido1 + ' ' + compra.usuario.apellido2 | trim:15}}</td>
+            <th>{{ compra.producto.descripcion }}</th>
+            <td>{{ formatDate(compra.fecha.toString()) }}</td>
+            <td>{{ compra.producto.precio }}€</td>
+          </tr>
         }
-
-      </div>
+        </tbody>
+      </table>
 
     </div>
   </div>

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { IProducto } from '../../../model/producto.interface';
-import { IUsuario } from '../../../model/usuario.interface';
+import { IProducto } from '../../../../model/producto.interface';
+import { IUsuario } from '../../../../model/usuario.interface';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ProductoService } from '../../../service/producto.service';
-import { SessionService } from '../../../service/session.service';
-import { UsuarioService } from '../../../service/usuario.service';
-import { CompraService } from '../../../service/compra.service';
-import { ICompra } from '../../../model/compra.interface';
+import { ProductoService } from '../../../../service/producto.service';
+import { SessionService } from '../../../../service/session.service';
+import { UsuarioService } from '../../../../service/usuario.service';
+import { CompraService } from '../../../../service/compra.service';
+import { ICompra } from '../../../../model/compra.interface';
 import { DateTime } from 'luxon';
 
 @Component({

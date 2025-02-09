@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ICompra } from '../../../model/compra.interface';
-import { IPage } from '../../../model/model.interface';
+import { ICompra } from '../../../../model/compra.interface';
+import { IPage } from '../../../../model/model.interface';
 import { debounceTime, Subject } from 'rxjs';
-import { CompraService } from '../../../service/compra.service';
-import { BotoneraService } from '../../../service/botonera.service';
+import { CompraService } from '../../../../service/compra.service';
+import { BotoneraService } from '../../../../service/botonera.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -143,7 +143,7 @@ export class CompraClientHistorialRoutedComponent implements OnInit {
     // Encabezado del documento
     doc.setFontSize(30);
     doc.setTextColor(40);
-    doc.text('Informe de Productos', 50, 20);
+    doc.text('Informe de mis pedidos', 50, 20);
   
     doc.setFontSize(14);
   

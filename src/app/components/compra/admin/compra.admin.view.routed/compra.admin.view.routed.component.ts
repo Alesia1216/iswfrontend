@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
-import { CompraService } from '../../../service/compra.service';
-import { ICompra } from '../../../model/compra.interface';
+import { CompraService } from '../../../../service/compra.service';
+import { ICompra } from '../../../../model/compra.interface';
 
 @Component({
-  selector: 'app-compra.client.view.routed',
-  templateUrl: './compra.client.view.routed.component.html',
-  styleUrls: ['./compra.client.view.routed.component.css'],
+  selector: 'app-compra.admin.view.routed',
+  templateUrl: './compra.admin.view.routed.component.html',
+  styleUrls: ['./compra.admin.view.routed.component.css'],
   imports: [RouterModule, RouterLink]
   
 })
-export class CompraClientViewRoutedComponent implements OnInit {
+export class CompraAdminViewRoutedComponent implements OnInit {
 
- id: number = 0;
+  id: number = 0;
   route: string = '';
   oCompra: ICompra = {} as ICompra;
   numeroApuntes: number = 0;

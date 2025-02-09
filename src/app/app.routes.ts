@@ -35,10 +35,13 @@ import { ProductoClientPlistRoutedComponent } from './components/producto/client
 import { ProductoClientViewRoutedComponent } from './components/producto/client/producto.client.view.routed/producto.client.view.routed.component';
 
 
-import { CompraClientComprarRoutedComponent } from './components/compra/compra.client.comprar.routed/compra.client.comprar.routed.component';
-import { CompraClientHistorialRoutedComponent } from './components/compra/compra.client.historial.routed/compra.client.historial.routed.component';
-import { CompraClientComisionRoutedComponent } from './components/compra/compra.client.comision.routed/compra.client.comision.routed.component';
-import { CompraClientViewRoutedComponent } from './components/compra/compra.client.view.routed/compra.client.view.routed.component';
+import { CompraAdminPlistRoutedComponent } from './components/compra/admin/compra.admin.plist.routed/compra.admin.plist.routed.component';
+import { CompraAdminViewRoutedComponent } from './components/compra/admin/compra.admin.view.routed/compra.admin.view.routed.component';
+
+import { CompraClientComprarRoutedComponent } from './components/compra/client/compra.client.comprar.routed/compra.client.comprar.routed.component';
+import { CompraClientHistorialRoutedComponent } from './components/compra/client/compra.client.historial.routed/compra.client.historial.routed.component';
+import { CompraClientComisionRoutedComponent } from './components/compra/client/compra.client.comision.routed/compra.client.comision.routed.component';
+import { CompraClientViewRoutedComponent } from './components/compra/client/compra.client.view.routed/compra.client.view.routed.component';
 
 
 import { TipousuarioAdminCreateRoutedComponent } from './components/tipousuario/tipousuario.admin.create.routed/tipousuario.admin.create.routed.component';
@@ -86,6 +89,9 @@ export const routes: Routes = [
     {path: 'tipousuario/admin/delete/:id', component: TipousuarioAdminDeleteRoutedComponent, canActivate: [AdminGuard]},
     {path: 'tipousuario/admin/view/:id', component: TipousuarioAdminViewRoutedComponent, canActivate: [AdminGuard]},
 
+
+    {path: 'compra/admin/plist', component: CompraAdminPlistRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'compra/admin/view/:id', component: CompraAdminViewRoutedComponent, canActivate: [AdminGuard]},
 
     {path: 'compra/comision', component: CompraClientComisionRoutedComponent, canActivate: [AdminOrClientGuard]},
     {path: 'compra/:id', component: CompraClientComprarRoutedComponent, canActivate: [AdminOrClientGuard]},
