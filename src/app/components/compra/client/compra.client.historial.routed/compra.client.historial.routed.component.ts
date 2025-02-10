@@ -93,6 +93,10 @@ export class CompraClientHistorialRoutedComponent implements OnInit {
      this.oRouter.navigate(['/compra/view/', oCompra.id]);
    }
 
+   delete(oCompra: ICompra) {
+    this.oRouter.navigate(['/compra/cancel/', oCompra.id]);
+  }
+
 
   goToPage(p: number) {
     if (p) {

@@ -77,6 +77,7 @@
             <th scope="col">Estilo de producto</th>
             <th scope="col">Fecha de compra</th>
             <th scope="col">Precio</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -87,6 +88,11 @@
             <td>{{ compra.producto.estilo }}</td>
             <td>{{ formatDate(compra.fecha.toString()) }}</td>
             <td>{{ compra.producto.precio }}€</td>
+            <td>
+              <a class="btn-pink" (click)="delete(compra); $event.stopPropagation()">
+                <i class="bi bi-x-circle"></i>
+              </a>
+            </td>
           </tr>
         }
         </tbody>
