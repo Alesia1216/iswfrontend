@@ -52,6 +52,10 @@
 
   /*Backgrounds*/
 
+  .bg-grey{
+    background-color: darkgray;
+  }
+
   .bg-pink-normal {
     background-color: #fbcfe8;
   }

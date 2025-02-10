@@ -1,14 +1,121 @@
-.bufon{
+/* Fondo con un degradado y estrellas flotantes */
+body {
+  background: linear-gradient(to bottom, #fff, #fbcfe8);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+
+/* Contenedor */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+  padding: 10px 20px;
+}
+
+/* Texto */
+.text-container {
+  max-width: 500px;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: #f472b6;
+}
+
+.highlight {
+  color: #e6397d;
+}
+
+/* Efecto de máquina de escribir */
+.typing-text {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #e6397d;
+  overflow: hidden;
+  border-right: 2px solid #e6397d;
+  white-space: nowrap;
+  width: 0;
+  animation: typing 3s steps(30, end) forwards, blinkCursor 0.8s infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blinkCursor {
+  from { border-right-color: #e6397d; }
+  to { border-right-color: transparent; }
+}
+
+/* Botón con resplandor */
+.btn-explorar {
+  background-color: #f472b6;
+  color: white;
+  font-size: 1.4rem;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-explorar::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 10%, transparent 50%);
+  transition: 0.4s ease-out;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.btn-explorar:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.btn-explorar:hover {
+  background-color: #e6397d;
+  transform: scale(1.05);
+}
+
+/* Animación del personaje */
+.bufon {
   width: 350px;
   height: 350px;
   background-image: url("../../../animations/spritesheets/spritesheet.png");
   animation: blink 0.55s steps(5) infinite alternate;
+  margin-bottom: 20px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f472b6;
+  color: white;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bufon:hover{
+  transform: translateY(-20px);
 }
 
 @keyframes blink {
-    to { background-position: -1750px; }
-  }
-
-button{
-    font-size: 1.3rem;
+  to { background-position: -1750px; }
 }
+
+

@@ -32,9 +32,9 @@ export class CompraAdminPlistRoutedComponent implements OnInit {
   strFiltro: string = '';
   //
   arrBotonera: string[] = [];
-  //
-  //id_usuario: number = 0;
-  //
+
+  allCompras: ICompra[] = [];
+
   private debounceSubject = new Subject<string>();
 
   constructor(
@@ -72,6 +72,24 @@ export class CompraAdminPlistRoutedComponent implements OnInit {
           console.log(err);
         },
       });
+  }
+
+  getAll(){
+    this.oCompraService
+    .getPage(this.nPage, this.nRpp, this.strField, this.strDir, this.strFiltro)
+    .subscribe({
+      next: (oPageFromServer: IPage<ICompra>) => {
+        this.allCompras = [...this.allCompras, ...oPageFromServer.content]; // Acumulamos los datos
+
+        if (this.nPage < oPageFromServer.totalPages - 1) {
+          this.nPage++; // Pasamos a la siguiente página
+          this.getAll(); // Llamamos recursivamente hasta la última página
+        } 
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log('Error al obtener las compras:', err);
+      },
+    });
   }
 
   formatDate(dateString: string): string {
@@ -129,89 +147,70 @@ export class CompraAdminPlistRoutedComponent implements OnInit {
     console.log(this.strFiltro);
   }
 
-generarInforme() {
-  if (!this.oPage || !this.oPage.content) {
+generarInforme( compras: ICompra[]) {
+  
+  this.getAll();
+
+  if (!compras || compras.length === 0) {
     console.error('No hay datos disponibles para generar el informe.');
     return;
   }
 
   let doc = new jsPDF({ unit: 'mm', format: 'a4' });
 
-  // Dimensiones de la página (A4: 210 x 297 mm)
   const pageWidth = 210;
   const pageHeight = 297;
+  const marginX = 25;
+  const marginY = 50;
+  const maxY = 260;
 
-  // Ajustes de márgenes internos basados en la imagen proporcionada
-  const marginX = 25;  // Márgenes laterales para no sobrepasar el borde decorativo
-  const marginY = 50;  // Espacio superior inicial (ajustado para el título)
-  const maxY = 260;    // Límite inferior antes de cambiar de página
-
-  // Cargar la imagen de fondo
   let img = new Image();
-  img.src = '../../../../../assets/fondo.png'; // Ruta correcta de la imagen
-  let imgWidth = 210;  // Ancho total de la página
-  let imgHeight = 297; // Alto total de la página
-
+  img.src = '../../../../../assets/fondo.png';
+  let imgWidth = 210;
+  let imgHeight = 297;
   let y = marginY;
 
-  // Agregar la primera página con la imagen de fondo
   doc.addImage(img, 'PNG', 0, 0, imgWidth, imgHeight);
-
-  // Encabezado centrado dentro del área blanca (movido a Y=40)
   doc.setFontSize(30);
   doc.setTextColor(40);
   doc.text('Informe de pedidos', pageWidth / 2, 40, { align: 'center' });
 
   doc.setFontSize(14);
-  y = 60; // Ajuste para el contenido después del título
+  y = 60;
 
-  this.oPage.content.forEach((Compra, index) => {
-    // Verificar si hay espacio suficiente, si no, crear una nueva página
+  compras.forEach((compra, index) => {
     if (y + 40 > maxY) {
       doc.addPage();
       doc.addImage(img, 'PNG', 0, 0, imgWidth, imgHeight);
-      y = marginY; // Reiniciar posición en nueva página
+      y = marginY;
     }
 
     doc.setTextColor(50, 50, 50);
-
-    // Primera línea: Producto comprado
     doc.setFontSize(14);
-    let textoCompra = `Producto ${Compra.producto.descripcion} comprado por ${Compra.usuario.nombre}`;
+    let textoCompra = `Producto ${compra.producto.descripcion} comprado por ${compra.usuario.nombre}`;
     doc.text(textoCompra, pageWidth / 2, y, { align: 'center' });
 
     y += 10;
-
-    // Segunda línea: Email y dirección
-    let infoUsuario = `Email: ${Compra.usuario.email} - Dirección: ${Compra.usuario.direccion}`;
+    let infoUsuario = `Email: ${compra.usuario.email} - Dirección: ${compra.usuario.direccion}`;
     doc.setFontSize(12);
     doc.text(infoUsuario, pageWidth / 2, y, { align: 'center' });
 
     y += 10;
-
-    // Tercera línea: Estilo y precio del producto
-    let infoProducto = `Estilo: ${Compra.producto.estilo} - Precio: ${Compra.producto.precio}€`;
+    let infoProducto = `Estilo: ${compra.producto.estilo} - Precio: ${compra.producto.precio}€`;
     doc.text(infoProducto, pageWidth / 2, y, { align: 'center' });
 
     y += 10;
-
-    // Cuarta línea: Fecha de compra
-    let fechaCompra = `Fecha de compra: ${this.formatDate(Compra.fecha.toString())}`;
+    let fechaCompra = `Fecha de compra: ${this.formatDate(compra.fecha.toString())}`;
     doc.text(fechaCompra, pageWidth / 2, y, { align: 'center' });
 
-    y += 15; // Espacio antes de la línea divisoria
-
-    // Línea separadora
+    y += 15;
     doc.setDrawColor(150, 150, 150);
     doc.line(marginX, y, pageWidth - marginX, y);
 
-    y += 10; // Espacio para la siguiente compra
+    y += 10;
   });
 
   doc.save('InformeHistorialPedidos.pdf');
 }
-
-  
-  
 
 }

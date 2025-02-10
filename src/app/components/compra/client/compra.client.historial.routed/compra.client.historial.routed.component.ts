@@ -138,43 +138,58 @@ export class CompraClientHistorialRoutedComponent implements OnInit {
       return;
     }
   
-    let doc = new jsPDF();
-  
-    // Encabezado del documento
+    let doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+    const pageWidth = 210;
+    const pageHeight = 297;
+    const marginX = 25;
+    const marginY = 50;
+    const maxY = 260;
+    
+    let img = new Image();
+    img.src = '../../../../../assets/fondo.png';
+    let imgWidth = 210;
+    let imgHeight = 297;
+    let y = marginY;
+    
+    doc.addImage(img, 'PNG', 0, 0, imgWidth, imgHeight);
     doc.setFontSize(30);
     doc.setTextColor(40);
-    doc.text('Informe de mis pedidos', 50, 20);
-  
+    doc.text('Informe de mis pedidos', pageWidth / 2, 40, { align: 'center' });
+    
     doc.setFontSize(14);
-  
-    let y = 40; // Posición inicial en el eje Y
-  
-    this.oPage.content.forEach((Compra, index) => {
-      let x = 30; // Posición inicial en X para cada fila
-  
-      // Nombre del Compra en negrita
-      doc.setFontSize(16);
-      doc.setTextColor(0, 0, 0);
-      doc.text(Compra.fecha.toString(), x, y);
-  
-      // Precio del Compra
-      x += 70; // Espacio para el precio
-      doc.setFontSize(14);
+    y = 60;
+    
+    this.oPage.content.forEach((compra, index) => {
+      if (y + 40 > maxY) {
+        doc.addPage();
+        doc.addImage(img, 'PNG', 0, 0, imgWidth, imgHeight);
+        y = marginY;
+      }
+    
       doc.setTextColor(50, 50, 50);
-      doc.text(`${Compra.producto.descripcion}`, x, y);
-  
-      // Precio del Compra
-      x += 30; // Espacio para el precio
       doc.setFontSize(14);
-      doc.setTextColor(50, 50, 50);
-      doc.text(`${Compra.producto.estilo}`, x, y);
-
-      x += 30; // Espacio para el precio
-      doc.setFontSize(14);
-      doc.setTextColor(50, 50, 50);
-      doc.text(`${Compra.producto.precio}€`, x, y);
-  
-      y += 10; // Espacio entre filas
+      let textoCompra = `Producto ${compra.producto.descripcion}`;
+      doc.text(textoCompra, pageWidth / 2, y, { align: 'center' });
+    
+      y += 10;
+      let infoUsuario = `Email: ${compra.usuario.email} - Dirección: ${compra.usuario.direccion}`;
+      doc.setFontSize(12);
+      doc.text(infoUsuario, pageWidth / 2, y, { align: 'center' });
+    
+      y += 10;
+      let infoProducto = `Estilo: ${compra.producto.estilo} - Precio: ${compra.producto.precio}€`;
+      doc.text(infoProducto, pageWidth / 2, y, { align: 'center' });
+    
+      y += 10;
+      let fechaCompra = `Fecha de compra: ${this.formatDate(compra.fecha.toString())}`;
+      doc.text(fechaCompra, pageWidth / 2, y, { align: 'center' });
+    
+      y += 15;
+      doc.setDrawColor(150, 150, 150);
+      doc.line(marginX, y, pageWidth - marginX, y);
+    
+      y += 10;
     });
   
     doc.save('InformeHistorialPedidos.pdf');

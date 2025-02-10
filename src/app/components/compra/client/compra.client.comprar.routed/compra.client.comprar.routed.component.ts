@@ -59,10 +59,6 @@ export class CompraClientComprarRoutedComponent implements OnInit {
   }
 
   comprar(){
-
-    //this.oCompra.fecha = DateTime.now().setZone("local");
-    //const now = DateTime.now().setZone("Europe/Madrid");
-    //console.log("Fecha con zona horaria:", now.toISO());
     this.oCompra.fecha = DateTime.now().plus({ hours: 1 }); 
     //esto lo hago porque la zona horaria es UTC y para que este en la nuestra debe ser +1
     this.oCompra.producto = this.oProducto;
@@ -79,7 +75,7 @@ export class CompraClientComprarRoutedComponent implements OnInit {
             console.log(err);
           }
         });
-        alert('¡Muchas gracias por tu compra!');
+        alert('¡Muchas gracias por tu compra! La artista se pondrá en contacto contigo para gestionar el pago');
         this.oRouter.navigate(['/producto/client/plist']);
       },
       error: (err) => {
