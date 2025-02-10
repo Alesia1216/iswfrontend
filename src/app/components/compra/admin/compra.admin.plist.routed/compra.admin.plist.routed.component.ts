@@ -108,6 +108,10 @@ export class CompraAdminPlistRoutedComponent implements OnInit {
      this.oRouter.navigate(['/compra/admin/view/', oCompra.id]);
    }
 
+   delete(oCompra: ICompra) {
+    this.oRouter.navigate(['/compra/admin/delete/', oCompra.id]);
+  }
+
 
   goToPage(p: number) {
     if (p) {

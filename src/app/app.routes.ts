@@ -37,6 +37,7 @@ import { ProductoClientViewRoutedComponent } from './components/producto/client/
 
 import { CompraAdminPlistRoutedComponent } from './components/compra/admin/compra.admin.plist.routed/compra.admin.plist.routed.component';
 import { CompraAdminViewRoutedComponent } from './components/compra/admin/compra.admin.view.routed/compra.admin.view.routed.component';
+import { CompraAdminDeleteRoutedComponent } from './components/compra/admin/compra.admin.delete.routed/compra.admin.delete.routed.component';
 
 import { CompraClientComprarRoutedComponent } from './components/compra/client/compra.client.comprar.routed/compra.client.comprar.routed.component';
 import { CompraClientHistorialRoutedComponent } from './components/compra/client/compra.client.historial.routed/compra.client.historial.routed.component';
@@ -93,6 +94,7 @@ export const routes: Routes = [
 
     {path: 'compra/admin/plist', component: CompraAdminPlistRoutedComponent, canActivate: [AdminGuard]},
     {path: 'compra/admin/view/:id', component: CompraAdminViewRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'compra/admin/delete/:id', component: CompraAdminDeleteRoutedComponent, canActivate: [AdminGuard]},
 
     {path: 'compra/comision', component: CompraClientComisionRoutedComponent, canActivate: [AdminOrClientGuard]},
     {path: 'compra/:id', component: CompraClientComprarRoutedComponent, canActivate: [AdminOrClientGuard]},
