@@ -9,6 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CryptoService } from '../../../service/crypto.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
+declare let bootstrap: any;
 
 @Component({
   selector: 'app-login.routed',
@@ -20,6 +21,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 export class LoginRoutedComponent implements OnInit {
 
   loginForm: FormGroup;
+
+  strMessage: string = '';
+  myModal: any;
 
   constructor(
     private fb: FormBuilder,
@@ -45,15 +49,31 @@ export class LoginRoutedComponent implements OnInit {
       this.oLoginService.login(loginData).subscribe({
         next: (response : string) => {
           this.oSessionService.login(response); //notificamos del log in 
-          alert('Bienvenid@ a IswArt');
-          this.oRouter.navigate(['/shared/menu']);
+          this.showModal(
+            'Bienvenid@ a IswArt'
+          );
         },
         error: (err) => {
-          alert('No has podido loguearte, revisa el email y la contraseña porfavor');
+          this.showModal(
+            'No has podido loguearte, revisa el email y la contraseña porfavor'
+          );
         }
       });
     } else {
       console.log('Form is invalid.');
     }
+  }
+
+  showModal(mensaje: string) {
+    this.strMessage = mensaje;
+    this.myModal = new bootstrap.Modal(document.getElementById('mimodal'), {
+      keyboard: false,
+    });
+    this.myModal.show();
+  }
+
+  hideModal = () => {
+    this.myModal.hide();
+    this.oRouter.navigate(['/shared/menu']);
   }
 }
