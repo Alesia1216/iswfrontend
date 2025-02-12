@@ -119,35 +119,4 @@ export class TipousuarioAdminPlistRoutedComponent implements OnInit {
     console.log(this.strFiltro);
   }
 
-  generarInforme() {
-    if (!this.oPage || !this.oPage.content) {
-      console.error('No hay datos disponibles para generar el informe.');
-      return;
-    }
-  
-    let doc = new jsPDF();
-  
-    // Encabezado del documento
-    doc.setFontSize(30);
-    doc.setTextColor(40);
-    doc.text('Informe de Usuarios', 50, 20);
-  
-    doc.setFontSize(14);
-  
-    let y = 40; // Posición inicial en el eje Y
-  
-    this.oPage.content.forEach((tipousuario, index) => {
-      let x = 30; // Posición inicial en X para cada fila
-  
-      // Nombre del producto en negrita
-      doc.setFontSize(15);
-      doc.setTextColor(0, 0, 0);
-      doc.text(tipousuario.id + ' : ' + tipousuario.descripcion + ' ' , x, y);
-  
-      y += 10; // Espacio entre filas
-    });
-  
-    doc.save('InformeTiposDeUsuarios.pdf');
-  }
-
 }
