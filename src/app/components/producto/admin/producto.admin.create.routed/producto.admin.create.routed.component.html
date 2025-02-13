@@ -4,17 +4,13 @@
       <h2 class="my-2">
         <i class="bi bi-plus-square"></i>
         Nuevo producto
-        <i class="bi bi-person-circle"></i>
+        <i class="bi bi-palette"></i>
       </h2>
       <form [formGroup]="oProductoForm!" (ngSubmit)="onSubmit()" novalidate>
         <div class="row mt-4">
           <mat-form-field>
             <mat-label>Descripcion</mat-label>
-            <input
-              matInput
-              formControlName="descripcion"
-              placeholder="Escribe la descripcion del producto"
-            />
+            <input matInput formControlName="descripcion" placeholder="Escribe la descripcion del producto" />
             <mat-hint align="start">De 3 caracteres a 50 caracteres</mat-hint>
             @if (oProductoForm?.get('descripcion')?.hasError('required')){
             <mat-error>La descripcion es obligatoria </mat-error>
@@ -43,38 +39,26 @@
         <div class="row mt-4">
           <mat-form-field>
             <mat-label>Unidades</mat-label>
-            <input
-              matInput
-              formControlName="unidades"
-              placeholder="Pon aquí las unidades que tenemos del producto"
-              required
-            />
+            <input matInput formControlName="unidades" placeholder="Pon aquí las unidades que tenemos del producto"
+              required />
             <mat-hint align="start">De 1 a 999</mat-hint>
             @if (oProductoForm?.get('unidades')?.hasError('required')) {
             <mat-error>Debes introducir las unidades</mat-error>
-            } 
+            }
           </mat-form-field>
-          <div class="row mt-4">
-            <mat-form-field>
-              <mat-label>Precio</mat-label>
-              <input
-                matInput
-                formControlName="precio"
-                placeholder="Escribe el precio del producto"
-                required
-              />
-              <mat-hint align="start">Debe ser un numero decimar</mat-hint>
-              @if (oProductoForm?.get('precio')?.hasError('required')) {
-              <mat-error>Debes introducir el precio</mat-error>
-              } 
-            </mat-form-field>
-          </div>
+        </div>
+        <div class="row mt-4">
+          <mat-form-field>
+            <mat-label>Precio</mat-label>
+            <input matInput formControlName="precio" placeholder="Escribe el precio del producto" required />
+            <mat-hint align="start">Debe ser un numero decimar</mat-hint>
+            @if (oProductoForm?.get('precio')?.hasError('required')) {
+            <mat-error>Debes introducir el precio</mat-error>
+            }
+          </mat-form-field>
         </div>
         <br />
-        <button
-          class="btn btn-warning mt-4 mx-1"
-          [routerLink]="['/producto', 'admin', 'plist']"
-        >
+        <button class="btn btn-warning mt-4 mx-1" [routerLink]="['/producto', 'admin', 'plist']">
           <i class="bi bi-list"></i>
           Volver a catalogo de productos
         </button>
@@ -84,12 +68,8 @@
           Reset
         </button>
 
-        <button
-          class="btn btn-primary mt-4 mx-1"
-          type="submit"
-          [disabled]="!oProductoForm?.valid"
-        >
-        <i class="bi bi-floppy"></i>
+        <button class="btn btn-primary mt-4 mx-1" type="submit" [disabled]="!oProductoForm?.valid">
+          <i class="bi bi-floppy"></i>
           Guardar
         </button>
       </form>
@@ -97,35 +77,19 @@
   </div>
 </div>
 
-<div
-  class="modal fade"
-  [id]="'mimodal'"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" [id]="'mimodal'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog">
     <div class="modal-content rounded-4 shadow-lg border-0">
       <div class="modal-header text-center border-0">
         <h5 class="modal-title w-100 text-pink fw-bold" id="exampleModalLabel">IswArt</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="hideModal()"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="hideModal()"></button>
       </div>
       <div class="modal-body text-center py-4">
         <p class="fs-5 text-muted">{{ strMessage }}</p>
       </div>
       <div class="modal-footer justify-content-center border-0">
-        <button
-          type="button"
-          class="btn btn-pink px-4 py-2 rounded-pill"
-          data-bs-dismiss="modal"
-          (click)="hideModal()"
-        >
+        <button type="button" class="btn btn-pink px-4 py-2 rounded-pill" data-bs-dismiss="modal" (click)="hideModal()">
           Cerrar
         </button>
       </div>

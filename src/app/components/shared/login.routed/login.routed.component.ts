@@ -8,6 +8,7 @@ import { IJwt } from '../../../model/jwt.interface';
 import { Router, RouterLink } from '@angular/router';
 import { CryptoService } from '../../../service/crypto.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
 
 declare let bootstrap: any;
 
@@ -15,7 +16,7 @@ declare let bootstrap: any;
   selector: 'app-login.routed',
   templateUrl: './login.routed.component.html',
   styleUrls: ['./login.routed.component.css'],
-  imports: [ ReactiveFormsModule, RouterLink ],
+  imports: [ ReactiveFormsModule, RouterLink, CommonModule ],
   standalone: true,
 })
 export class LoginRoutedComponent implements OnInit {
@@ -24,6 +25,8 @@ export class LoginRoutedComponent implements OnInit {
 
   strMessage: string = '';
   myModal: any;
+
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -62,6 +65,10 @@ export class LoginRoutedComponent implements OnInit {
     } else {
       console.log('Form is invalid.');
     }
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
 
   showModal(mensaje: string) {
