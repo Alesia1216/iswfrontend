@@ -9,6 +9,8 @@ import { CompraService } from '../../../../service/compra.service';
 import { ICompra } from '../../../../model/compra.interface';
 import { DateTime } from 'luxon';
 
+declare let bootstrap: any;
+
 @Component({
   selector: 'app-compra.client.comprar.routed',
   templateUrl: './compra.client.comprar.routed.component.html',
@@ -21,6 +23,9 @@ export class CompraClientComprarRoutedComponent implements OnInit {
   oProducto: IProducto = {} as IProducto;
   oUsuario: IUsuario = {} as IUsuario;
   oCompra: ICompra = {} as ICompra;
+
+  strMessage: string = '';
+  myModal: any;
   
   constructor(    
     private oActivatedRoute: ActivatedRoute,
@@ -75,7 +80,9 @@ export class CompraClientComprarRoutedComponent implements OnInit {
             console.log(err);
           }
         });
-        alert('¡Muchas gracias por tu compra! La artista se pondrá en contacto contigo para gestionar el pago');
+        this.showModal(
+          '¡Muchas gracias por tu compra! La artista se pondrá en contacto contigo para gestionar el pago'
+        );
         this.oRouter.navigate(['/producto/client/plist']);
       },
       error: (err) => {
@@ -83,6 +90,19 @@ export class CompraClientComprarRoutedComponent implements OnInit {
       }
     });
 
+  }
+
+  showModal(mensaje: string) {
+    this.strMessage = mensaje;
+    this.myModal = new bootstrap.Modal(document.getElementById('mimodal'), {
+      keyboard: false,
+    });
+    this.myModal.show();
+  }
+
+  hideModal = () => {
+    this.myModal.hide();
+    this.oRouter.navigate(['/shared/menu']);
   }
 
 }
