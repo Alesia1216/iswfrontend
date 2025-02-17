@@ -1,32 +1,41 @@
 <div class="container mt-4 d-flex align-items-center justify-content-center" style="height: 100vh;">
   <div class="card bg-pink-normal" style="width: 55rem; height: 40rem;">
-    <div class="card-body d-flex flex-column align-items-center justify-content-center text-center" 
-         style="height: 100%;">
+    <div class="card-body d-flex flex-column align-items-center justify-content-center text-center"
+      style="height: 100%;">
       <h5 class="card-title my-5" style="font-size: 2rem; font-weight: bold;">
         {{ (oUsuario.nombre + ' ' + oUsuario.apellido1 + ' ' + oUsuario.apellido2)}}
         @if(oUsuario?.tipousuario?.id == 1){
-          <a href="/usuario/admin/plist" class="btn btn-pink px-1 py-0 mx-2"><i class="bi bi-fingerprint fs-4"></i></a>
+        <a href="/usuario/admin/plist" class="btn btn-pink px-1 py-0 mx-2"><i class="bi bi-fingerprint fs-4"></i></a>
         }
       </h5>
-      <p class="card-text"><i class="bi bi-person-vcard-fill"></i> Tipo de usuario: {{ oUsuario.tipousuario?.descripcion }}</p>
+      <p class="card-text"><i class="bi bi-person-vcard-fill"></i> Tipo de usuario: {{ oUsuario.tipousuario?.descripcion
+        }}</p>
       <p class="card-text"><i class="bi bi-envelope-heart"></i> {{ oUsuario.email }}</p>
       <p class="card-text"><i class="bi bi-telephone"></i> {{ oUsuario.telefono }}</p>
       <p class="card-text"><i class="bi bi-geo-alt"></i> {{ oUsuario.direccion }}</p>
       <div class="d-flex justify-content-center mt-4">
-      <button type="button" class="btn btn-outline-pink icon-15 mx-2" style="font-size: x-large;" [routerLink]="['/compra/historial/', oUsuario.id]">
-        <i class="bi bi-bag-heart-fill"></i>
-        Historial de pedidos
-      </button>  
+        <button type="button" class="btn btn-outline-pink icon-15 mx-2" style="font-size: x-large;"
+          [routerLink]="['/compra/historial/', oUsuario.id]">
+          <i class="bi bi-bag-heart-fill"></i>
+          Historial de pedidos
+        </button>
       </div>
       <div class="d-flex justify-content-center mt-4">
-        <button type="button" class="btn btn-outline-pink icon-15 mx-2" style="font-size: x-large;" [routerLink]="['/usuario/client/edit', oUsuario.id]">
+        <button type="button" class="btn btn-outline-pink icon-15 mx-2" style="font-size: x-large;"
+          [routerLink]="['/usuario/client/edit', oUsuario.id]">
           <i class="bi bi-pencil"></i>
           Editar mi perfil
-        </button> 
+        </button>
+        <button type="button" class="btn btn-outline-pink icon-15 mx-2" style="font-size: x-large;" (click)="changePassword()">
+          <i class="bi bi-asterisk"></i>
+          Contraseña
+        </button>
+      </div>
+      <div class="d-flex justify-content-center mt-4">
         <button type="button" class="btn btn-outline-pink icon-15 mx-2" style="font-size: x-large;" (click)="logout()">
           <i class="bi bi-person-circle"></i>
           Log out
-        </button>  
+        </button>
       </div>
     </div>
   </div>

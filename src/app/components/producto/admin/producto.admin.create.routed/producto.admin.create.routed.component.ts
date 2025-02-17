@@ -83,7 +83,7 @@ export class ProductoAdminCreateRoutedComponent implements OnInit {
 
   hideModal = () => {
     this.myModal.hide();
-    this.oRouter.navigate(['/producto/view/' + this.oProducto?.id]);
+    this.oRouter.navigate(['/producto/admin/view/' + this.oProducto?.id]);
   }
 
   onSubmit() {
