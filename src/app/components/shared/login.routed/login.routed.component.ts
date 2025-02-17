@@ -28,6 +28,8 @@ export class LoginRoutedComponent implements OnInit {
 
   showPassword = false;
 
+  logOkay: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private oLoginService: LoginService,
@@ -52,6 +54,7 @@ export class LoginRoutedComponent implements OnInit {
       this.oLoginService.login(loginData).subscribe({
         next: (response : string) => {
           this.oSessionService.login(response); //notificamos del log in 
+          this.logOkay = true;
           this.showModal(
             'Bienvenid@ a IswArt'
           );
@@ -63,7 +66,9 @@ export class LoginRoutedComponent implements OnInit {
         }
       });
     } else {
-      console.log('Form is invalid.');
+      this.showModal(
+        'Formulario invalido, revisa el email y la contraseña porfavor'
+      );
     }
   }
 
@@ -81,6 +86,9 @@ export class LoginRoutedComponent implements OnInit {
 
   hideModal = () => {
     this.myModal.hide();
-    this.oRouter.navigate(['/shared/menu']);
+    if (this.logOkay) {
+      this.oRouter.navigate(['/shared/menu']);
+    }
   }
+
 }
