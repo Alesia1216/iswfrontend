@@ -14,7 +14,10 @@ import { BotoneraService } from '../../../../service/botonera.service';
 import { SessionService } from '../../../../service/session.service';
 import { UsuarioService } from '../../../../service/usuario.service';
 import { IUsuario } from '../../../../model/usuario.interface';
+import { CarritoService } from '../../../../service/carrito.service';
+import { ICarrito } from '../../../../model/carrito.interface';
 
+declare let bootstrap: any;
 
 @Component({
     selector: 'app-producto.client.plist.routed',
@@ -25,7 +28,8 @@ import { IUsuario } from '../../../../model/usuario.interface';
 export class ProductoClientPlistRoutedComponent implements OnInit {
 
   oPage: IPage<IProducto> | null = null;
-  oUsuario : IUsuario | null = null
+  oUsuario : IUsuario = {} as IUsuario;
+  oCarrito : ICarrito = {} as ICarrito;
   //
   nPage: number = 0; // 0-based server count
   nRpp: number = 10;
@@ -38,12 +42,16 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
   arrBotonera: string[] = [];
   //
   private debounceSubject = new Subject<string>();
+  strMessage: string = '';
+  myModal: any;
+
 
   constructor(
     private oProductoService: ProductoService,
     private oBotoneraService: BotoneraService,
     private oSessionService: SessionService,
     private oUsuarioService : UsuarioService,
+    private oCarritoService: CarritoService,
     private oRouter: Router
   ) { 
     this.debounceSubject.pipe(debounceTime(10)).subscribe((value) => {
@@ -129,5 +137,37 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
   filter(event: KeyboardEvent) {
     this.debounceSubject.next(this.strFiltro);
     console.log(this.strFiltro);
+  }
+
+  addCarrito(oProducto:IProducto){
+    this.oCarrito.usuario = this.oUsuario;
+    this.oCarrito.producto = oProducto;
+    this.oCarrito.cantidad = 1;
+    //TODO modal para elegir cantidad
+    this.oCarritoService.create(this.oCarrito).subscribe({
+      next: (data: ICarrito) => {
+        this.showModal(
+          'Producto añadido al carrito'
+        );
+      },
+      error: (err: HttpErrorResponse) => {
+        this.showModal(
+          'Ha habido un problema. No se ha podido añadir el producto al carrito'
+        );
+        console.log(err);
+      },
+    })
+  }
+
+  showModal(mensaje: string) {
+    this.strMessage = mensaje;
+    this.myModal = new bootstrap.Modal(document.getElementById('mimodal'), {
+      keyboard: false,
+    });
+    this.myModal.show();
+  }
+
+  hideModal = () => {
+    this.myModal.hide();
   }
 }

@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarUnroutedComponent } from './components/shared/navbar.unrouted/navbar.unrouted.component';
 import { pageTransition } from './animations/animation'; // Importa la animación
-import { MenuRoutedComponent } from './components/shared/menu.routed/menu.routed.component';
-
 
 
 @Component({

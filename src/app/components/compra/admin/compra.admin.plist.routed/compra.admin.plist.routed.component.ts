@@ -15,9 +15,9 @@ import { TrimPipe } from '../../../../pipe/trim.pipe';
   selector: 'app-compra.admin.plist.routed',
   templateUrl: './compra.admin.plist.routed.component.html',
   styleUrls: ['./compra.admin.plist.routed.component.css'],
-  standalone: true,
   imports: [CommonModule, FormsModule, TrimPipe],
-  providers: [DatePipe]
+  providers: [DatePipe],
+  standalone: true
 })
 export class CompraAdminPlistRoutedComponent implements OnInit {
 

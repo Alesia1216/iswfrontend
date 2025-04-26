@@ -7,7 +7,8 @@ import { ICompra } from '../../../../model/compra.interface';
   selector: 'app-compra.admin.view.routed',
   templateUrl: './compra.admin.view.routed.component.html',
   styleUrls: ['./compra.admin.view.routed.component.css'],
-  imports: [RouterModule, RouterLink]
+  imports: [RouterModule, RouterLink],
+  standalone: true
   
 })
 export class CompraAdminViewRoutedComponent implements OnInit {

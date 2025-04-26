@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-menu-routed',
-  templateUrl: './menu.routed.component.html',
-  styleUrls: ['./menu.routed.component.css'],
+  selector: 'app-home-routed',
+  templateUrl: './home.routed.component.html',
+  styleUrls: ['./home.routed.component.css'],
   standalone: true,
   imports: [RouterLink]
 })
-export class MenuRoutedComponent implements OnInit {
+export class HomeRoutedComponent implements OnInit {
 
   constructor() { }
 

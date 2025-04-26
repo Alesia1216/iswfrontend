@@ -20,11 +20,11 @@ export class LogoutRoutedComponent implements OnInit {
 
   logout(){
     this.oSessionService.logout();
-    this.oRouter.navigate(['/shared/menu']);
+    this.oRouter.navigate(['/shared/home']);
   }
 
   goMenu(){
-    this.oRouter.navigate(['/shared/menu']);
+    this.oRouter.navigate(['/shared/home']);
   }
 
 }

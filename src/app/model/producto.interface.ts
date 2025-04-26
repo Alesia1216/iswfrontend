@@ -4,5 +4,6 @@ export interface IProducto {
     estilo: string;
     unidades: number;
     precio: number;
-
+    imagen: string;
+    habilitado: boolean;
 }

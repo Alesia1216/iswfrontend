@@ -28,7 +28,7 @@ canActivate(): Observable<boolean> {
                         observer.next(true); 
                     } else {
                         alert('No tienes permiso para acceder a esta sección');
-                        this.oRouter.navigate(['/shared/menu']); 
+                        this.oRouter.navigate(['/shared/home']); 
                         observer.next(false);
                     }
                     observer.complete(); 

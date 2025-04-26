@@ -88,7 +88,7 @@ export class CompraService {
     let URL: string = '';
     URL += this.serverURL;
     URL += '/create';
-    return this.oHttp.put<ICompra>(URL, oCompra);
+    return this.oHttp.put<ICompra>(URL, oCompra);6
   }
 
   update(oCompra: ICompra): Observable<ICompra> {

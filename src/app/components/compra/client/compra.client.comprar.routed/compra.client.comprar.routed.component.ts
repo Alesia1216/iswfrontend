@@ -13,7 +13,8 @@ import { DateTime } from 'luxon';
   selector: 'app-compra.client.comprar.routed',
   templateUrl: './compra.client.comprar.routed.component.html',
   styleUrls: ['./compra.client.comprar.routed.component.css'],
-  imports: [RouterLink]
+  imports: [RouterLink],
+  standalone: true
 })
 export class CompraClientComprarRoutedComponent implements OnInit {
 

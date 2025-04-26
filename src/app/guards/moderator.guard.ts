@@ -30,7 +30,7 @@ canActivate(
                         observer.next(true); // Si es admin, permite el acceso
                     } else {
                         alert('No tienes permiso para acceder a esta sección');
-                        this.oRouter.navigate(['/shared/menu']); // Si no es admin, redirige
+                        this.oRouter.navigate(['/shared/home']); // Si no es admin, redirige
                         observer.next(false);
                     }
                     observer.complete(); // Completa la emisión

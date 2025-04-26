@@ -10,7 +10,8 @@ declare let bootstrap: any;
   selector: 'app-compra.admin.delete.routed',
   templateUrl: './compra.admin.delete.routed.component.html',
   styleUrls: ['./compra.admin.delete.routed.component.css'],
-  imports: [RouterModule]
+  imports: [RouterModule],
+  standalone: true
   
 })
 export class CompraAdminDeleteRoutedComponent implements OnInit {

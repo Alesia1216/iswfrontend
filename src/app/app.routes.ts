@@ -7,7 +7,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { AdminOrClientGuard } from './guards/adminorclient.guard';
 import { ClientGuard } from './guards/client.guard';
 
-import { MenuRoutedComponent } from './components/shared/menu.routed/menu.routed.component';
+import { HomeRoutedComponent } from './components/shared/home.routed/home.routed.component';
 import { LoginRoutedComponent } from './components/shared/login.routed/login.routed.component';
 import { LogoutRoutedComponent } from './components/shared/logout.routed/logout.routed.component';
 import { AboutmeRoutedComponent } from './components/shared/aboutme.routed/aboutme.routed.component';
@@ -55,8 +55,8 @@ import { TipousuarioAdminViewRoutedComponent } from './components/tipousuario/ti
 
 export const routes: Routes = [
 
-    { path: '', redirectTo: '/shared/menu', pathMatch: 'full'}, 
-    {path: 'shared/menu', component: MenuRoutedComponent },
+    { path: '', redirectTo: '/shared/home', pathMatch: 'full'}, 
+    {path: 'shared/home', component: HomeRoutedComponent },
 
     {path: 'login', component: LoginRoutedComponent},
     {path: 'logout', component: LogoutRoutedComponent},

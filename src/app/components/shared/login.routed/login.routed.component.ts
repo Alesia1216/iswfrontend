@@ -74,6 +74,6 @@ export class LoginRoutedComponent implements OnInit {
 
   hideModal = () => {
     this.myModal.hide();
-    this.oRouter.navigate(['/shared/menu']);
+    this.oRouter.navigate(['/shared/home']);
   }
 }
