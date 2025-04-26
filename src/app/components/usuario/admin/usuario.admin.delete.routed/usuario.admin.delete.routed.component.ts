@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IUsuario } from '../../../../model/usuario.interface';
 import { UsuarioService } from '../../../../service/usuario.service';
 import { TrimPipe } from '../../../../pipe/trim.pipe';
+import { SessionService } from '../../../../service/session.service';
 
 
 declare let bootstrap: any;
@@ -24,7 +25,8 @@ export class UsuarioAdminDeleteRoutedComponent implements OnInit {
   constructor(
     private oUsuarioService: UsuarioService,
     private oActivatedRoute: ActivatedRoute,
-    private oRouter: Router
+    private oRouter: Router,
+    private oSessionService: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -48,11 +50,13 @@ export class UsuarioAdminDeleteRoutedComponent implements OnInit {
   }
 
   delete(): void {
-    this.oUsuarioService.delete(this.oUsuario!.id).subscribe({
-      next: (data) => {
-        this.showModal(
-          'Usuario ' + this.oUsuario!.nombre + ' ha sido borrado'
-        );
+    if (!this.oUsuario) return;
+    this.oUsuarioService.delete(this.oUsuario.id).subscribe({
+      next: () => {
+        this.showModal('Usuario ' + this.oUsuario!.nombre + ' ha sido borrado');
+        if (this.oSessionService.getSessionEmail() === this.oUsuario!.email) {
+          this.oSessionService.logout();
+        }
       },
       error: (err: HttpErrorResponse) => {
         this.showModal('Error al borrar el usuario');

@@ -33,6 +33,8 @@ export class UsuarioClientCreateRoutedComponent implements OnInit {
   oUsuario: IUsuario | null = null;
   strMessage: string = '';
 
+  isCreated: boolean = false;
+
   myModal: any;
 
   form: FormGroup = new FormGroup({});
@@ -111,7 +113,9 @@ export class UsuarioClientCreateRoutedComponent implements OnInit {
 
   hideModal = () => {
     this.myModal.hide();
-    this.oRouter.navigate(['/usuario/admin/view/' + this.oUsuario?.id]);
+    if (this.isCreated){
+      this.oRouter.navigate(['/login']);
+    }
   }
 
   onSubmit() {
@@ -125,6 +129,7 @@ export class UsuarioClientCreateRoutedComponent implements OnInit {
       this.oUsuarioService.create(formValue).subscribe({
         next: (oUsuario: IUsuario) => {
           this.oUsuario = oUsuario;
+          this.isCreated = true;
           this.showModal('Usuario ' + this.oUsuario.nombre + ' creado');
         },
         error: (err: HttpErrorResponse) => {

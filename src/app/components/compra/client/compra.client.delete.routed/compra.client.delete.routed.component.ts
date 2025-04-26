@@ -83,7 +83,7 @@ export class CompraClientDeleteRoutedComponent implements OnInit {
 
   hideModal = () => {
     this.myModal.hide();
-    this.oRouter.navigate(['/shared/menu']);
+    this.oRouter.navigate(['/compra/historial/' + this.oCompra.usuario.id]);
   }
 
 }

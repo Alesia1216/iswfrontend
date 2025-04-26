@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col text-center">
       <h2 class="my-2">
-        <i class="bi bi-plus-square"></i>
-        Nuevo usuario
+        <i class="bi bi-pencil"></i>
+          Editar usuario
         <i class="bi bi-person-circle"></i>
       </h2>
       <form [formGroup]="oUsuarioForm!" (ngSubmit)="onSubmit()" novalidate>
@@ -88,22 +88,6 @@
         </div>
         <div class="row mt-4">
           <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input
-              matInput
-              formControlName="password"
-              placeholder="Escribe el password del usuario"
-            />
-            <mat-hint align="start">De mínimo 1 caracter</mat-hint>
-            @if (oUsuarioForm?.get('password')?.hasError('required')){
-              <mat-error> El password es obligatorio </mat-error>
-            } @if (oUsuarioForm?.get('password')?.hasError('minlength')){
-              <mat-error> Debe ser mas largo </mat-error>
-            } 
-          </mat-form-field>
-        </div>
-        <div class="row mt-4">
-          <mat-form-field>
             <mat-label>Telefono</mat-label>
             <input
               matInput
@@ -183,10 +167,10 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">IswArt</h5>
+  <div class="modal-dialog modal-dialog">
+    <div class="modal-content rounded-4 shadow-lg border-0">
+      <div class="modal-header text-center border-0">
+        <h5 class="modal-title w-100 text-pink fw-bold" id="exampleModalLabel">IswArt</h5>
         <button
           type="button"
           class="btn-close"
@@ -195,13 +179,13 @@
           (click)="hideModal()"
         ></button>
       </div>
-      <div class="modal-body">
-        <p>{{ strMessage }}</p>
+      <div class="modal-body text-center py-4">
+        <p class="fs-5 text-muted">{{ strMessage }}</p>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer justify-content-center border-0">
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-pink px-4 py-2 rounded-pill"
           data-bs-dismiss="modal"
           (click)="hideModal()"
         >
