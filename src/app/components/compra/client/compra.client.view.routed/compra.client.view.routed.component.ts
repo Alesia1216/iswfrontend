@@ -13,11 +13,9 @@ import { ICompra } from '../../../../model/compra.interface';
 })
 export class CompraClientViewRoutedComponent implements OnInit {
 
- id: number = 0;
+  id: number = 0;
   route: string = '';
   oCompra: ICompra = {} as ICompra;
-  numeroApuntes: number = 0;
-  numeroApuntesAbiertos: number = 0;
 
   constructor(
     private oActivatedRoute: ActivatedRoute, 

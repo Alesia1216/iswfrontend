@@ -6,17 +6,17 @@
         ¿Va a eliminar este pedido?
       </h5>
       <h6 class="card-subtitle mb-4 text-muted" style="font-size: 1.5rem;">
-       Producto {{ oCompra?.producto?.descripcion }} comprado por 
-       {{oCompra?.usuario?.nombre + ' ' + oCompra?.usuario?.apellido1+ ' ' + oCompra?.usuario?.apellido2}}
+       Producto {{ oCompra.producto.descripcion }} comprado por 
+       {{oCompra.usuario.nombre + ' ' + oCompra.usuario.apellido1+ ' ' + oCompra.usuario.apellido2}}
       </h6>
       <h6 class="card-subtitle mb-4 text-muted" style="font-size: 1.5rem;">
-        Compra realizada el {{ oCompra?.fecha ? formatDate(oCompra.fecha.toString()) : 'Fecha no disponible' }}
+        Compra realizada el {{ oCompra.fecha ? formatDate(oCompra.fecha.toString()) : 'Fecha no disponible' }}
       </h6>
       <p class="card-text" style="font-size: 1.2rem;">
-        Este producto es del estilo {{ oCompra?.producto?.estilo }}
+        Este producto es del estilo {{ oCompra.producto.estilo }}
       </p>
       <p class="card-text" style="font-size: 1.2rem;">
-        Comprado por {{oCompra?.producto?.precio}}€
+        Comprado por {{oCompra.producto.precio}}€
       </p>
       <button class="btn btn-outline-pink" (click)="delete()">Eliminar pedido</button>
     </div>

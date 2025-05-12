@@ -46,6 +46,13 @@ import { CompraClientViewRoutedComponent } from './components/compra/client/comp
 import { CompraClientDeleteRoutedComponent } from './components/compra/client/compra.client.delete.routed/compra.client.delete.routed.component';
 
 
+import { CarritoClientPlistRoutedComponent } from './components/carrito/client/carrito.client.plist.routed/carrito.client.plist.routed.component';
+import { CarritoClientViewRoutedComponent } from './components/carrito/client/carrito.client.view.routed/carrito.client.view.routed.component';
+
+import { CarritoAdminPlistRoutedComponent } from './components/carrito/admin/carrito.admin.plist.routed/carrito.admin.plist.routed.component';
+import { CarritoAdminViewRoutedComponent } from './components/carrito/admin/carrito.admin.view.routed/carrito.admin.view.routed.component';
+
+
 import { TipousuarioAdminCreateRoutedComponent } from './components/tipousuario/tipousuario.admin.create.routed/tipousuario.admin.create.routed.component';
 import { TipousuarioAdminEditRoutedComponent } from './components/tipousuario/tipousuario.admin.edit.routed/tipousuario.admin.edit.routed.component';
 import { TipousuarioAdminPlistRoutedComponent } from './components/tipousuario/tipousuario.admin.plist.routed/tipousuario.admin.plist.routed.component';
@@ -53,8 +60,9 @@ import { TipousuarioAdminDeleteRoutedComponent } from './components/tipousuario/
 import { TipousuarioAdminViewRoutedComponent } from './components/tipousuario/tipousuario.admin.view.routed/tipousuario.admin.view.routed.component';
 
 
-export const routes: Routes = [
 
+export const routes: Routes = [
+    //shared components
     { path: '', redirectTo: '/shared/home', pathMatch: 'full'}, 
     {path: 'shared/home', component: HomeRoutedComponent },
 
@@ -63,7 +71,7 @@ export const routes: Routes = [
     {path: 'aboutme', component: AboutmeRoutedComponent},
     {path: 'contact', component: ContactRoutedComponent},
 
-
+    //usuario
     {path: 'usuario/admin/create', component: UsuarioAdminCreateRoutedComponent, canActivate: [AdminGuard]},
     {path: 'usuario/admin/edit/:id', component: UsuarioAdminEditRoutedComponent, canActivate: [AdminGuard]},
     {path: 'usuario/admin/plist', component: UsuarioAdminPlistRoutedComponent, canActivate: [AdminGuard]},
@@ -74,7 +82,7 @@ export const routes: Routes = [
     {path: 'usuario/client/create', component: UsuarioClientCreateRoutedComponent},
     {path: 'usuario/client/edit/:id', component: UsuarioClientEditRoutedComponent, canActivate: [AdminOrClientGuard]},
 
-    
+    //producto
     {path: 'producto/admin/create', component: ProductoAdminCreateRoutedComponent, canActivate: [AdminGuard]},
     {path: 'producto/admin/edit/:id', component: ProductoAdminEditRoutedComponent, canActivate: [AdminGuard]},
     {path: 'producto/admin/plist', component: ProductoAdminPlistRoutedComponent, canActivate: [AdminGuard]},
@@ -84,14 +92,21 @@ export const routes: Routes = [
     {path: 'producto/client/plist', component: ProductoClientPlistRoutedComponent, canActivate: [AdminOrClientGuard]},
     {path: 'producto/client/view/:id', component: ProductoClientViewRoutedComponent, canActivate: [AdminOrClientGuard]},
 
-
+    //tipousuario
     {path: 'tipousuario/admin/create', component: TipousuarioAdminCreateRoutedComponent, canActivate: [AdminGuard]},
     {path: 'tipousuario/admin/edit/:id', component: TipousuarioAdminEditRoutedComponent, canActivate: [AdminGuard]},
     {path: 'tipousuario/admin/plist', component: TipousuarioAdminPlistRoutedComponent, canActivate: [AdminGuard]},
     {path: 'tipousuario/admin/delete/:id', component: TipousuarioAdminDeleteRoutedComponent, canActivate: [AdminGuard]},
     {path: 'tipousuario/admin/view/:id', component: TipousuarioAdminViewRoutedComponent, canActivate: [AdminGuard]},
 
+    //carrito
+    {path: 'carrito/client/plist', component: CarritoClientPlistRoutedComponent, canActivate: [AdminOrClientGuard]},
+    {path: 'carrito/client/view/:id', component: CarritoClientViewRoutedComponent, canActivate: [AdminOrClientGuard]},
 
+    {path: 'carrito/admin/plist', component: CarritoAdminPlistRoutedComponent, canActivate: [AdminGuard]},
+    {path: 'carrito/admin/view/:id', component: CarritoAdminViewRoutedComponent, canActivate: [AdminGuard]},
+
+    //compra TODO
     {path: 'compra/admin/plist', component: CompraAdminPlistRoutedComponent, canActivate: [AdminGuard]},
     {path: 'compra/admin/view/:id', component: CompraAdminViewRoutedComponent, canActivate: [AdminGuard]},
     {path: 'compra/admin/delete/:id', component: CompraAdminDeleteRoutedComponent, canActivate: [AdminGuard]},

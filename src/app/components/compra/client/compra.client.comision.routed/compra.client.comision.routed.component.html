@@ -11,12 +11,12 @@
         placeholder="Escribe tus pensamientos aquí..."
         rows="5"
       ></textarea>
-      <mat-error *ngIf="form.get('description')?.hasError('required')">
-        La descripción es obligatoria.
-      </mat-error>
-      <mat-error *ngIf="form.get('description')?.hasError('minlength')">
-        La descripción debe tener al menos 5 caracteres.
-      </mat-error>
+      @if (form.get('description')?.hasError('required')) {
+        <mat-error>La descripción es obligatoria.</mat-error>
+      }
+      @if (form.get('description')?.hasError('minlength')) {
+        <mat-error>La descripción debe tener al menos 5 caracteres.</mat-error>
+      }
     </mat-form-field>
 
     <!-- Botón para añadir imagen de referencia -->

@@ -67,6 +67,12 @@ export class CarritoService {
     return this.oHttp.delete(URL);
   }
 
+  deleteAllByUser(id: number) {
+    let URL: string = this.serverURL;
+    URL += '/deleteAllByUser/' + id;
+    return this.oHttp.delete(URL);
+  }
+
   deleteAll() {
     let URL: string = this.serverURL;
     URL += '/deleteAll';

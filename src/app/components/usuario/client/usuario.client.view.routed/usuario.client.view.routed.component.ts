@@ -52,5 +52,6 @@ export class UsuarioClientViewRoutedComponent implements OnInit {
 
   changePassword() {
     this.oRouter.navigate(['/logout']);
+    //TODO
   }
 }

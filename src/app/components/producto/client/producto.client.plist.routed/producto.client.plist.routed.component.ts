@@ -30,6 +30,8 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
   oPage: IPage<IProducto> | null = null;
   oUsuario : IUsuario = {} as IUsuario;
   oCarrito : ICarrito = {} as ICarrito;
+  productoSeleccionado: IProducto  = {} as IProducto;
+  cantidadSeleccionada : number = 0;
   //
   nPage: number = 0; // 0-based server count
   nRpp: number = 10;
@@ -44,6 +46,8 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
   private debounceSubject = new Subject<string>();
   strMessage: string = '';
   myModal: any;
+  mensajeModal: any;
+
 
 
   constructor(
@@ -139,35 +143,47 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
     console.log(this.strFiltro);
   }
 
-  addCarrito(oProducto:IProducto){
+  addCarrito(){
+    if (!this.productoSeleccionado) return;
+
     this.oCarrito.usuario = this.oUsuario;
-    this.oCarrito.producto = oProducto;
-    this.oCarrito.cantidad = 1;
-    //TODO modal para elegir cantidad
+    this.oCarrito.producto = this.productoSeleccionado;
+    this.oCarrito.cantidad = this.cantidadSeleccionada;
+
     this.oCarritoService.create(this.oCarrito).subscribe({
       next: (data: ICarrito) => {
-        this.showModal(
-          'Producto añadido al carrito'
-        );
+        this.strMessage = 'Producto añadido con éxito';
+        this.hideModal(true);
       },
       error: (err: HttpErrorResponse) => {
-        this.showModal(
-          'Ha habido un problema. No se ha podido añadir el producto al carrito'
-        );
-        console.log(err);
+        this.strMessage = 'Fallo al añadir el producto';
+        this.hideModal(true);
       },
     })
+    this.cantidadSeleccionada = 0;
   }
 
-  showModal(mensaje: string) {
-    this.strMessage = mensaje;
-    this.myModal = new bootstrap.Modal(document.getElementById('mimodal'), {
+  showModal() {
+    this.myModal = new bootstrap.Modal(document.getElementById('cantidadModal'), {
       keyboard: false,
     });
     this.myModal.show();
   }
 
-  hideModal = () => {
+  abrirModalCantidad(oProducto: IProducto) {
+    this.productoSeleccionado = oProducto;
+    this.showModal();
+  }
+
+  // showMensajeModal(mensaje: string) {
+  //   this.strMessage = mensaje;
+  //   this.mensajeModal = new bootstrap.Modal(document.getElementById('mimodal'), {
+  //     keyboard: false,
+  //   });
+  //   this.myModal.show();
+  // }
+
+  hideModal = (abrirMensaje: boolean = false) => {
     this.myModal.hide();
   }
 }
