@@ -53,6 +53,9 @@ import { CarritoAdminPlistRoutedComponent } from './components/carrito/admin/car
 import { CarritoAdminViewRoutedComponent } from './components/carrito/admin/carrito.admin.view.routed/carrito.admin.view.routed.component';
 
 
+import { FacturaClientPlistRoutedComponent } from './components/factura/client/factura.client.plist.routed/factura.client.plist.routed.component';
+
+
 import { TipousuarioAdminCreateRoutedComponent } from './components/tipousuario/tipousuario.admin.create.routed/tipousuario.admin.create.routed.component';
 import { TipousuarioAdminEditRoutedComponent } from './components/tipousuario/tipousuario.admin.edit.routed/tipousuario.admin.edit.routed.component';
 import { TipousuarioAdminPlistRoutedComponent } from './components/tipousuario/tipousuario.admin.plist.routed/tipousuario.admin.plist.routed.component';
@@ -105,6 +108,10 @@ export const routes: Routes = [
 
     {path: 'carrito/admin/plist', component: CarritoAdminPlistRoutedComponent, canActivate: [AdminGuard]},
     {path: 'carrito/admin/view/:id', component: CarritoAdminViewRoutedComponent, canActivate: [AdminGuard]},
+
+    //factura
+    {path: 'factura/client/plist/:id', component: FacturaClientPlistRoutedComponent, canActivate: [AdminOrClientGuard]},
+
 
     //compra TODO
     {path: 'compra/admin/plist', component: CompraAdminPlistRoutedComponent, canActivate: [AdminGuard]},

@@ -79,6 +79,7 @@
                 <tr>
                   <th scope="col">Producto</th>
                   <th scope="col">Cantidad</th>
+                  <th scope="col">Precio del producto</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -88,6 +89,7 @@
               <tr  (click)="view(carrito)" class="clickable-row">
                 <th>{{ carrito.producto.descripcion | trim:15}}</th>
                 <th>{{ carrito.cantidad }}</th>
+                <td>{{ carrito.producto.precio }}</td>
                 <td>
                   <a class="btn-pink" (click)="delete(carrito); $event.stopPropagation()">
                     <i class="bi bi-x-circle"></i>
@@ -95,10 +97,14 @@
                 </td>
               </tr>
             }
+            <tr class="fw-bold">
+              <td colspan="2" class="text-end">Total:</td>
+              <td colspan="2">{{ getTotalCarrito() | number: '1.2-2' }} €</td>
+            </tr>
             </tbody>
           </table>
           <div class="botones">
-            <button class="btn btn-outline-pink icon-15" routerLink="/comprar">
+            <button class="btn btn-outline-pink icon-15" (click)="comprar()">
               <i class="bi bi-cart-check"></i>
               Comprar
           </button>

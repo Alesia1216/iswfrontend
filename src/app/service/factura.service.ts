@@ -43,6 +43,39 @@ serverURL: string = serverURL + '/factura';
     return this.oHttp.get<IPage<IFactura>>(URL, httpOptions);
   }
 
+  getHistorial(
+      id_usuario: number,
+      page: number,
+      size: number,
+      field: string,
+      dir: string,
+      filtro: string
+    ): Observable<IPage<IFactura>> {
+      let URL: string = '';
+      URL += this.serverURL;
+      URL += '/getHistorial/' + id_usuario;
+      if (!page) {
+        page = 0;
+      }
+      URL += '?page=' + page;
+      if (!size) {
+        size = 10;
+      }
+      URL += '&size=' + size;
+      if (field) {
+        URL += '&sort=' + field;
+        if (dir === 'asc') {
+          URL += ',asc';
+        } else {
+          URL += ',desc';
+        }
+      }
+      if (filtro) {
+        URL += '&filter=' + filtro;
+      }
+      return this.oHttp.get<IPage<IFactura>>(URL, httpOptions);
+    }
+
   get(id: number): Observable<IFactura> {
     let URL: string = '';
     URL += this.serverURL;

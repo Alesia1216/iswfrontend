@@ -43,6 +43,11 @@ serverURL: string = serverURL + '/lineafactura';
     return this.oHttp.get<IPage<ILineafactura>>(URL, httpOptions);
   }
 
+  getByFacturaId(facturaId: number): Observable<ILineafactura[]> {
+  const URL = `${this.serverURL}/factura/${facturaId}`;
+  return this.oHttp.get<ILineafactura[]>(URL, httpOptions);
+}
+
   get(id: number): Observable<ILineafactura> {
     let URL: string = '';
     URL += this.serverURL;
