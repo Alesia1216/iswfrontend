@@ -73,7 +73,7 @@
 
       <div class="d-flex flex-direction-row flex-wrap justify-content-center">
         @for (factura of oPage?.content; track factura.id) {
-        <div class="card m-2" style="width: 80%" (click)="goToLineasFactura(factura)">
+        <div class="card m-2" style="width: 100%" (click)="view(factura)">
           <div class="card-body bg-pink">
             <h4 class="card-title">
               {{ formatDate(factura.fecha.toString()) }}

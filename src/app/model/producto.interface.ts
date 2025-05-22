@@ -4,6 +4,16 @@ export interface IProducto {
     estilo: string;
     unidades: number;
     precio: number;
-    imagen: string;
     habilitado: boolean;
+    imagen: Blob;
+}
+
+export interface ProductoDTO{
+  id: number;
+  descripcion: string;
+  estilo: string;
+  unidades: number;
+  precio: number;
+  habilitado: boolean;
+  imagenBase64: string;
 }

@@ -113,8 +113,8 @@ precargarTotales() {
    }
  
  
-    view(oCompra: IFactura) {
-      // this.oRouter.navigate(['/compra/view/', oCompra.id]);
+    view(oFactura: IFactura) {
+      this.oRouter.navigate(['/factura/client/view/', oFactura.id]);
     }
  
     delete(oCompra: IFactura) {
@@ -160,10 +160,6 @@ precargarTotales() {
      console.log(this.strFiltro);
    }
 
-
-  goToLineasFactura(factura: IFactura) {
-    this.oRouter.navigate(['/lineafactura/list', factura.id]);
-  }
   
    generarInforme() {
     //  if (!this.oPage || !this.oPage.content) {

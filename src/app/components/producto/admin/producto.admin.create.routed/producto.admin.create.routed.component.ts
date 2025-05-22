@@ -3,6 +3,7 @@ import { Router, RouterModule} from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
 import {
   FormControl,
   FormGroup,  
@@ -20,7 +21,7 @@ declare let bootstrap: any;
     selector: 'app-producto.admin.create.routed',
     templateUrl: './producto.admin.create.routed.component.html',
     styleUrls: ['./producto.admin.create.routed.component.css'],
-    imports: [RouterModule, MatFormFieldModule, MatInputModule, MatSelectModule, ReactiveFormsModule, CommonModule]
+    imports: [RouterModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatRadioModule,ReactiveFormsModule, CommonModule]
 })
 
 export class ProductoAdminCreateRoutedComponent implements OnInit {
@@ -29,6 +30,7 @@ export class ProductoAdminCreateRoutedComponent implements OnInit {
   oProductoForm: FormGroup | undefined = undefined;
   oProducto: IProducto | null = null;
   strMessage: string = '';
+  isFileSelected = false;
 
   myModal: any;
 
@@ -58,6 +60,8 @@ export class ProductoAdminCreateRoutedComponent implements OnInit {
       ]),
       unidades: new FormControl('', [Validators.required, Validators.min(1)]),
       precio: new FormControl('', [Validators.required, Validators.min(1)]),
+      habilitado: new FormControl('',  [Validators.required]),
+      imagen: new FormControl(null),
     });
   }
 
@@ -66,7 +70,18 @@ export class ProductoAdminCreateRoutedComponent implements OnInit {
     this.oProductoForm?.controls['estilo'].setValue('');
     this.oProductoForm?.controls['unidades'].setValue('');
     this.oProductoForm?.controls['precio'].setValue('');
+    this.oProductoForm?.controls['habilitado'].setValue('');
   }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const blob = new Blob([file], { type: file.type });
+      this.oProductoForm?.controls['imagen'].setValue(blob);
+      this.isFileSelected = true;
+    }
+    console.log(this.oProductoForm?.value);
+}
 
   showModal(mensaje: string) {
     this.strMessage = mensaje;
@@ -86,12 +101,29 @@ export class ProductoAdminCreateRoutedComponent implements OnInit {
     this.oRouter.navigate(['/producto/admin/view/' + this.oProducto?.id]);
   }
 
+  // onSubmit() {
+  //   if (this.oProductoForm?.invalid) {
+  //     this.showModal('Formulario inválido');
+  //     return;
+  //   } else {      
+  //     this.oProductoService.create(this.oProductoForm?.value).subscribe({
+  //       next: (oProducto: IProducto) => {
+  //         this.oProducto = oProducto;
+  //         this.showModal('Producto: ' + this.oProducto.descripcion + ' creado');
+  //       },
+  //       error: (err: HttpErrorResponse) => {
+  //         this.showModal('Error al crear el producto: ' + err.error.message);
+  //       },
+  //     });
+  //   }
+  // }
+
   onSubmit() {
     if (this.oProductoForm?.invalid) {
       this.showModal('Formulario inválido');
       return;
     } else {      
-      this.oProductoService.create(this.oProductoForm?.value).subscribe({
+      this.oProductoService.createImagen(this.oProductoForm?.value).subscribe({
         next: (oProducto: IProducto) => {
           this.oProducto = oProducto;
           this.showModal('Producto: ' + this.oProducto.descripcion + ' creado');

@@ -58,6 +58,20 @@ export class ProductoService {
     return this.oHttp.put<IProducto>(URL, oProducto);
   }
 
+    createImagen(oProducto: IProducto): Observable<IProducto> {
+    let URL: string = '';
+    URL += this.serverURL;
+    URL += '/createImagen';
+    const formData = new FormData();
+      formData.append('descripcion', oProducto.descripcion);
+      formData.append('estilo', oProducto.estilo);
+      formData.append('unidades', oProducto.unidades.toString());
+      formData.append('precio', oProducto.precio.toString());
+      formData.append('habilitado', oProducto.habilitado.toString());
+      formData.append('imagen', oProducto.imagen as Blob);
+    return this.oHttp.put<IProducto>(URL, formData);
+  }
+
   update(oProducto: IProducto): Observable<IProducto> {
     let URL: string = '';
     URL += this.serverURL;

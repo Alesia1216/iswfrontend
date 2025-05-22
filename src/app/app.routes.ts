@@ -61,6 +61,7 @@ import { TipousuarioAdminEditRoutedComponent } from './components/tipousuario/ti
 import { TipousuarioAdminPlistRoutedComponent } from './components/tipousuario/tipousuario.admin.plist.routed/tipousuario.admin.plist.routed.component';
 import { TipousuarioAdminDeleteRoutedComponent } from './components/tipousuario/tipousuario.admin.delete.routed/tipousuario.admin.delete.routed.component';
 import { TipousuarioAdminViewRoutedComponent } from './components/tipousuario/tipousuario.admin.view.routed/tipousuario.admin.view.routed.component';
+import { FacturaClientViewRoutedComponent } from './components/factura/client/factura.client.view.routed/factura.client.view.routed.component';
 
 
 
@@ -111,7 +112,7 @@ export const routes: Routes = [
 
     //factura
     {path: 'factura/client/plist/:id', component: FacturaClientPlistRoutedComponent, canActivate: [AdminOrClientGuard]},
-
+    {path: 'factura/client/view/:id', component: FacturaClientViewRoutedComponent, canActivate: [AdminOrClientGuard]},
 
     //compra TODO
     {path: 'compra/admin/plist', component: CompraAdminPlistRoutedComponent, canActivate: [AdminGuard]},

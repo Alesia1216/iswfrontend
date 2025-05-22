@@ -1,12 +1,12 @@
-<div class="container mt-5 d-flex align-items-center justify-content-center">
-  <div class="row">
-    <div class="col text-center">
+<div class="container mt-5 d-flex align-items-center justify-content-center ">
+  <div class="row w-100 justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 text-center">
       <h2 class="my-2">
         <i class="bi bi-plus-square"></i>
         Nuevo producto
         <i class="bi bi-palette"></i>
       </h2>
-      <form [formGroup]="oProductoForm!" (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="oProductoForm!" (ngSubmit)="onSubmit()" novalidate >
         <div class="row mt-4">
           <mat-form-field>
             <mat-label>Descripcion</mat-label>
@@ -51,11 +51,29 @@
           <mat-form-field>
             <mat-label>Precio</mat-label>
             <input matInput formControlName="precio" placeholder="Escribe el precio del producto" required />
-            <mat-hint align="start">Debe ser un numero decimar</mat-hint>
+            <!-- <mat-hint align="start">Debe ser un numero decimar</mat-hint>
             @if (oProductoForm?.get('precio')?.hasError('required')) {
             <mat-error>Debes introducir el precio</mat-error>
-            }
+            } -->
           </mat-form-field>
+        </div>
+        <br />
+         <div class="row mt-4">
+
+            <mat-label>Habilitado</mat-label>
+             <mat-radio-group formControlName="habilitado">
+              <mat-radio-button value="1">Si</mat-radio-button>
+              <mat-radio-button value="0">No</mat-radio-button>
+            </mat-radio-group>
+            <mat-hint align="start">Indica si el producto va a estar habilitado</mat-hint>
+            @if (oProductoForm?.get('habilitado')?.hasError('required')) {
+            <mat-error>Debes indicar si el producto va a estar habilitado</mat-error>
+            }
+        </div>
+        <br />
+          <div class="row mt-4 d-flex align-items-center justify-content-center">
+          <mat-label>Imagen</mat-label>
+          <input style="width: fit-content;" id="file-input" (change)="onFileSelected($event)" type="file" class="hidden" required/>
         </div>
         <br />
         <button class="btn btn-warning mt-4 mx-1" [routerLink]="['/producto', 'admin', 'plist']">
