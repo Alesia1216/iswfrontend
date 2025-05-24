@@ -96,27 +96,14 @@ export class ProductoAdminCreateRoutedComponent implements OnInit {
     return false;
   }
 
+  goBack(){
+    this.oRouter.navigate(['/producto/admin/plist']);
+  }
+
   hideModal = () => {
     this.myModal.hide();
     this.oRouter.navigate(['/producto/admin/view/' + this.oProducto?.id]);
   }
-
-  // onSubmit() {
-  //   if (this.oProductoForm?.invalid) {
-  //     this.showModal('Formulario inválido');
-  //     return;
-  //   } else {      
-  //     this.oProductoService.create(this.oProductoForm?.value).subscribe({
-  //       next: (oProducto: IProducto) => {
-  //         this.oProducto = oProducto;
-  //         this.showModal('Producto: ' + this.oProducto.descripcion + ' creado');
-  //       },
-  //       error: (err: HttpErrorResponse) => {
-  //         this.showModal('Error al crear el producto: ' + err.error.message);
-  //       },
-  //     });
-  //   }
-  // }
 
   onSubmit() {
     if (this.oProductoForm?.invalid) {

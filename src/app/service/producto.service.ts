@@ -51,6 +51,13 @@ export class ProductoService {
     return this.oHttp.get<IProducto>(URL);
   }
 
+   getImagen(id: number): Observable<Blob> {
+    let URL: string = '';
+    URL += this.serverURL;
+    URL += '/get/' + id + '/imagen';
+    return this.oHttp.get(URL, { responseType: 'blob' });
+  }
+
   create(oProducto: IProducto): Observable<IProducto> {
     let URL: string = '';
     URL += this.serverURL;
@@ -78,6 +85,22 @@ export class ProductoService {
     URL += '/update';
     return this.oHttp.post<IProducto>(URL, oProducto);
   }
+
+  updateImagen(oProducto: IProducto): Observable<IProducto> {
+    let URL: string = '';
+    URL += this.serverURL;
+    URL += '/updateImagen';
+     const formData = new FormData();
+      formData.append('id', oProducto.id.toString());
+      formData.append('descripcion', oProducto.descripcion);
+      formData.append('estilo', oProducto.estilo);
+      formData.append('unidades', oProducto.unidades.toString());
+      formData.append('precio', oProducto.precio.toString());
+      formData.append('habilitado', oProducto.habilitado.toString());
+      formData.append('imagen', oProducto.imagen as Blob);
+    return this.oHttp.post<IProducto>(URL, formData);
+  }
+
 
   updateStock(oProducto: IProducto): Observable<IProducto> {
     let URL: string = '';

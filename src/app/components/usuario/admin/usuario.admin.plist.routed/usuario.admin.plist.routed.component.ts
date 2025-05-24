@@ -10,6 +10,7 @@ import { IPage } from '../../../../model/model.interface';
 import { TrimPipe } from '../../../../pipe/trim.pipe';
 import { BotoneraService } from '../../../../service/botonera.service';
 import { IUsuario } from '../../../../model/usuario.interface';
+import { SessionService } from '../../../../service/session.service';
 
 @Component({
     selector: 'app-usuario.admin.plist.routed',
@@ -20,7 +21,6 @@ import { IUsuario } from '../../../../model/usuario.interface';
 })
 export class UsuarioAdminPlistRoutedComponent implements OnInit {
 
- 
   oPage: IPage<IUsuario> | null = null;
   //
   nPage: number = 0; // 0-based server count
@@ -33,12 +33,15 @@ export class UsuarioAdminPlistRoutedComponent implements OnInit {
   //
   arrBotonera: string[] = [];
   //
+  idUsuarioSession : number = 0
+  //
   private debounceSubject = new Subject<string>();
 
   constructor(
 
     private oUsuarioService: UsuarioService,
     private oBotoneraService: BotoneraService,
+    private oSessionService : SessionService,
     private oRouter: Router
   ) { 
     this.debounceSubject.pipe(debounceTime(10)).subscribe((value) => {
@@ -49,6 +52,16 @@ export class UsuarioAdminPlistRoutedComponent implements OnInit {
 
   ngOnInit() {
     this.getPage();
+
+    const email = this.oSessionService.getSessionEmail();
+    this.oUsuarioService.getbyEmail(email).subscribe({
+      next: (data: IUsuario) => {
+        this.idUsuarioSession = data.id;
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log(err);
+      },
+    })
   }
 
   getPage() {
@@ -78,6 +91,10 @@ export class UsuarioAdminPlistRoutedComponent implements OnInit {
 
    remove(oUsuario: IUsuario) {
      this.oRouter.navigate(['/usuario/admin/delete', oUsuario.id]);
+   }
+
+   goBack(){
+    this.oRouter.navigate(['/usuario/client/view', this.idUsuarioSession]);
    }
 
   goToPage(p: number) {

@@ -1,155 +1,165 @@
-  /*Botones*/
+  /*Variables*/
+  :root {
+  --pink-light: #fbcfe8;     /* Rosa claro */
+  --pink-normal: #f472b6;    /* Rosa base */
+  --pink-dark: #e0539c;      /* Rosa oscuro */
+  --white: #ffffff;
+  --grey-dark: darkgray;
+}
+  
+  
+ /* Botones */
 
-  .btn-outline-pink {
-    color: #f472b6;
-    border-color: #f472b6;
-    position: relative;
-    overflow: hidden;
-    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
-  }
-  
-  .btn-outline-pink::after {
-    content: "";
-    position: absolute;
-    bottom: 5px;
-    left: 50%;
-    width: 0%;
-    height: 2px;
-    background-color: #f472b6; /* Color inicial */
-    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
-    transform: translateX(-50%); /* Centra la línea */
-  }
-  
-  .btn-outline-pink:hover {
-    color: white;
-    background-color: #f472b6 !important;
-  }
-  
-  /* Cambio de color y ancho de la línea en hover */
-  .btn-outline-pink:hover::after {
-    width: 90%; /* La línea ahora ocupa el 90% del botón */
-    background-color: #fff; /* Línea blanca cuando el botón es rosa */
-  }
-  
+.btn-outline-pink {
+  color: var(--pink-normal);
+  border-color: var(--pink-normal);
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
 
-  .btn-pink {
-    color: #f472b6;
-    border-color: #f472b6;
-    transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
-  }
-  
-  .btn-pink:hover {
-    color: white !important;
-    background-color: #e0539c !important;
-    border-color: #e0539c !important;
-  }
-  
-  .btn-pink:active {
-    color: white !important;
-    background-color: #f472b6 !important;
-    border-color: #f472b6 !important;
-  }
+.btn-outline-pink::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  background-color: var(--pink-normal);
+  transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
 
-  /*Backgrounds*/
+.btn-outline-pink:hover {
+  color: var(--white);
+  background-color: var(--pink-normal) !important;
+}
 
-  .bg-grey{
-    background-color: darkgray;
-  }
+.btn-outline-pink:hover::after {
+  width: 90%;
+  background-color: var(--white);
+}
 
-  .bg-pink-normal {
-    background-color: #fbcfe8;
-  }
+.btn-pink {
+  color: var(--pink-normal);
+  border-color: var(--pink-normal);
+  transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+}
 
-  .bg-pink {
-    background-color: #fbcfe8;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .bg-pink:hover {
-    background-color: #f472b6;
-    color: #fbcfe8;
-    transform: scale(1.05);
-    border-radius: 5px;
-  }
-  
-  .bg-pink:hover * {
-    color: #fbcfe8 !important;
-    border-color: #fbcfe8 !important;
-  }
-  
-  /* Asegurar que los botones cambian bien */
-  .bg-pink:hover .btn-outline-pink {
-    border-color: #fbcfe8 !important;
-    color: #fbcfe8 !important;
-  }
-  
-  /* Corregir el color del icono */
-  .bg-pink:hover .btn-outline-pink i {
-    color: #fbcfe8 !important;
-  }
-  
-  /* Ajustar cuando el botón está en hover */
-  .bg-pink:hover .btn-outline-pink:hover {
-    background-color: #fbcfe8 !important;
-    color: #f472b6 !important;
-  }
-  
-  /* Asegurar que el icono también cambia en hover del botón */
-  .bg-pink:hover .btn-outline-pink:hover i {
-    color: #f472b6 !important;
-  }
+.btn-pink:hover {
+  color: var(--white) !important;
+  background-color: var(--pink-dark) !important;
+  border-color: var(--pink-dark) !important;
+}
 
-  
-  /*Pagination items*/
+.btn-pink:active {
+  color: var(--white) !important;
+  background-color: var(--pink-normal) !important;
+  border-color: var(--pink-normal) !important;
+}
 
-  .page-item.active .page-link{
-    background-color: #fbcfe8;
-    border-color: #fbcfe8; 
-    color: white;
-  }
-  .page-item .page-link:hover{
-    background-color: #f472b6;
-    border-color: #f472b6; 
-    color: white;
-  }
+/* Backgrounds */
 
-  .page-item .page-link.active {
-    background-color: #fbcfe8; 
-    border-color: #fbcfe8; 
-    color: white; 
-  }
+.bg-grey {
+  background-color: var(--grey-dark);
+}
 
-  .page-item .page-link.active:hover {
-    background-color: #f472b6; 
-    border-color: #f472b6; 
-    color: white; 
-  }
+.bg-pink-normal {
+  background-color: var(--pink-light);
+}
 
-  /*Tablas*/
+.bg-pink {
+  background-color: var(--pink-light);
+  transition: all 0.3s ease-in-out;
+}
 
-  .table-pink,
-  .table-pink th,
-  .table-pink td {
-      background-color: #fbcfe8 !important;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .table-pink tbody tr {
-      transition: transform 0.3s ease;
-  }
-  
-  .table-pink tbody tr:hover {
-      background-color: #f472b6 !important;
-      transform: scale(1.02);
-  }
-  
-  .table-pink tbody tr:hover th,
-  .table-pink tbody tr:hover td {
-      background-color: inherit !important;
-  }
+.bg-pink:hover {
+  background-color: var(--pink-normal);
+  color: var(--pink-light);
+  transform: scale(1.05);
+  border-radius: 5px;
+}
 
-  
-  html, body { height: 100%; }
-  /*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
-  body { margin: 0;font-family: "Swanky and Moo Moo", serif;font-weight: 700;font-style: normal; font-size: x-large;}
+.bg-pink:hover * {
+  color: var(--pink-light) !important;
+  border-color: var(--pink-light) !important;
+}
 
+.bg-pink:hover .btn-outline-pink {
+  border-color: var(--pink-light) !important;
+  color: var(--pink-light) !important;
+}
+
+.bg-pink:hover .btn-outline-pink i {
+  color: var(--pink-light) !important;
+}
+
+.bg-pink:hover .btn-outline-pink:hover {
+  background-color: var(--pink-light) !important;
+  color: var(--pink-normal) !important;
+}
+
+.bg-pink:hover .btn-outline-pink:hover i {
+  color: var(--pink-normal) !important;
+}
+
+/* Paginación */
+
+.page-item.active .page-link {
+  background-color: var(--pink-light);
+  border-color: var(--pink-light);
+  color: var(--white);
+}
+
+.page-item .page-link:hover {
+  background-color: var(--pink-normal);
+  border-color: var(--pink-normal);
+  color: var(--white);
+}
+
+.page-item .page-link.active {
+  background-color: var(--pink-light);
+  border-color: var(--pink-light);
+  color: var(--white);
+}
+
+.page-item .page-link.active:hover {
+  background-color: var(--pink-normal);
+  border-color: var(--pink-normal);
+  color: var(--white);
+}
+
+/* Tablas */
+
+.table-pink,
+.table-pink th,
+.table-pink td {
+  background-color: var(--pink-light) !important;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.table-pink tbody tr {
+  transition: transform 0.3s ease;
+}
+
+.table-pink tbody tr:hover {
+  background-color: var(--pink-normal) !important;
+  transform: scale(1.02);
+}
+
+.table-pink tbody tr:hover th,
+.table-pink tbody tr:hover td {
+  background-color: inherit !important;
+}
+
+/* Fuente y cuerpo */
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: "Swanky and Moo Moo", serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: x-large;
+}

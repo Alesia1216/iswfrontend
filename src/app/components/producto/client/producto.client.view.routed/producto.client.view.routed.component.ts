@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IProducto } from '../../../../model/producto.interface';
 import { ProductoService } from '../../../../service/producto.service';
+import { serverURL } from '../../../../environment/environment';
 
 @Component({
   selector: 'app-producto.client.view.routed',
@@ -17,7 +18,8 @@ export class ProductoClientViewRoutedComponent implements OnInit {
   oProducto: IProducto = {} as IProducto;
   numeroApuntes: number = 0;
   numeroApuntesAbiertos: number = 0;
-
+  serverURL: string = serverURL;
+  
   constructor(
     private oActivatedRoute: ActivatedRoute, 
     private oProductoService: ProductoService
@@ -32,6 +34,12 @@ export class ProductoClientViewRoutedComponent implements OnInit {
     this.oProductoService.get(this.id).subscribe({
       next: (data: IProducto) => {
         this.oProducto = data;
+
+        this.oProductoService.getImagen(this.id).subscribe({
+          next: (data) => {
+            this.oProducto.imagen = data;
+          },
+        })
       },
     });
   }

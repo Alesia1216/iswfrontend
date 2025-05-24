@@ -72,12 +72,20 @@ export class ProductoAdminPlistRoutedComponent implements OnInit {
      this.oRouter.navigate(['/producto/admin/edit', oProducto.id]);
    }
 
-   //view(oProducto: IProducto) {
-     //this.oRouter.navigate(['/producto/admin/view', oProducto.id]);
-   //}
+   view(oProducto: IProducto) {
+     this.oRouter.navigate(['/producto/admin/view', oProducto.id]);
+   }
 
    remove(oProducto: IProducto) {
      this.oRouter.navigate(['/producto/admin/delete', oProducto.id]);
+   }
+
+   goToCreate(){
+     this.oRouter.navigate(['/producto/admin/create']);
+   }
+
+   goBack(){
+     this.oRouter.navigate(['/producto/client/plist']);
    }
 
   goToPage(p: number) {

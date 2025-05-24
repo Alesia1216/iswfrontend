@@ -76,12 +76,12 @@
           <input style="width: fit-content;" id="file-input" (change)="onFileSelected($event)" type="file" class="hidden" required/>
         </div>
         <br />
-        <button class="btn btn-warning mt-4 mx-1" [routerLink]="['/producto', 'admin', 'plist']">
+        <button class="btn btn-warning mt-4 mx-1" type="button" (click)="goBack()">
           <i class="bi bi-list"></i>
           Volver a catalogo de productos
         </button>
 
-        <button class="btn btn-secondary mt-4 mx-1" (click)="onReset()">
+        <button class="btn btn-secondary mt-4 mx-1" type="button" (click)="onReset()">
           <i class="bi bi-x-lg"></i>
           Reset
         </button>

@@ -16,6 +16,7 @@ import { UsuarioService } from '../../../../service/usuario.service';
 import { IUsuario } from '../../../../model/usuario.interface';
 import { CarritoService } from '../../../../service/carrito.service';
 import { ICarrito } from '../../../../model/carrito.interface';
+import { serverURL } from '../../../../environment/environment';
 
 declare let bootstrap: any;
 
@@ -32,6 +33,7 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
   oCarrito : ICarrito = {} as ICarrito;
   productoSeleccionado: IProducto  = {} as IProducto;
   cantidadSeleccionada : number = 0;
+  serverURL: string = serverURL;
   //
   nPage: number = 0; // 0-based server count
   nRpp: number = 10;

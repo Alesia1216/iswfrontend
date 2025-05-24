@@ -104,7 +104,9 @@
             }"
           >
             <h4 class="card-title">{{ producto.descripcion | trim : 10 }}</h4>
-            <img [src]="'data:image/jpeg;base64,' + producto.imagen" alt="Imagen del producto" />
+
+            <img [src]="serverURL + '/producto/get/' + producto?.id + '/imagen'" alt="{{ producto?.descripcion }}"/>
+
             <p class="card-text">{{ producto.precio }}€</p>
             @if(producto.unidades<=5 && producto.unidades>1){
             <p class="card-text text-danger" style="font-size: 1.2rem">

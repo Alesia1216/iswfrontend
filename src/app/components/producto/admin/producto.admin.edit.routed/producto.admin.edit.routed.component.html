@@ -81,7 +81,23 @@
               } 
             </mat-form-field>
           </div>
-
+          <br />
+         <div class="row mt-4">
+            <mat-label>Habilitado</mat-label>
+             <mat-radio-group formControlName="habilitado">
+              <mat-radio-button [value]="true">Si</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+            <mat-hint align="start">Indica si el producto va a estar habilitado</mat-hint>
+            @if (oProductoForm?.get('habilitado')?.hasError('required')) {
+            <mat-error>Debes indicar si el producto va a estar habilitado</mat-error>
+            }
+        </div>
+        <br />
+        <div class="row mt-4 d-flex align-items-center justify-content-center">
+          <mat-label>Imagen</mat-label>
+          <input style="width: fit-content;" id="file-input" (change)="onFileSelected($event)" type="file" class="hidden" required/>
+        </div>
         <br />
         <button
           class="btn btn-warning mt-4 mx-1"

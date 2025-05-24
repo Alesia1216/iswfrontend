@@ -13,6 +13,7 @@ import { IProducto } from '../../../../model/producto.interface';
 import { ProductoService } from '../../../../service/producto.service';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
+import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
 
 declare let bootstrap: any;
 
@@ -25,7 +26,9 @@ declare let bootstrap: any;
       CommonModule,
       MatFormFieldModule,
       MatInputModule,
+      MatRadioModule,
       MatSelectModule,
+      MatRadioButton,
       ReactiveFormsModule,
       RouterModule,
     ],
@@ -36,6 +39,7 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
   oProductoForm: FormGroup | undefined = undefined;
   oProducto: IProducto | null = null;
   strMessage: string = '';
+  isFileSelected = false;
 
   myModal: any;
 
@@ -72,6 +76,8 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
       ]),
       unidades: new FormControl('', [Validators.required, Validators.min(1)]),
       precio: new FormControl('', [Validators.required, Validators.min(1)]),
+      habilitado: new FormControl('',  [Validators.required]),
+      imagen: new FormControl(null),
     });
   }
 
@@ -100,8 +106,19 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
     estilo: estilo,
     unidades: this.oProducto?.unidades,
     precio: this.oProducto?.precio,
+    habilitado: !!this.oProducto?.habilitado  // Fuerza a booleano
     });
   }
+
+    onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const blob = new Blob([file], { type: file.type });
+      this.oProductoForm?.controls['imagen'].setValue(blob);
+      this.isFileSelected = true;
+    }
+    console.log(this.oProductoForm?.value);
+}
 
   get() {
     this.oProductoService.get(this.id).subscribe({
@@ -133,7 +150,7 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
       this.showModal('Formulario no válido');
       return;
     } else {
-      this.oProductoService.update(this.oProductoForm?.value).subscribe({
+      this.oProductoService.updateImagen(this.oProductoForm?.value).subscribe({
         next: (oProducto: IProducto) => {
           this.oProducto = oProducto;
           this.updateForm();
