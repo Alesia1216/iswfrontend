@@ -14,6 +14,8 @@ import { FacturaService } from '../../../../service/factura.service';
 import { LineafacturaService } from '../../../../service/lineafactura.service';
 import { IFactura } from '../../../../model/factura.interface';
 import { ILineafactura } from '../../../../model/lineafactura.interface';
+import { serverURL } from '../../../../environment/environment';
+import jsPDF from 'jspdf';
 
 declare let bootstrap: any;
 
@@ -27,13 +29,14 @@ declare let bootstrap: any;
 })
 export class FacturaClientViewRoutedComponent implements OnInit {
 
-  oPage: IPage<ICarrito> = {} as IPage<ICarrito>;
+  oPage: IPage<ILineafactura> = {} as IPage<ILineafactura>;
   email: string = '';
   activeSession: boolean = false;
   id: number = 0;
   oFactura: IFactura = {} as IFactura;
   oLineasFactura: ILineafactura[] = []; 
- 
+  serverURL : string = serverURL;
+
   strMessage: string = '';
   myModal: any;
   onYesCallback: () => void = () => {}; // Función que se ejecutará si dice "Sí"
@@ -46,7 +49,6 @@ export class FacturaClientViewRoutedComponent implements OnInit {
    //
    arrBotonera: string[] = [];
   
- 
    private debounceSubject = new Subject<string>();
  
    constructor(
@@ -138,76 +140,80 @@ export class FacturaClientViewRoutedComponent implements OnInit {
    view(oCarrito: ICarrito) {
      this.oRouter.navigate(['/carrito/admin/view/', oCarrito.id]);
    }
+
+  formatDate(dateString: string): string {
+     const date = new Date(dateString);
+     const day = date.getDate().toString().padStart(2, '0');
+     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Los meses empiezan en 0
+     const year = date.getFullYear();
+     const hours = date.getUTCHours().toString().padStart(2, '0'); // Horas en UTC
+     const minutes = date.getMinutes().toString().padStart(2, '0');
+   
+     return `${day}/${month}/${year} ${hours}:${minutes}`;
+   }
  
-   // delete(oCarrito: ICarrito) {
-   //   this.oRouter.navigate(['/carrito/client/delete/', oCarrito.id]);
-   // }
+    generarInforme() {
+     if (!this.oPage || !this.oPage.content) {
+       console.error('No hay datos disponibles para generar el informe.');
+       return;
+     }
+   
+     let doc = new jsPDF({ unit: 'mm', format: 'a4' });
  
-  //  goToPage(p: number) {
-  //    if (p) {
-  //      this.nPage = p - 1;
-  //      this.getPage();
-  //    }
-  //    return false;
-  //  }
- 
-  //  goToNext() {
-  //    this.nPage++;
-  //    this.getPage();
-  //    return false;
-  //  }
- 
-  //  goToPrev() {
-  //    this.nPage--;
-  //    this.getPage();
-  //    return false;
-  //  }
- 
-  //  sort(field: string) {
-  //    this.strField = field;
-  //    this.strDir = this.strDir === 'asc' ? 'desc' : 'asc';
-  //    this.getPage();
-  //  }
- 
-  //  goToRpp(nrpp: number) {
-  //    this.nPage = 0;
-  //    this.nRpp = nrpp;
-  //    this.getPage();
-  //    return false;
-  //  }
- 
-  //  filter(event: KeyboardEvent) {
-  //    this.debounceSubject.next(this.strFiltro);
-  //    console.log(this.strFiltro);
-  //  }
- 
-  //  showModal(mensaje: string, callback: () => void) {
-  //    this.strMessage = mensaje;
-  //    this.onYesCallback = callback;
-  //    this.myModal = new bootstrap.Modal(document.getElementById('mimodal'), {
-  //      keyboard: false,
-  //    });
-  //    this.myModal.show();
-  //  }
- 
-  //  hideModal = () => {
-  //    this.myModal.hide();
-  //  }
- 
-  //  onYes() {
-  //    if (this.onYesCallback) {
-  //      this.onYesCallback(); // Ejecuta la acción que corresponda
-  //    }
-  //    this.hideModal();
-  //  }
- 
-  //  delete(oCarrito: ICarrito){
-  //    this.showModal('¿Deseas borrar el producto del carrito?', () => {
-  //      this.oCarritoService.delete(oCarrito.id).subscribe(() => {
-  //        this.getPage();
-  //      });
-  //    });
-  //  }
+     const pageWidth = 210;
+     const pageHeight = 297;
+     const marginX = 25;
+     const marginY = 50;
+     const maxY = 260;
+     
+     let img = new Image();
+     img.src = '../../../../../assets/fondo.png';
+     let imgWidth = 210;
+     let imgHeight = 297;
+     let y = marginY;
+     
+     doc.addImage(img, 'PNG', 0, 0, imgWidth, imgHeight);
+     doc.setFontSize(30);
+     doc.setTextColor(40);
+     doc.text('Informe de mi pedido', pageWidth / 2, 40, { align: 'center' });
+     
+     doc.setFontSize(14);
+     y = 60;
+     
+     this.oPage.content.forEach((lineafactura, index) => {
+       if (y + 40 > maxY) {
+         doc.addPage();
+         doc.addImage(img, 'PNG', 0, 0, imgWidth, imgHeight);
+         y = marginY;
+       }
+     
+       doc.setTextColor(50, 50, 50);
+       doc.setFontSize(14);
+       let textoCompra = `Producto ${lineafactura.producto.descripcion}`;
+       doc.text(textoCompra, pageWidth / 2, y, { align: 'center' });
+     
+       y += 10;
+       let infoUsuario = `Email: ${lineafactura.factura.usuario.email} - Dirección:${lineafactura.factura.usuario.direccion}`;
+       doc.setFontSize(12);
+       doc.text(infoUsuario, pageWidth / 2, y, { align: 'center' });
+     
+       y += 10;
+       let infoProducto = `Estilo: ${lineafactura.producto.estilo} - Precio: ${lineafactura.precio}€`;
+       doc.text(infoProducto, pageWidth / 2, y, { align: 'center' });
+     
+       y += 10;
+       let fechaCompra = `Fecha de compra: ${this.formatDate(lineafactura.factura.fecha.toString())}`;
+       doc.text(fechaCompra, pageWidth / 2, y, { align: 'center' });
+     
+       y += 15;
+       doc.setDrawColor(150, 150, 150);
+       doc.line(marginX, y, pageWidth - marginX, y);
+     
+       y += 10;
+     });
+   
+     doc.save('InformeHistorialPedidos.pdf');
+   }
  
  }
  

@@ -1,16 +1,25 @@
 <div class="container mt-5 d-flex align-items-center justify-content-center">
-  <div class="row">
-    <div class="col text-center">
-      <h2 class="my-2">
-        <i class="bi bi-cart4"></i>
-        Carrito de los usuarios
-      </h2>
-
-      <div class="d-inline-flex mx-2">
-        <input type="text" class="form-control" placeholder="Buscar" (keyup)="filter($event)" [(ngModel)]="strFiltro" />
+  <div class="row align-items-center justify-content-center">
+    <section class="d-flex flex-row px-5 w-20">
+      <div class="col-auto" style="height: fit-content;">
+        <button class="btn btn-pink my-2">
+          <i class="bi bi-arrow-left" (click)="goBack()"></i>
+        </button>
       </div>
-
-      <div class="d-inline-flex mx-2">
+      <div class="col text-center">
+          <h2 class="my-2">
+            <i class="bi bi-palette"></i>
+            Carrito de los usuarios
+          </h2>
+      </div>
+    <div class="col-auto">
+    </div>
+    </section>
+    <section class="d-flex flex-column align-items-center ">
+      <div class="searchbar d-inline-flex mx-2">
+        <input type="text" class="form-control" placeholder="Buscar un producto..." (keyup)="filter($event)" [(ngModel)]="strFiltro" />
+      </div>
+      <div class="d-inline-flex justify-content-center mx-2">
         <nav class="my-4">
           <ul class="pagination justify-content-center">
             <li class="page-item" [class.active]="nRpp === 10">
@@ -25,6 +34,7 @@
           </ul>
         </nav>
       </div>
+    </section>
 
       <nav class="my-2">
         <ul class="pagination justify-content-center">
@@ -69,7 +79,7 @@
           @if (oPage.content?.length === 0) {
             <p>No hay productos en el carrito</p>
           }@else{
-            <table class="table table-pink">
+            <table class="table table-pink text-center w-100">
               <thead>
                 <tr>
                   <th scope="col">Usuario</th>
@@ -97,8 +107,6 @@
           }
     </div>
   </div>
-</div>
-
 <div
   class="modal fade"
   [id]="'mimodal'"

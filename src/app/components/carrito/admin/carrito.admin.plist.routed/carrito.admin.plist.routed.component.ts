@@ -108,6 +108,10 @@ export class CarritoAdminPlistRoutedComponent implements OnInit {
     this.oRouter.navigate(['/carrito/admin/view/', oCarrito.id]);
   }
 
+  goBack(){
+    this.oRouter.navigate(['/carrito/client/plist']);
+  }
+
   // delete(oCarrito: ICarrito) {
   //   this.oRouter.navigate(['/carrito/client/delete/', oCarrito.id]);
   // }

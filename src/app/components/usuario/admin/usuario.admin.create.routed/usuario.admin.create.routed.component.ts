@@ -109,6 +109,10 @@ export class UsuarioAdminCreateRoutedComponent implements OnInit {
     return false;
   }
 
+  goBack(){
+    this.oRouter.navigate(['/usuario/admin/plist']);
+  }
+
   hideModal = () => {
     this.myModal.hide();
     this.oRouter.navigate(['/usuario/admin/view/' + this.oUsuario?.id]);

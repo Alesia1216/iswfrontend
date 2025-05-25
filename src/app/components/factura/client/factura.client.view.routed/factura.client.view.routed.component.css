@@ -1,4 +1,19 @@
 .table-responsive{
     width: 60vh !important;
     overflow: hidden;
+    border-radius: 5px;
+}
+
+.informe{
+    margin-block: 40px;
+}
+
+table{
+    border-radius: 5px;
+}
+
+img{
+    height: 150px;
+    margin-block-end: 10px;
+    border-radius: 8px;
 }
