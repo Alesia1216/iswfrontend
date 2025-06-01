@@ -355,7 +355,7 @@ comprar() {
               producto.unidades -= respuesta.cantidad;
               
             // Añadimos la petición
-              productosActualizados.push(this.oProductoService.update(producto));
+              productosActualizados.push(this.oProductoService.updateStock(producto));
             }
 
             // Actualizar productos en el backend

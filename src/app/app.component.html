@@ -1,6 +1,11 @@
+<div class="page-wrapper">
+  <app-navbar-unrouted></app-navbar-unrouted>
 
-<app-navbar-unrouted></app-navbar-unrouted>
+  <main class="content">
+    <div [@pageTransition]="getOutletState(routerOutlet)">
+      <router-outlet #routerOutlet="outlet"></router-outlet> 
+    </div>
+  </main>
 
-<div [@pageTransition]="getOutletState(routerOutlet)">
-    <router-outlet #routerOutlet="outlet"></router-outlet> 
+  <app-footer-unrouted></app-footer-unrouted>
 </div>

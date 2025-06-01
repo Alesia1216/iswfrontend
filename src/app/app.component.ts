@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarUnroutedComponent } from './components/shared/navbar.unrouted/navbar.unrouted.component';
-import { pageTransition } from './animations/animation'; // Importa la animación
+import { pageTransition } from './animations/animation';
+import { FooterUnroutedComponent } from "./components/shared/footer.unrouted/footer.unrouted.component"; // Importa la animación
 
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, NavbarUnroutedComponent],
+    imports: [RouterOutlet, NavbarUnroutedComponent, FooterUnroutedComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
     template: `

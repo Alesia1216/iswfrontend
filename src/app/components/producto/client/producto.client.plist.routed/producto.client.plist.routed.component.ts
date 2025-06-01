@@ -32,7 +32,7 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
   oUsuario : IUsuario = {} as IUsuario;
   oCarrito : ICarrito = {} as ICarrito;
   productoSeleccionado: IProducto  = {} as IProducto;
-  cantidadSeleccionada : number = 0;
+  cantidadSeleccionada : number = 1;
   serverURL: string = serverURL;
   //
   nPage: number = 0; // 0-based server count
@@ -87,10 +87,6 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
         },
       });
   }
-
-  //hacer una funcion que llame al session service, y si la sesion esta activa, devolver true
-  //si esta activa conseguir el email
-  //con el email hacer una llamada al servidor para que me devuelva el usuario
 
   getLoggedUser() {
     if( this.oSessionService.isSessionActive() ){
@@ -147,6 +143,10 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
 
   addCarrito(){
     if (!this.productoSeleccionado) return;
+    if (this.cantidadSeleccionada <= 0) {
+      this.cantidadSeleccionada = 1; 
+      return;
+    } 
 
     this.oCarrito.usuario = this.oUsuario;
     this.oCarrito.producto = this.productoSeleccionado;
@@ -162,7 +162,7 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
         this.hideModal(true);
       },
     })
-    this.cantidadSeleccionada = 0;
+    this.cantidadSeleccionada = 1;
   }
 
   showModal() {

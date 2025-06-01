@@ -16,6 +16,7 @@ import { IFactura } from '../../../../model/factura.interface';
 import { ILineafactura } from '../../../../model/lineafactura.interface';
 import { serverURL } from '../../../../environment/environment';
 import jsPDF from 'jspdf';
+import { ProductoService } from '../../../../service/producto.service';
 
 declare let bootstrap: any;
 
@@ -23,7 +24,7 @@ declare let bootstrap: any;
   selector: 'app-factura.client.view.routed',
   templateUrl: './factura.client.view.routed.component.html',
   styleUrls: ['./factura.client.view.routed.component.css'],
-  imports: [CommonModule, FormsModule, TrimPipe],
+  imports: [CommonModule, FormsModule],
   providers: [DatePipe],
   standalone: true
 })
@@ -82,49 +83,7 @@ export class FacturaClientViewRoutedComponent implements OnInit {
  
    }
  
-   ngOnInit() {
-    //  this.getPage();
-    //  this.getAll();
-   }
- 
-  //  getPage() {
-  //    this.oCarritoService
-  //      .getPage(this.nPage, this.nRpp, this.strField, this.strDir, this.strFiltro)
-  //      .subscribe({
-  //        next: (oPageFromServer: IPage<ICarrito>) => {
-  //          //if(oPageFromServer.content[x].usuario.id == this.oUsuario.id){}       
-  //          //this.oPage = oPageFromServer;
-  //          this.oPage = oPageFromServer;
-  //          this.arrBotonera = this.oBotoneraService.getBotonera(
-  //            this.nPage,
-  //            oPageFromServer.totalPages
-  //          );
- 
-  //          console.log(this.oPage);
-  //        },
-  //        error: (err: HttpErrorResponse) => {
-  //          console.log(err);
-  //        },
-  //      });
-  //  }
- 
-  //  getAll(){
-  //    this.oCarritoService
-  //    .getPage(this.nPage, this.nRpp, this.strField, this.strDir, this.strFiltro)
-  //    .subscribe({
-  //      next: (oPageFromServer: IPage<ICarrito>) => {
-  //        this.allCarritoLines = [...this.allCarritoLines, ...oPageFromServer.content]; // Acumulamos los datos
- 
-  //        if (this.nPage < oPageFromServer.totalPages - 1) {
-  //          this.nPage++; // Pasamos a la siguiente página
-  //          this.getAll(); // Llamamos recursivamente hasta la última página
-  //        } 
-  //      },
-  //      error: (err: HttpErrorResponse) => {
-  //        console.log('Error al obtener las compras:', err);
-  //      },
-  //    });
-  //  }
+   ngOnInit() {}
  
    getLineasfromFactura(){
     this.oLineafacturaService.getByFacturaId(this.oFactura.id!).subscribe({
@@ -152,68 +111,75 @@ export class FacturaClientViewRoutedComponent implements OnInit {
      return `${day}/${month}/${year} ${hours}:${minutes}`;
    }
  
-    generarInforme() {
-     if (!this.oPage || !this.oPage.content) {
-       console.error('No hay datos disponibles para generar el informe.');
-       return;
-     }
-   
-     let doc = new jsPDF({ unit: 'mm', format: 'a4' });
- 
-     const pageWidth = 210;
-     const pageHeight = 297;
-     const marginX = 25;
-     const marginY = 50;
-     const maxY = 260;
-     
-     let img = new Image();
-     img.src = '../../../../../assets/fondo.png';
-     let imgWidth = 210;
-     let imgHeight = 297;
-     let y = marginY;
-     
-     doc.addImage(img, 'PNG', 0, 0, imgWidth, imgHeight);
-     doc.setFontSize(30);
-     doc.setTextColor(40);
-     doc.text('Informe de mi pedido', pageWidth / 2, 40, { align: 'center' });
-     
-     doc.setFontSize(14);
-     y = 60;
-     
-     this.oPage.content.forEach((lineafactura, index) => {
-       if (y + 40 > maxY) {
-         doc.addPage();
-         doc.addImage(img, 'PNG', 0, 0, imgWidth, imgHeight);
-         y = marginY;
-       }
-     
-       doc.setTextColor(50, 50, 50);
-       doc.setFontSize(14);
-       let textoCompra = `Producto ${lineafactura.producto.descripcion}`;
-       doc.text(textoCompra, pageWidth / 2, y, { align: 'center' });
-     
-       y += 10;
-       let infoUsuario = `Email: ${lineafactura.factura.usuario.email} - Dirección:${lineafactura.factura.usuario.direccion}`;
-       doc.setFontSize(12);
-       doc.text(infoUsuario, pageWidth / 2, y, { align: 'center' });
-     
-       y += 10;
-       let infoProducto = `Estilo: ${lineafactura.producto.estilo} - Precio: ${lineafactura.precio}€`;
-       doc.text(infoProducto, pageWidth / 2, y, { align: 'center' });
-     
-       y += 10;
-       let fechaCompra = `Fecha de compra: ${this.formatDate(lineafactura.factura.fecha.toString())}`;
-       doc.text(fechaCompra, pageWidth / 2, y, { align: 'center' });
-     
-       y += 15;
-       doc.setDrawColor(150, 150, 150);
-       doc.line(marginX, y, pageWidth - marginX, y);
-     
-       y += 10;
-     });
-   
-     doc.save('InformeHistorialPedidos.pdf');
-   }
+  generarInforme() {
+  if (!this.oLineasFactura || this.oLineasFactura.length === 0) {
+    console.error('No hay datos disponibles para generar el informe.');
+    return;
+  }
+
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+  const pageWidth = 210;
+  const pageHeight = 297;
+  const marginX = 25;
+  const marginY = 50;
+  const maxY = 260;
+
+  const fondoImg = new Image();
+  fondoImg.src = '../../../../../assets/fondo.png';
+
+  let imgWidth = 210;
+  let imgHeight = 297;
+  let y = marginY;
+
+  doc.addImage(fondoImg, 'PNG', 0, 0, imgWidth, imgHeight);
+  doc.setFontSize(30);
+  doc.setTextColor(40);
+  doc.text('Informe de mi pedido', pageWidth / 2, 40, { align: 'center' });
+
+  y = 60;
+
+  this.oLineasFactura.forEach((linea, index) => {
+    if (y + 40 > maxY) {
+      doc.addPage();
+      doc.addImage(fondoImg, 'PNG', 0, 0, imgWidth, imgHeight);
+      y = marginY;
+    }
+
+    const producto = linea.producto;
+    const factura = linea.factura;
+    const usuario = factura?.usuario;
+
+    const email = usuario?.email ?? 'N/A';
+    const direccion = usuario?.direccion ?? 'N/A';
+    const estilo = producto?.estilo ?? 'N/A';
+    const descripcion = producto?.descripcion ?? 'Producto sin descripción';
+    const precio = linea.precio?.toFixed(2) ?? '0.00';
+    const fecha = this.formatDate(factura?.fecha?.toString() ?? '');
+
+    doc.setTextColor(50, 50, 50);
+    doc.setFontSize(14);
+    doc.text(`Producto: ${descripcion}`, pageWidth / 2, y, { align: 'center' });
+
+    y += 10;
+    doc.setFontSize(12);
+    doc.text(`Email: ${email} - Dirección: ${direccion}`, pageWidth / 2, y, { align: 'center' });
+
+    y += 10;
+    doc.text(`Estilo: ${estilo} - Precio: ${precio}€`, pageWidth / 2, y, { align: 'center' });
+
+    y += 10;
+    doc.text(`Fecha de compra: ${fecha}`, pageWidth / 2, y, { align: 'center' });
+
+    y += 15;
+    doc.setDrawColor(150, 150, 150);
+    doc.line(marginX, y, pageWidth - marginX, y);
+
+    y += 10;
+  });
+
+  doc.save('InformeHistorialPedidos.pdf');
+}
  
  }
  

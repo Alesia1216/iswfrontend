@@ -58,6 +58,25 @@
   border-color: var(--pink-normal) !important;
 }
 
+.btn-footer { 
+  color: var(--white);
+  background-color: var(--pink-normal) !important;
+  border-color: var(--pink-normal);
+  transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+}
+
+.btn-footer:hover {
+  color: var(--pink-dark) !important;
+  background-color: var(--pink-light) !important;
+  border-color: var(--pink-light) !important;
+}
+
+.btn-footer:active {
+  color: var(--pink-dark) !important;
+  background-color: var(--pink-light) !important;
+  border-color: var(--pink-light) !important;
+}
+
 /* Backgrounds */
 
 .bg-grey {
@@ -154,12 +173,39 @@
 
 /* Fuente y cuerpo */
 
-html, body { height: 100%; }
+html, body { height: 100%}
 
 body {
   margin: 0;
   font-family: "Swanky and Moo Moo", serif;
+  /* font-family: "Arsenal SC", sans-serif; */
+  /* font-family: "Cookie", cursive; */
+  /* font-family: "Oooh Baby", cursive; */
   font-weight: 700;
   font-style: normal;
   font-size: x-large;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
+footer, nav{
+    font-family: "Arsenal SC", sans-serif;
+
+    .navbar-brand{
+        font-family: "Swanky and Moo Moo", serif;
+    }
 }
