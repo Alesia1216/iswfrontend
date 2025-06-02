@@ -127,51 +127,70 @@ export class ProductoAdminPlistRoutedComponent implements OnInit {
   }
 
   generarInforme() {
-    if (!this.oPage || !this.oPage.content) {
-      console.error('No hay datos disponibles para generar el informe.');
-      return;
-    }
-  
-    let doc = new jsPDF();
-  
-    // Encabezado del documento
-    doc.setFontSize(30);
-    doc.setTextColor(40);
-    doc.text('Informe de Productos', 50, 20);
-  
-    doc.setFontSize(14);
-  
-    let y = 40; // Posición inicial en el eje Y
-  
-    this.oPage.content.forEach((producto, index) => {
-      let x = 30; // Posición inicial en X para cada fila
-  
-      // Nombre del producto en negrita
-      doc.setFontSize(16);
-      doc.setTextColor(0, 0, 0);
-      doc.text(producto.descripcion, x, y);
-  
-      // Precio del producto
-      x += 60; // Espacio para el precio
-      doc.setFontSize(14);
-      doc.setTextColor(50, 50, 50);
-      doc.text(`${producto.precio}€`, x, y);
-  
-      // Cantidad disponible
-      x += 40; // Espacio para el stock
-      doc.setFontSize(12);
-      if (producto.unidades === 1) {
-        doc.setTextColor(255, 0, 0); // Rojo si queda solo 1 unidad
-        doc.text(`Queda ${producto.unidades} unidad`, x, y);
-      } else {
-        doc.setTextColor(100, 100, 100);
-        doc.text(`Quedan ${producto.unidades} unidades`, x, y);
-      }
-  
-      y += 10; // Espacio entre filas
-    });
-  
-    doc.save('InformeProductos.pdf');
+    if (!this.oPage || !this.oPage.content || this.oPage.content.length === 0) {
+    console.error('No hay datos disponibles para generar el informe.');
+    return;
   }
+
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+  const pageWidth = 210;
+  const pageHeight = 297;
+  const marginX = 25;
+  const marginY = 50;
+  const maxY = 260;
+
+  const fondoImg = new Image();
+  fondoImg.src = '../../../../../assets/fondo.png';
+
+  const imgWidth = 210;
+  const imgHeight = 297;
+  let y = marginY;
+
+  doc.addImage(fondoImg, 'PNG', 0, 0, imgWidth, imgHeight);
+  doc.setFontSize(30);
+  doc.setTextColor(40);
+  doc.text('Informe de Productos', pageWidth / 2, 40, { align: 'center' });
+
+  y = 60;
+
+  this.oPage.content.forEach((producto, index) => {
+    if (y + 30 > maxY) {
+      doc.addPage();
+      doc.addImage(fondoImg, 'PNG', 0, 0, imgWidth, imgHeight);
+      y = marginY;
+    }
+
+    const descripcion = producto.descripcion ?? 'Producto sin descripción';
+    const precio = producto.precio?.toFixed(2) ?? '0.00';
+    const unidades = producto.unidades ?? 0;
+
+    doc.setFontSize(14);
+    doc.setTextColor(50, 50, 50);
+    doc.text(`Producto: ${descripcion}`, pageWidth / 2, y, { align: 'center' });
+
+    y += 10;
+    doc.setFontSize(12);
+    doc.setTextColor(80, 80, 80);
+    doc.text(`Precio: ${precio}€`, pageWidth / 2, y, { align: 'center' });
+
+    y += 10;
+    if (unidades === 1) {
+      doc.setTextColor(255, 0, 0); // rojo
+      doc.text(`Queda 1 unidad`, pageWidth / 2, y, { align: 'center' });
+    } else {
+      doc.setTextColor(100, 100, 100);
+      doc.text(`Quedan ${unidades} unidades`, pageWidth / 2, y, { align: 'center' });
+    }
+
+    y += 15;
+    doc.setDrawColor(150, 150, 150);
+    doc.line(marginX, y, pageWidth - marginX, y);
+
+    y += 10;
+  });
+
+  doc.save('InformeProductos.pdf');
+}
 
 }

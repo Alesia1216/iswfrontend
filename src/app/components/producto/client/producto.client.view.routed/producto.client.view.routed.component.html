@@ -23,10 +23,11 @@
       }  
       <button
       class="btn btn-pink"
-      [routerLink]="['/compra/', oProducto.id]"
+      (click)="volver()"
       [disabled]="oProducto.unidades == 0"
     >
-      Comprar
-    </button>    </div>
+      Volver al catalogo de productos
+    </button>    
+  </div>
   </div>
 </div>

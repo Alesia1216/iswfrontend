@@ -124,7 +124,7 @@
             <div id="botones">
             <button
               class="btn btn-pink"
-              [routerLink]="['/compra/', producto.id]"
+              (click)="comprar(producto)"
               [disabled]="producto.unidades == 0"
             >
               Comprar ya

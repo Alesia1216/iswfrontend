@@ -1,10 +1,11 @@
+import { ILineafactura } from './../../../../model/lineafactura.interface';
 import { Component, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { debounceTime, Subject } from 'rxjs';
+import { debounceTime, forkJoin, Subject } from 'rxjs';
 
 import { IProducto } from '../../../../model/producto.interface';
 import { ProductoService } from '../../../../service/producto.service';
@@ -17,6 +18,10 @@ import { IUsuario } from '../../../../model/usuario.interface';
 import { CarritoService } from '../../../../service/carrito.service';
 import { ICarrito } from '../../../../model/carrito.interface';
 import { serverURL } from '../../../../environment/environment';
+import { DateTime } from 'luxon';
+import { IFactura } from '../../../../model/factura.interface';
+import { FacturaService } from '../../../../service/factura.service';
+import { LineafacturaService } from '../../../../service/lineafactura.service';
 
 declare let bootstrap: any;
 
@@ -58,6 +63,8 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
     private oSessionService: SessionService,
     private oUsuarioService : UsuarioService,
     private oCarritoService: CarritoService,
+    private oFacturaService: FacturaService,
+    private oLineafacturaService: LineafacturaService,
     private oRouter: Router
   ) { 
     this.debounceSubject.pipe(debounceTime(10)).subscribe((value) => {
@@ -188,4 +195,65 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
   hideModal = (abrirMensaje: boolean = false) => {
     this.myModal.hide();
   }
+
+
+  comprar(producto: IProducto) {
+  // Verificar usuario
+  if (!this.oUsuario?.id) {
+    console.error('Usuario no definido');
+    return;
+  }
+
+  // Verificar stock
+  if (producto.unidades < 1) {
+    console.error(`No hay stock disponible para el producto "${producto.descripcion}"`);
+    return;
+  }
+
+  // Crear factura
+  const nuevaFactura: IFactura = {
+    fecha: DateTime.now().plus({ hours: 2 }),
+    usuario: this.oUsuario,
+  };
+
+  this.oFacturaService.create(nuevaFactura).subscribe({
+    next: (facturaCreada: IFactura) => {
+      console.log('Factura creada:', facturaCreada);
+
+      const lineaFactura: ILineafactura = {
+        factura: facturaCreada,
+        producto: producto,
+        precio: producto.precio,
+        cantidad: 1, // por defecto 1 unidad
+      };
+
+      // Crear línea de factura
+      this.oLineafacturaService.create(lineaFactura).subscribe({
+        next: (lineaCreada: ILineafactura) => {
+          console.log('Línea de factura creada:', lineaCreada);
+
+          // Actualizar stock
+          const productoActualizado = { ...producto, unidades: producto.unidades - 1 };
+          this.oProductoService.updateStock(productoActualizado).subscribe({
+            next: () => {
+              console.log('Stock actualizado correctamente');
+              this.getPage(); // refrescar productos
+            },
+            error: (error: HttpErrorResponse) => {
+              console.error('Error al actualizar el stock del producto:', error);
+            }
+          });
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Error al crear la línea de factura:', error);
+        }
+      });
+    },
+    error: (error: HttpErrorResponse) => {
+      console.error('Error al crear la factura:', error);
+    }
+  });
+}
+
+
 }

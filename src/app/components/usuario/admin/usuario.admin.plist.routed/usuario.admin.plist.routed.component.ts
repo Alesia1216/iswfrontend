@@ -136,46 +136,68 @@ export class UsuarioAdminPlistRoutedComponent implements OnInit {
   }
 
   generarInforme() {
-    if (!this.oPage || !this.oPage.content) {
-      console.error('No hay datos disponibles para generar el informe.');
-      return;
-    }
-  
-    let doc = new jsPDF();
-  
-    // Encabezado del documento
-    doc.setFontSize(30);
-    doc.setTextColor(40);
-    doc.text('Informe de Usuarios', 50, 20);
-  
-    doc.setFontSize(14);
-  
-    let y = 40; // Posición inicial en el eje Y
-  
-    this.oPage.content.forEach((usuario, index) => {
-      let x = 30; // Posición inicial en X para cada fila
-  
-      // Nombre del producto en negrita
-      doc.setFontSize(15);
-      doc.setTextColor(0, 0, 0);
-      doc.text(usuario.nombre + ' ' + usuario.apellido1 + ' ' + usuario.apellido2 , x, y);
-  
-      // Precio del producto
-      x += 60; // Espacio para el precio
-      doc.setFontSize(12);
-      doc.setTextColor(50, 50, 50);
-      doc.text(`${usuario.email}€`, x, y);
-  
-      // Cantidad disponible
-      x += 70; // Espacio para el stock
-      doc.setFontSize(12);
-      doc.setTextColor(50, 50, 50);
-      doc.text(`${usuario.telefono}`, x, y);
-  
-      y += 10; // Espacio entre filas
-    });
-  
-    doc.save('InformeUsuarios.pdf');
+  if (!this.oPage || !this.oPage.content || this.oPage.content.length === 0) {
+    console.error('No hay datos disponibles para generar el informe.');
+    return;
   }
+
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+  const pageWidth = 210;
+  const pageHeight = 297;
+  const marginX = 25;
+  const marginY = 50;
+  const maxY = 260;
+
+  const fondoImg = new Image();
+  fondoImg.src = '../../../../../assets/fondo.png';
+
+  const imgWidth = 210;
+  const imgHeight = 297;
+  let y = marginY;
+
+  doc.addImage(fondoImg, 'PNG', 0, 0, imgWidth, imgHeight);
+  doc.setFontSize(30);
+  doc.setTextColor(40);
+  doc.text('Informe de Usuarios', pageWidth / 2, 40, { align: 'center' });
+
+  y = 60;
+
+  this.oPage.content.forEach((usuario, index) => {
+    if (y + 30 > maxY) {
+      doc.addPage();
+      doc.addImage(fondoImg, 'PNG', 0, 0, imgWidth, imgHeight);
+      y = marginY;
+    }
+
+    const nombreCompleto = `${usuario.nombre ?? ''} ${usuario.apellido1 ?? ''} ${usuario.apellido2 ?? ''}`.trim();
+    const email = usuario.email ?? 'Sin email';
+    const telefono = usuario.telefono ?? 'Sin teléfono';
+    const direccion = usuario.direccion ?? 'Sin dirección';
+
+    doc.setFontSize(14);
+    doc.setTextColor(50, 50, 50);
+    doc.text(`Nombre: ${nombreCompleto}`, pageWidth / 2, y, { align: 'center' });
+
+    y += 10;
+    doc.setFontSize(12);
+    doc.text(`Email: ${email}`, pageWidth / 2, y, { align: 'center' });
+
+    y += 10;
+    doc.text(`Teléfono: ${telefono}`, pageWidth / 2, y, { align: 'center' });
+
+    if (direccion) {
+      y += 10;
+      doc.text(`Dirección: ${direccion}`, pageWidth / 2, y, { align: 'center' });
+    }
+
+    y += 15;
+    doc.setDrawColor(150, 150, 150);
+    doc.line(marginX, y, pageWidth - marginX, y);
+    y += 10;
+  });
+
+  doc.save('InformeUsuarios.pdf');
+}
 
 }
