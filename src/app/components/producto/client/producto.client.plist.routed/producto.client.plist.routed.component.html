@@ -124,7 +124,8 @@
             <div id="botones">
             <button
               class="btn btn-pink"
-              (click)="comprar(producto)"
+
+              (click)="abrirModalConfirmacion(producto)"
               [disabled]="producto.unidades == 0"
             >
               Comprar ya
@@ -151,88 +152,14 @@
     </div>
   </div>
 
-  <!-- <div
-  class="modal fade"
-  id="mimodal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog">
-    <div class="modal-content rounded-4 shadow-lg border-0">
-      <div class="modal-header text-center border-0">
-        <h5 class="modal-title w-100 text-pink fw-bold" id="exampleModalLabel">IswArt</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body text-center py-4">
-        <p class="fs-5 text-muted">{{ strMessage }}</p>
-      </div>
-      <div class="modal-footer justify-content-center border-0">
-        <button
-          type="button"
-          class="btn btn-pink px-4 py-2 rounded-pill"
-          data-bs-dismiss="modal"
-        >
-          Cerrar
-        </button>
-      </div>
-    </div>
-  </div> -->
-
-  <div
-  class="modal fade"
-  id="cantidadModal"
-  tabindex="-1"
-  aria-labelledby="cantidadModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog">
-    <div class="modal-content rounded-4 shadow-lg border-0">
-      <div class="modal-header text-center border-0">
-        <h5 class="modal-title w-100 text-pink fw-bold" id="cantidadModalLabel">Seleccionar cantidad</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="hideModal()"
-        ></button>
-      </div>
-      <div class="modal-body text-center py-4">
-        <label for="cantidadInput" class="form-label fs-5 text-muted mb-3">¿Cuántos productos deseas añadir al carrito?</label>
-        <input
-          type="number"
-          id="cantidadInput"
-          class="form-control text-center"
-          min="1"
-          max="100"
-          [(ngModel)]="cantidadSeleccionada"
-        />
-      </div>
-      <div class="modal-footer justify-content-center border-0">
-        <button
-          type="button"
-          class="btn btn-secondary px-4 py-2 rounded-pill"
-          data-bs-dismiss="modal"
-          (click)="hideModal()"
-        >
-          Cancelar
-        </button>
-        <button
-          type="button"
-          class="btn btn-pink px-4 py-2 rounded-pill"
-          (click)="addCarrito()"
-        >
-          Aceptar
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+  <app-modal-generico class="modal"
+    *ngIf="mostrarModal"
+    [tipo]="tipoModal"
+    [titulo]="titulo"
+    [mensaje]="mensaje"
+    [cantidadInicial]="cantidadInicial"
+    (cerrar)="cerrarModal(false)"
+    (confirmar)="confirmarModal($event)">
+  </app-modal-generico>
 
 </div>

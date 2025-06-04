@@ -16,9 +16,7 @@ import { IFactura } from '../../../../model/factura.interface';
 import { ILineafactura } from '../../../../model/lineafactura.interface';
 import { serverURL } from '../../../../environment/environment';
 import jsPDF from 'jspdf';
-import { ProductoService } from '../../../../service/producto.service';
 
-declare let bootstrap: any;
 
 @Component({
   selector: 'app-factura.client.view.routed',
@@ -49,16 +47,12 @@ export class FacturaClientViewRoutedComponent implements OnInit {
    strFiltro: string = '';
    //
    arrBotonera: string[] = [];
-  
-   private debounceSubject = new Subject<string>();
- 
+   
    constructor(
  
      private oFacturaService: FacturaService,
      private oLineafacturaService: LineafacturaService,
      private oSessionService: SessionService,
-     private oUsuarioService: UsuarioService,
-     private oBotoneraService: BotoneraService,
      private oActivatedRoute: ActivatedRoute,
      private oRouter: Router
    ) { 

@@ -85,7 +85,7 @@
               formControlName="password"
               placeholder="Escriba la contraseña del usuario"
             />
-            <mat-hint align="start">De mínimo 1 caracter</mat-hint>
+            <mat-hint align="start">De mínimo 4 caracteres</mat-hint>
             @if (oUsuarioForm?.get('password')?.hasError('required')){
               <mat-error> El password es obligatorio </mat-error>
             } @if (oUsuarioForm?.get('password')?.hasError('minlength')){

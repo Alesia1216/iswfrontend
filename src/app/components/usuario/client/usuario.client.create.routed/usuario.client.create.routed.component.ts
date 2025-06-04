@@ -69,7 +69,7 @@ export class UsuarioClientCreateRoutedComponent implements OnInit {
         Validators.maxLength(50),
       ]),
       email: new FormControl('', [Validators.required, Validators.min(3), Validators.maxLength(50), Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.min(1)]),
+      password: new FormControl('', [Validators.required, Validators.min(4)]),
       telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)]),
       direccion: new FormControl('', [Validators.required, Validators.min(3), Validators.maxLength(60)]),
       tipousuario: new FormControl('')

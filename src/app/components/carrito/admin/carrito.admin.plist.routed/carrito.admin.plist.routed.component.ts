@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { TrimPipe } from '../../../../pipe/trim.pipe';
 import { ICarrito } from '../../../../model/carrito.interface';
 import { IPage } from '../../../../model/model.interface';
-import { debounceTime, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { CarritoService } from '../../../../service/carrito.service';
 import { BotoneraService } from '../../../../service/botonera.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IUsuario } from '../../../../model/usuario.interface';
 import { SessionService } from '../../../../service/session.service';
 import { UsuarioService } from '../../../../service/usuario.service';
 
@@ -70,8 +69,6 @@ export class CarritoAdminPlistRoutedComponent implements OnInit {
       .getPage(this.nPage, this.nRpp, this.strField, this.strDir, this.strFiltro)
       .subscribe({
         next: (oPageFromServer: IPage<ICarrito>) => {
-          //if(oPageFromServer.content[x].usuario.id == this.oUsuario.id){}       
-          //this.oPage = oPageFromServer;
           this.oPage = oPageFromServer;
           this.arrBotonera = this.oBotoneraService.getBotonera(
             this.nPage,
@@ -111,10 +108,6 @@ export class CarritoAdminPlistRoutedComponent implements OnInit {
   goBack(){
     this.oRouter.navigate(['/carrito/client/plist']);
   }
-
-  // delete(oCarrito: ICarrito) {
-  //   this.oRouter.navigate(['/carrito/client/delete/', oCarrito.id]);
-  // }
 
   goToPage(p: number) {
     if (p) {
@@ -175,10 +168,8 @@ export class CarritoAdminPlistRoutedComponent implements OnInit {
   }
 
   delete(oCarrito: ICarrito){
-    this.showModal('¿Deseas borrar el producto del carrito?', () => {
-      this.oCarritoService.delete(oCarrito.id).subscribe(() => {
-        this.getPage();
-      });
+    this.oCarritoService.delete(oCarrito.id).subscribe(() => {
+      this.getPage();
     });
   }
 

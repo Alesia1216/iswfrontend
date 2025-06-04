@@ -22,14 +22,13 @@ import { DateTime } from 'luxon';
 import { IFactura } from '../../../../model/factura.interface';
 import { FacturaService } from '../../../../service/factura.service';
 import { LineafacturaService } from '../../../../service/lineafactura.service';
-
-declare let bootstrap: any;
+import { ModalGenericoComponent } from "../../../shared/modals/modal/modal.component";
 
 @Component({
     selector: 'app-producto.client.plist.routed',
     templateUrl: './producto.client.plist.routed.component.html',
     styleUrls: ['./producto.client.plist.routed.component.css'],
-    imports: [CommonModule, FormsModule, TrimPipe, RouterModule]
+    imports: [CommonModule, FormsModule, TrimPipe, RouterModule, ModalGenericoComponent]
 })
 export class ProductoClientPlistRoutedComponent implements OnInit {
 
@@ -51,11 +50,12 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
   arrBotonera: string[] = [];
   //
   private debounceSubject = new Subject<string>();
-  strMessage: string = '';
-  myModal: any;
-  mensajeModal: any;
 
-
+  mostrarModal = false;
+  tipoModal: 'info' | 'confirmacion' | 'cantidad' = 'info';
+  titulo = '';
+  mensaje = '';
+  cantidadInicial = 1;
 
   constructor(
     private oProductoService: ProductoService,
@@ -64,8 +64,7 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
     private oUsuarioService : UsuarioService,
     private oCarritoService: CarritoService,
     private oFacturaService: FacturaService,
-    private oLineafacturaService: LineafacturaService,
-    private oRouter: Router
+    private oLineafacturaService: LineafacturaService
   ) { 
     this.debounceSubject.pipe(debounceTime(10)).subscribe((value) => {
       this.getPage();
@@ -149,53 +148,29 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
   }
 
   addCarrito(){
-    if (!this.productoSeleccionado) return;
-    if (this.cantidadSeleccionada <= 0) {
-      this.cantidadSeleccionada = 1; 
+
+    if (!this.productoSeleccionado?.id || this.cantidadSeleccionada <= 0) {
+      console.warn('Producto inválido o cantidad no válida');
       return;
-    } 
+    }
+
+    console.log(this.oUsuario);
+    console.log(this.productoSeleccionado);
+    console.log(this.cantidadSeleccionada);
 
     this.oCarrito.usuario = this.oUsuario;
     this.oCarrito.producto = this.productoSeleccionado;
-    this.oCarrito.cantidad = this.cantidadSeleccionada;
+    this.oCarrito.cantidad = this.cantidadInicial;
 
     this.oCarritoService.create(this.oCarrito).subscribe({
       next: (data: ICarrito) => {
-        this.strMessage = 'Producto añadido con éxito';
-        this.hideModal(true);
+        console.log('Producto añadido con éxito');
       },
       error: (err: HttpErrorResponse) => {
-        this.strMessage = 'Fallo al añadir el producto';
-        this.hideModal(true);
+        console.log('Fallo al añadir el producto');
       },
     })
-    this.cantidadSeleccionada = 1;
   }
-
-  showModal() {
-    this.myModal = new bootstrap.Modal(document.getElementById('cantidadModal'), {
-      keyboard: false,
-    });
-    this.myModal.show();
-  }
-
-  abrirModalCantidad(oProducto: IProducto) {
-    this.productoSeleccionado = oProducto;
-    this.showModal();
-  }
-
-  // showMensajeModal(mensaje: string) {
-  //   this.strMessage = mensaje;
-  //   this.mensajeModal = new bootstrap.Modal(document.getElementById('mimodal'), {
-  //     keyboard: false,
-  //   });
-  //   this.myModal.show();
-  // }
-
-  hideModal = (abrirMensaje: boolean = false) => {
-    this.myModal.hide();
-  }
-
 
   comprar(producto: IProducto) {
   // Verificar usuario
@@ -255,5 +230,51 @@ export class ProductoClientPlistRoutedComponent implements OnInit {
   });
 }
 
+abrirModalInfo(mensaje: string) {
+  this.tipoModal = 'info';
+  this.titulo = '¡Genial!';
+  this.mensaje = mensaje;
+  this.mostrarModal = true;
+}
+
+abrirModalConfirmacion(producto : IProducto) {
+  this.tipoModal = 'confirmacion';
+  this.titulo = '¿Estás seguro?';
+  this.mensaje = '¿Quieres comprar una unidad de '+ producto.descripcion + '?';
+  this.productoSeleccionado = producto;
+  this.mostrarModal = true;
+}
+
+abrirModalCantidad(producto : IProducto) {
+  this.tipoModal = 'cantidad';
+  this.titulo = 'Selecciona cantidad';
+  this.mensaje = '¿Cuántos productos deseas añadir al carrito?';
+  this.cantidadInicial = 1;
+  this.productoSeleccionado = producto;
+  this.mostrarModal = true;
+}
+
+cerrarModal(valor: any) {  
+  console.log('Cerrado con valor:', valor);
+  this.mostrarModal = false;
+  if(this.tipoModal === 'cantidad' && valor > 0){
+    this.abrirModalInfo('Producto agregado al carrito');
+  }
+  if(this.tipoModal === 'confirmacion' && valor === true){
+      this.abrirModalInfo('Producto comprado con éxito. Gracias por tu compra. La artista se pondrá en contacto contigo para gestionar el pago.');
+  }
+}
+
+confirmarModal(valor: any) {
+  console.log('Confirmado con valor:', valor);
+  if (this.tipoModal === 'confirmacion' && valor === true) {
+    this.comprar(this.productoSeleccionado);
+  }
+  if (this.tipoModal === 'cantidad' && valor > 0) {
+    this.cantidadInicial = valor;
+    this.addCarrito();
+  }
+  this.cerrarModal(valor);
+}
 
 }
