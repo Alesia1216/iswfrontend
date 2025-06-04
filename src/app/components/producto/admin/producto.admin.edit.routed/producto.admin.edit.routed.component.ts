@@ -40,6 +40,7 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
   oProducto: IProducto | null = null;
   strMessage: string = '';
   isFileSelected = false;
+  currentImageUrl: string | null = null;
 
   myModal: any;
 
@@ -124,6 +125,7 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
     this.oProductoService.get(this.id).subscribe({
       next: (oProducto: IProducto) => {
         this.oProducto = oProducto;
+        this.getImagen();
         this.updateForm();
       },
       error: (error: HttpErrorResponse) => {
@@ -131,6 +133,23 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
       },
     });
   }
+
+ getImagen() {
+  this.oProductoService.getImagen(this.oProducto!.id).subscribe({
+    next: (blob: Blob) => {
+      this.currentImageUrl = URL.createObjectURL(blob);
+
+      // Importante: asignar el blob al formulario para que se envíe
+      const imagenFile = new File([blob], 'imagen.jpg', { type: blob.type });
+      this.oProductoForm?.controls['imagen'].setValue(imagenFile);
+    },
+    error: (error) => {
+      console.error('Error al cargar la imagen', error);
+      this.currentImageUrl = null;
+    }
+  });
+}
+
 
   showModal(mensaje: string) {
     this.strMessage = mensaje;

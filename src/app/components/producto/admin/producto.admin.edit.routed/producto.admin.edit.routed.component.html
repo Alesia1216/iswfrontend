@@ -96,7 +96,16 @@
         <br />
         <div class="row mt-4 d-flex align-items-center justify-content-center">
           <mat-label>Imagen</mat-label>
-          <input style="width: fit-content;" id="file-input" (change)="onFileSelected($event)" type="file" class="hidden" required/>
+          <input
+            style="width: fit-content;"
+            id="file-input"
+            (change)="onFileSelected($event)"
+            type="file"
+            class="hidden"
+          />
+
+          <!-- Mostrar vista previa si hay imagen -->
+          <img *ngIf="currentImageUrl" [src]="currentImageUrl" alt="Imagen actual" class="mt-2 rounded" />
         </div>
         <br />
         <button
