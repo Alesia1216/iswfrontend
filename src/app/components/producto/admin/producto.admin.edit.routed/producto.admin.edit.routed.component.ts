@@ -40,6 +40,7 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
   oProducto: IProducto | null = null;
   strMessage: string = '';
   isFileSelected = false;
+  selectedFile: File | null = null;
   currentImageUrl: string | null = null;
 
   myModal: any;
@@ -112,14 +113,18 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
   }
 
     onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const blob = new Blob([file], { type: file.type });
-      this.oProductoForm?.controls['imagen'].setValue(blob);
-      this.isFileSelected = true;
+      const file = event.target.files[0];
+      if (file) {
+        this.oProductoForm?.controls['imagen'].setValue(file); // Usa File directamente
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.currentImageUrl = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      }
     }
-    console.log(this.oProductoForm?.value);
-}
+
 
   get() {
     this.oProductoService.get(this.id).subscribe({
@@ -150,7 +155,6 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
   });
 }
 
-
   showModal(mensaje: string) {
     this.strMessage = mensaje;
     this.myModal = new bootstrap.Modal(document.getElementById('mimodal'), {
@@ -169,16 +173,27 @@ export class ProductoAdminEditRoutedComponent implements OnInit {
       this.showModal('Formulario no válido');
       return;
     } else {
-      this.oProductoService.updateImagen(this.oProductoForm?.value).subscribe({
-        next: (oProducto: IProducto) => {
-          this.oProducto = oProducto;
-          this.updateForm();
-          this.showModal('Producto ' + this.oProducto.descripcion + ' actualizado');
-        },
-        error: (err: HttpErrorResponse) => {
-          this.showModal('Error al actualizar el producto: '+ err.error.message);
-        },
-      });
+      const formValue = this.oProductoForm?.value;
+
+        const formData = new FormData();
+        formData.append('id', this.oProductoForm?.value.id);
+        formData.append('descripcion', this.oProductoForm?.value.descripcion);
+        formData.append('estilo', this.oProductoForm?.value.estilo);
+        formData.append('unidades', this.oProductoForm?.value.unidades);
+        formData.append('precio', this.oProductoForm?.value.precio);
+        formData.append('habilitado', this.oProductoForm?.value.habilitado);
+        formData.append('imagen', this.oProductoForm?.value.imagen); 
+
+        this.oProductoService.updateImagen(formData).subscribe({
+          next: (oProducto: IProducto) => {
+            this.oProducto = oProducto;
+            this.updateForm();
+            this.showModal('Producto ' + this.oProducto.descripcion + ' actualizado');
+          },
+          error: (err: HttpErrorResponse) => {
+            this.showModal('Error al actualizar el producto: ' + err.error.message);
+          }
+        });
     }
   }
 }

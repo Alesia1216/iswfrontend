@@ -96,16 +96,30 @@
         <br />
         <div class="row mt-4 d-flex align-items-center justify-content-center">
           <mat-label>Imagen</mat-label>
-          <input
-            style="width: fit-content;"
-            id="file-input"
-            (change)="onFileSelected($event)"
-            type="file"
-            class="hidden"
-          />
-
-          <!-- Mostrar vista previa si hay imagen -->
-          <img *ngIf="currentImageUrl" [src]="currentImageUrl" alt="Imagen actual" class="mt-2 rounded" />
+          <div class="d-flex flex-column align-items-center">
+            <!-- Vista previa de la imagen actual -->
+             @if(currentImageUrl){
+              <img 
+              [src]="currentImageUrl" 
+              alt="Imagen actual" 
+              class="mt-2 rounded" 
+              style="max-width: 200px;"
+              />
+            }@else{
+              <p class="text-muted mt-2">No hay imagen seleccionada</p>
+            }
+            <!-- Botón personalizado para seleccionar archivo -->
+            <label for="file-input" class="btn btn-outline-pink mt-2">
+              Seleccionar nueva imagen
+            </label>
+            <input
+              id="file-input"
+              type="file"
+              accept="image/*"
+              (change)="onFileSelected($event)"
+              hidden
+            />
+          </div>
         </div>
         <br />
         <button
