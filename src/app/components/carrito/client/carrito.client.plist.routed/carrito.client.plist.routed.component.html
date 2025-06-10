@@ -3,16 +3,25 @@
     <div class="col text-center">
       <h2 class="my-2">
         <i class="bi bi-cart4"></i>
-        Carrito de {{oUsuario.nombre + ' ' + oUsuario.apellido1 + ' ' + oUsuario.apellido2}}
+        Carrito de
+        {{
+          oUsuario.nombre + " " + oUsuario.apellido1 + " " + oUsuario.apellido2
+        }}
         @if(oUsuario.tipousuario.id == 1){
-          <a href="/carrito/admin/plist" class="btn btn-pink px-1 py-0"
-            ><i class="bi bi-fingerprint fs-5"></i
-          ></a>
+        <a href="/carrito/admin/plist" class="btn btn-pink px-1 py-0"
+          ><i class="bi bi-fingerprint fs-5"></i
+        ></a>
         }
       </h2>
 
       <div class="d-inline-flex mx-2">
-        <input type="text" class="form-control" placeholder="Buscar" (keyup)="filter($event)" [(ngModel)]="strFiltro" />
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar"
+          (keyup)="filter($event)"
+          [(ngModel)]="strFiltro"
+        />
       </div>
 
       <div class="d-inline-flex mx-2">
@@ -34,7 +43,12 @@
       <nav class="my-2">
         <ul class="pagination justify-content-center">
           <li class="page-item">
-            <a class="page-link" [class.disabled]="nPage - -1 === 1" (click)="goToPrev()" href="#">
+            <a
+              class="page-link"
+              [class.disabled]="nPage - -1 === 1"
+              (click)="goToPrev()"
+              href="#"
+            >
               Anterior
               <i class="bi bi-caret-left-square-fill"></i>
             </a>
@@ -44,20 +58,31 @@
             @if(pag==='...'){
             <a class="page-link">{{ pag }}</a>
             } @else {
-            <a class="page-link" href="#" (click)="goToPage(-(-pag))" [class.active]="nPage - -1 === -(-pag)">
+            <a
+              class="page-link"
+              href="#"
+              (click)="goToPage(-(-pag))"
+              [class.active]="nPage - -1 === -(-pag)"
+            >
               {{ pag }}
             </a>
             }
           </li>
 
           <li class="page-item">
-            <a class="page-link" [class.disabled]="nPage - -1 === oPage.totalPages" (click)="goToNext()" href="#">
+            <a
+              class="page-link"
+              [class.disabled]="nPage - -1 === oPage.totalPages"
+              (click)="goToNext()"
+              href="#"
+            >
               <i class="bi bi-caret-right-square-fill"></i>
-              Siguiente</a>
+              Siguiente</a
+            >
           </li>
         </ul>
       </nav>
-      <br>
+      <br />
       <div class="d-flex justify-content-between my-5">
         @if (strFiltro.length>0) {
         <h5 class="text-muted">
@@ -71,60 +96,82 @@
           {{ oPage.totalElements | number : "1.0-0" }}
         </h5>
       </div>
-          @if (oPage.content?.length === 0) {
-            <p>No hay productos en el carrito</p>
-          }@else{
-            <table class="table table-pink">
-              <thead>
-                <tr>
-                  <th scope="col">Producto</th>
-                  <th scope="col">Cantidad</th>
-                  <th scope="col">Precio del producto</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-            @for (carrito of oPage.content; track carrito.id){
+      @if (oPage.content?.length === 0) {
+      <p>No hay productos en el carrito</p>
+      }@else{
+      <table class="table table-pink">
+        <thead>
+          <tr>
+            <th scope="col">Producto</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Precio del producto</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (carrito of oPage.content; track carrito.id){
+          <tr class="clickable-row">
+            <th (click)="view(carrito)">
+              {{ carrito.producto.descripcion | trim : 15 }}
+            </th>
 
-              <tr  (click)="view(carrito)" class="clickable-row">
-                <th>{{ carrito.producto.descripcion | trim:15}}</th>
-                <th>{{ carrito.cantidad }}</th>
-                <td>{{ carrito.producto.precio }}</td>
-                <td>
-                  <a class="btn-pink" (click)="delete(carrito); $event.stopPropagation()">
-                    <i class="bi bi-x-circle"></i>
-                  </a>
-                </td>
-              </tr>
-            }
-            <tr class="fw-bold">
-              <td colspan="2" class="text-end">Total:</td>
-              <td colspan="2">{{ getTotalCarrito() | number: '1.2-2' }} €</td>
-            </tr>
-            </tbody>
-          </table>
-          <div class="botones">
-            <button class="btn btn-outline-pink icon-15" (click)="confirmarCompra()">
-              <i class="bi bi-cart-check"></i>
-              Comprar
-          </button>
-          <button class="btn btn-outline-pink icon-15" (click)="vaciarCarrito()">
-            <i class="bi bi-trash3-fill"></i>
-            Vaciar carrito
-        </button>
-          </div>
-         
+            <td>
+              <input
+                type="number"
+                class="form-control"
+                min="1"
+                [value]="carrito.cantidad"
+                (change)="onCantidadChange($event, carrito)"
+                (click)="$event.stopPropagation()"
+              />
+            </td>
+
+            <td (click)="view(carrito)">{{ carrito.producto.precio }}</td>
+
+            <td>
+              <a
+                class="btn-pink"
+                (click)="delete(carrito); $event.stopPropagation()"
+              >
+                <i class="bi bi-x-circle"></i>
+              </a>
+            </td>
+          </tr>
           }
+
+          <tr class="fw-bold">
+            <td colspan="2" class="text-end">Total:</td>
+            <td colspan="2">{{ getTotalCarrito() | number : "1.2-2" }} €</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="botones">
+        <button
+          class="btn btn-outline-pink icon-15"
+          (click)="confirmarCompra()"
+        >
+          <i class="bi bi-cart-check"></i>
+          Comprar
+        </button>
+        <button class="btn btn-outline-pink icon-15" (click)="vaciarCarrito()">
+          <i class="bi bi-trash3-fill"></i>
+          Vaciar carrito
+        </button>
+      </div>
+
+      }
     </div>
   </div>
 </div>
 
-  <app-modal-generico class="modal"
-    *ngIf="mostrarModal"
-    [tipo]="tipoModal"
-    [titulo]="titulo"
-    [mensaje]="mensaje"
-    [cantidadInicial]="cantidadInicial"
-    (cerrar)="cerrarModal(false)"
-    (confirmar)="confirmarModal($event)">
-  </app-modal-generico>
+<app-modal-generico
+  class="modal"
+  *ngIf="mostrarModal"
+  [tipo]="tipoModal"
+  [titulo]="titulo"
+  [mensaje]="mensaje"
+  [cantidadInicial]="cantidadInicial"
+  (cerrar)="cerrarModal(false)"
+  (confirmar)="confirmarModal($event)"
+>
+</app-modal-generico>

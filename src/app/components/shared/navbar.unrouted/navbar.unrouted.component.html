@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg bg-body-tertiary w-100 flex-wrap">
+  <div class="container-fluid d-flex flex-row justify-content-center">
     <a class="navbar-brand mx-5" href="#" style="font-size: 1.8rem;">IswArt</a>
 
-    <div class="d-flex ms-auto mx-4">
+              <div class="d-flex ms-auto mx-4">
       <button type="button" class="btn btn-outline-pink icon-15" style="font-size: 1.4rem;">
         @if(activeSession){
           <a class="nav-link" 
@@ -25,17 +25,17 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center d-flex justify-content-center">
         <li class="nav-item">
           <a class="nav-link" [class.active]="strRuta == '/shared/home'" aria-current="page" href="/shared/home"><i class="bi bi-house-heart fs-5"></i> Inicio</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [class.active]="strRuta.startsWith('/producto')" href="/producto/client/plist"><i class="bi bi-palette fs-5"></i> Productos</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" [class.active]="strRuta.startsWith('/compra/')" href="/compra/comision"><i class="bi bi-chat-left-heart fs-5"></i> Comision personalizada</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" [class.active]="strRuta.startsWith('/aboutme')" href="/aboutme"><i class="bi bi-info-circle fs-5"></i> Sobre mi</a>
         </li>

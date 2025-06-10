@@ -1,4 +1,4 @@
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DATE_PIPE_DEFAULT_OPTIONS, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TrimPipe } from '../../../../pipe/trim.pipe';
@@ -99,62 +99,126 @@ export class CarritoClientPlistRoutedComponent implements OnInit {
     });
   }
 
-  getPage() {
-    this.oCarritoService
-      .getPage(this.nPage, this.nRpp, this.strField, this.strDir, this.strFiltro)
-      .subscribe({
-        next: (oPageFromServer: IPage<ICarrito>) => {
+  // getPage() {
+  //   this.oCarritoService
+  //     .getPage(this.nPage, this.nRpp, this.strField, this.strDir, this.strFiltro)
+  //     .subscribe({
+  //       next: (oPageFromServer: IPage<ICarrito>) => {
 
-          const filteredContent = oPageFromServer.content.filter(
-            (carrito) => carrito.usuario.id === this.oUsuario.id
-          );
-          this.oPage = {
-            ...oPageFromServer, 
-            content: filteredContent
-          };
+  //         const filteredContent = oPageFromServer.content.filter(
+  //           (carrito) => carrito.usuario?.id === this.oUsuario.id
+  //         );
+  //         this.oPage = {
+  //           ...oPageFromServer, 
+  //           content: filteredContent
+  //         };
 
-          this.arrBotonera = this.oBotoneraService.getBotonera(
-            this.nPage,
-            oPageFromServer.totalPages
-          );
+  //         this.arrBotonera = this.oBotoneraService.getBotonera(
+  //           this.nPage,
+  //           oPageFromServer.totalPages
+  //         );
 
-          console.log(this.oPage);
-        },
-        error: (err: HttpErrorResponse) => {
-          console.log(err);
-        },
-      });
-  }
+  //         console.log(this.oPage);
+  //       },
+  //       error: (err: HttpErrorResponse) => {
+  //         console.log(err);
+  //       },
+  //     });
+  // }
 
-  getAll(){
-    this.oCarritoService
+  async getPage() {
+  this.oCarritoService
     .getPage(this.nPage, this.nRpp, this.strField, this.strDir, this.strFiltro)
     .subscribe({
       next: (oPageFromServer: IPage<ICarrito>) => {
-        this.allCarritoLines = [...this.allCarritoLines, ...oPageFromServer.content]; // Acumulamos los datos
+        const filteredContent = oPageFromServer.content.filter(
+          (carrito) => carrito.usuario?.id === this.oUsuario.id
+        );
 
-        if (this.nPage < oPageFromServer.totalPages - 1) {
-          this.nPage++; // Pasamos a la siguiente página
-          this.getAll(); // Llamamos recursivamente hasta la última página
-        } 
+        this.oPage = {
+          ...oPageFromServer,
+          content: filteredContent
+        };
+
+        this.arrBotonera = this.oBotoneraService.getBotonera(
+          this.nPage,
+          oPageFromServer.totalPages
+        );
+
+        // Aquí comprobamos productos deshabilitados
+        const deshabilitados = this.oPage.content.filter(c => !c.producto.habilitado);
+
+        if (deshabilitados.length > 0) {
+          deshabilitados.forEach((carrito) => {
+            // Mostrar modal solo para el primero para no saturar
+            if (carrito === deshabilitados[0]) {
+              this.abrirModalInfo('Vaya...','Parece que el producto "' + carrito.producto.descripcion + '" se ha quedado sin stock y se eliminará de tu carrito. Lamentamos las molestias');
+            }
+            this.oCarritoService.delete(carrito.id).subscribe({
+              next: () => {
+                // Luego de eliminar, recargamos el carrito (solo después de eliminar el último)
+                if (carrito === deshabilitados[deshabilitados.length -1]) {
+                  this.getPage();
+                }
+              },
+              error: (err) => {
+                console.error('Error al eliminar línea del carrito con producto deshabilitado:', err);
+              }
+            });
+          });
+        }
+
+        console.log(this.oPage);
       },
       error: (err: HttpErrorResponse) => {
-        console.log('Error al obtener las compras:', err);
+        console.log(err);
       },
     });
-  }
+}
 
-  getUsuarioSession(){
-    this.oUsuarioService.getbyEmail(this.email).subscribe({
-      next: (data: IUsuario) => {
-        this.oUsuario = data;
-        this.getPage();
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    })
-  }
+
+  // getAll(){
+  //   this.oCarritoService
+  //   .getPage(this.nPage, this.nRpp, this.strField, this.strDir, this.strFiltro)
+  //   .subscribe({
+  //     next: (oPageFromServer: IPage<ICarrito>) => {
+  //       this.allCarritoLines = [...this.allCarritoLines, ...oPageFromServer.content]; // Acumulamos los datos
+
+  //       if (this.nPage < oPageFromServer.totalPages - 1) {
+  //         this.nPage++; // Pasamos a la siguiente página
+  //         this.getAll(); // Llamamos recursivamente hasta la última página
+  //       } 
+  //     },
+  //     error: (err: HttpErrorResponse) => {
+  //       console.log('Error al obtener las compras:', err);
+  //     },
+  //   });
+  // }
+
+  // getUsuarioSession(){
+  //   this.oUsuarioService.getbyEmail(this.email).subscribe({
+  //     next: (data: IUsuario) => {
+  //       this.oUsuario = data;
+  //       this.getPage();
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     }
+  //   })
+  // }
+
+  async getUsuarioSession(){
+  this.oUsuarioService.getbyEmail(this.email).subscribe({
+    next: (data: IUsuario) => {
+      this.oUsuario = data;
+      this.getPage();  // Ya incluye la verificación y eliminación
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  })
+}
+
 
   view(oCarrito: ICarrito) {
     this.oRouter.navigate(['/carrito/client/view/', oCarrito.id]);
@@ -328,9 +392,52 @@ export class CarritoClientPlistRoutedComponent implements OnInit {
     }, 0) || 0;
   }
 
-  abrirModalInfo(mensaje: string) {
+
+  onCantidadChange(event: Event, carrito: ICarrito): void {
+    const input = event.target as HTMLInputElement;
+    const nuevaCantidad = Number(input.value);
+
+    // Evitar cantidades menores a 1
+    if (nuevaCantidad < 1) {
+      input.value = carrito.cantidad.toString(); // Restaurar la cantidad previa en el input
+      return;
+    }
+
+    // Verificamos si hay stock suficiente
+    if (nuevaCantidad > carrito.producto.unidades) {
+      this.tipoModal = 'info';
+      this.titulo = 'Stock insuficiente';
+      this.mensaje = `No puedes añadir más de ${carrito.producto.unidades} unidades de "${carrito.producto.descripcion}".`;
+      this.mostrarModal = true;
+
+      // Restaurar la cantidad anterior en el input
+      input.value = carrito.cantidad.toString();
+      return;
+    }
+
+    console.log('Nueva cantidad:', nuevaCantidad);
+
+      // Si la cantidad es válida, actualizamos el carrito
+    const updatedCarrito: ICarrito = {
+      ...carrito,
+      cantidad: nuevaCantidad,
+    };
+
+    console.log('Carrito actualizado:', updatedCarrito);
+
+    this.oCarritoService.update(updatedCarrito).subscribe({
+      next: () => {
+        carrito.cantidad = nuevaCantidad;
+      },
+      error: (error: any) => {
+        console.error('Error al actualizar cantidad en el carrito:', error);
+      }
+    });
+  }
+
+  abrirModalInfo(titulo:string ,mensaje: string) {
     this.tipoModal = 'info';
-    this.titulo = '¡Genial!';
+    this.titulo = titulo;
     this.mensaje = mensaje;
     this.mostrarModal = true;
   }
@@ -348,12 +455,12 @@ export class CarritoClientPlistRoutedComponent implements OnInit {
     if(this.accion === 'comprar'){
       console.log('accion comprar');
       
-      this.abrirModalInfo('Compra realizada con éxito. La artista se pondrá en contacto contigo para gestionar el pago. Gracias por tu compra');
+      this.abrirModalInfo('¡Genial!','Compra realizada con éxito. La artista se pondrá en contacto contigo para gestionar el pago. Gracias por tu compra');
     }
     if(this.accion === 'vaciar'){
             console.log('accion vaciar');
 
-      this.abrirModalInfo('Carrito vaciado con éxito');
+      this.abrirModalInfo('¡Genial!','Carrito vaciado con éxito');
     }
   }
 

@@ -16,15 +16,15 @@ import { UsuarioService } from '../../../../service/usuario.service';
 import { TipousuarioService } from '../../../../service/tipousuario.service';
 import { ITipousuario } from '../../../../model/tipousuario.interface';
 import { CryptoService } from '../../../../service/crypto.service';
+import { ModalGenericoComponent } from "../../../shared/modals/modal/modal.component";
 
-declare let bootstrap: any;
 
 @Component({
   selector: 'app-usuario.client.create.routed',
   templateUrl: './usuario.client.create.routed.component.html',
   styleUrls: ['./usuario.client.create.routed.component.css'],
   standalone: true,
-  imports: [RouterModule, MatFormFieldModule, MatInputModule, MatSelectModule, ReactiveFormsModule, CommonModule]
+  imports: [RouterModule, MatFormFieldModule, MatInputModule, MatSelectModule, ReactiveFormsModule, CommonModule, ModalGenericoComponent]
 })
 export class UsuarioClientCreateRoutedComponent implements OnInit {
   id: number = 0;
@@ -33,11 +33,17 @@ export class UsuarioClientCreateRoutedComponent implements OnInit {
   oUsuario: IUsuario | null = null;
   strMessage: string = '';
 
-  isCreated: boolean = false;
-
-  myModal: any;
-
   form: FormGroup = new FormGroup({});
+
+  mostrarModal : boolean = false;
+  mostrarTerminos : boolean = false;
+  redigir : boolean = false;
+
+  tipoModal: 'info' | 'confirmacion' | 'cantidad' = 'info';
+  titulo = '';
+  mensaje = '';
+  cantidadInicial = 1;
+  accion: 'comprar' | 'vaciar' | 'eliminar' = 'comprar';
 
   constructor(
     private oUsuarioService: UsuarioService,
@@ -98,29 +104,17 @@ export class UsuarioClientCreateRoutedComponent implements OnInit {
     });
   }
 
-  showModal(mensaje: string) {
-    this.strMessage = mensaje;
-    this.myModal = new bootstrap.Modal(document.getElementById('mimodal'), {
-      keyboard: false,
-    });
-    this.myModal.show();
-  }
-
   onReset() {
     this.updateForm();
     return false;
   }
 
-  hideModal = () => {
-    this.myModal.hide();
-    if (this.isCreated){
-      this.oRouter.navigate(['/login']);
-    }
-  }
-
   onSubmit() {
     if (this.oUsuarioForm?.invalid) {
-      this.showModal('Formulario inválido');
+      this.mostrarModal = true;
+      this.mostrarTerminos = false;
+      this.redigir = false;
+      this.abrirModalInfo('Vaya... Parece que hubo un problema','Formulario inválido. Porfavor revise los datos');
       return;
     } else {
       const formValue = { ...this.oUsuarioForm?.value }; 
@@ -129,14 +123,38 @@ export class UsuarioClientCreateRoutedComponent implements OnInit {
       this.oUsuarioService.create(formValue).subscribe({
         next: (oUsuario: IUsuario) => {
           this.oUsuario = oUsuario;
-          this.isCreated = true;
-          this.showModal('Usuario ' + this.oUsuario.nombre + ' creado');
+          this.mostrarModal = true;
+          this.mostrarTerminos = true;
+          this.redigir = true;
+          this.abrirModalInfo('Bienvenid@ a IswArt','Gracias por registrarte en nuestra página ' + this.oUsuario.nombre );
         },
         error: (err: HttpErrorResponse) => {
-          this.showModal('Error al crear el usuario: ' + err.error.message);
+          this.mostrarModal = true;
+          this.mostrarTerminos = false;
+          this.redigir = false;
+          console.log('Error al crear el usuario: ' + err.error.message);
+          this.abrirModalInfo('Vaya... Parece que hubo un problema','Ha habido un problema creado el usuario');
         },
       });
     }
+  }
+
+  abrirModalInfo(titulo: string, mensaje: string) {
+      console.log('Mostrando modal con título:', titulo); // <- ¿se imprime?
+      this.tipoModal = 'info';
+      this.titulo = titulo;
+      this.mensaje = mensaje;
+  }
+  
+  cerrarModal() { 
+    this.mostrarModal = false; 
+    if (this.redigir) {
+      this.oRouter.navigate(['/login']);
+    }
+  }
+
+  confirmarModal(valor: any) {
+    this.cerrarModal();
   }
 
 }

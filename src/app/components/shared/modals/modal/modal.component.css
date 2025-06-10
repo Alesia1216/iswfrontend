@@ -16,6 +16,10 @@
   z-index: 1050;
 }
 
+.modal-termCond{
+  margin-bottom: 16px;
+}
+
 button{
   border-radius: 25px;
 }

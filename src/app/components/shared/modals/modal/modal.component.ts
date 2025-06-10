@@ -18,11 +18,13 @@ export class ModalGenericoComponent {
   @Input() cantidadInicial: number = 1;
   @Input() cantidadMinima: number = 1;
   @Input() cantidadMaxima: number = 100;
+  @Input() mostrarTerminos: boolean = false;
 
   @Output() cerrar = new EventEmitter<void>();
   @Output() confirmar = new EventEmitter<any>();
 
   cantidadSeleccionada: number = this.cantidadInicial;
+  mostrarTextoTerminos = false;
 
   ngOnInit() {
     this.cantidadSeleccionada = this.cantidadInicial;

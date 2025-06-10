@@ -24,6 +24,46 @@
           </div>
          }
       </div>
+
+      @if(mostrarTerminos){
+        <div class="modal-termCond mt-3">
+          <button class="btn btn-outline-pink btn-sm" (click)="mostrarTextoTerminos = !mostrarTextoTerminos">
+            {{ mostrarTextoTerminos ? 'Ocultar' : 'Mostrar' }} Términos y Condiciones
+          </button>
+
+          <div *ngIf="mostrarTextoTerminos" class="mt-2 p-2 border rounded text-start bg-light" style="max-height: 200px; overflow-y: auto;">
+            <p>
+              Al solicitar y adquirir una comisión personalizada a través de esta página, el comprador acepta las siguientes condiciones de uso:
+            </p>
+             <ul>
+              <li>
+                <p><strong>Uso personal únicamente:</strong></p>
+                <p>Las comisiones están destinadas exclusivamente a uso personal. Esto incluye, por ejemplo, utilizarlas como imagen de perfil, fondo de pantalla, impresión para uso privado o compartir en redes sociales siempre acreditando a la artista.</p>
+              </li>
+              <li>
+                <p><strong>Prohibido el uso comercial sin permiso:</strong></p>
+                <p>No se permite el uso de la obra con fines comerciales (venta, promoción de productos o servicios, merchandising, etc.) sin una licencia adicional y el consentimiento por escrito de la artista.</p>
+              </li>
+              <li>
+                <p><strong>No se permiten modificaciones sin autorización:</strong></p>
+                <p>No está permitido modificar, alterar o editar la obra original sin el consentimiento explícito de la artista.</p>
+              </li>
+              <li>
+                <p><strong>Derechos de autor:</strong></p>
+                <p>La autora conserva todos los derechos de autor sobre la obra, incluso después de entregarla al comprador. Esto incluye el derecho a mostrar la ilustración en su portafolio, redes sociales o sitios web, salvo que el cliente solicite expresamente confidencialidad.</p>
+              </li>
+              <li>
+                <p><strong>Prohibida la reventa o distribución:</strong></p>
+                <p>El comprador no puede revender, sublicenciar ni distribuir la obra, ni como archivo digital ni como impresión física.</p>
+              </li>
+              <li>
+                <p><strong>Licencias especiales:</strong></p>
+                <p>Si estás interesado en un uso comercial o una cesión de derechos más amplia, contacta previamente para acordar una licencia personalizada.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      }
       
       <!-- Footer según tipo -->
        @if(tipo !== 'info'){
