@@ -4,8 +4,8 @@ export const environment = {
   production: false,
 };
 
-export const serverURL: string = 'http://localhost:8085/initial';
-//export const serverURL: string = 'https://www.aleiswart.com/initial';
+//export const serverURL: string = 'http://localhost:8085/initial';
+export const serverURL: string = 'https://www.aleiswart.com/initial';
 
 export const httpOptions = {
   headers: new HttpHeaders({
