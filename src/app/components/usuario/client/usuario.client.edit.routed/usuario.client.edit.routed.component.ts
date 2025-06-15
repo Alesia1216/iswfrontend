@@ -164,5 +164,8 @@ export class UsuarioClientEditRoutedComponent implements OnInit {
     }
   }
   
+  goBack(){
+    this.oRouter.navigate(['/usuario/client/view/' + this.oUsuario?.id]);
+  }
 
 }

@@ -59,7 +59,6 @@ export class UsuarioService {
   }
 
   create(oUsuario: IUsuario): Observable<IUsuario> {
-    
     let URL: string = '';
     URL += this.serverURL;
     URL += '/create';
@@ -71,6 +70,18 @@ export class UsuarioService {
     URL += this.serverURL;
     URL += '/update';
     return this.oHttp.post<IUsuario>(URL, oUsuario);
+  }
+
+cambiarPassword(userId: number, oldPassword: string, newPassword: string) {
+    let URL: string = '';
+    URL += this.serverURL;
+    URL += '/changePassword';
+    const body = {
+      userId: userId,
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    };
+    return this.oHttp.put(URL, body);
   }
 
   delete(id: number) {

@@ -23,6 +23,7 @@ import { UsuarioAdminDeleteRoutedComponent } from './components/usuario/admin/us
 import { UsuarioClientViewRoutedComponent } from './components/usuario/client/usuario.client.view.routed/usuario.client.view.routed.component';
 import { UsuarioClientCreateRoutedComponent } from './components/usuario/client/usuario.client.create.routed/usuario.client.create.routed.component';
 import { UsuarioClientEditRoutedComponent } from './components/usuario/client/usuario.client.edit.routed/usuario.client.edit.routed.component';
+import { UsuarioClientChangePasswordRoutedComponent } from './components/usuario/client/usuario.client.changePassword.routed/usuario.client.changePassword.routed.component';
 
 
 import { ProductoAdminCreateRoutedComponent } from './components/producto/admin/producto.admin.create.routed/producto.admin.create.routed.component';
@@ -54,6 +55,7 @@ import { CarritoAdminViewRoutedComponent } from './components/carrito/admin/carr
 
 
 import { FacturaClientPlistRoutedComponent } from './components/factura/client/factura.client.plist.routed/factura.client.plist.routed.component';
+import { FacturaClientViewRoutedComponent } from './components/factura/client/factura.client.view.routed/factura.client.view.routed.component';
 
 
 import { TipousuarioAdminCreateRoutedComponent } from './components/tipousuario/tipousuario.admin.create.routed/tipousuario.admin.create.routed.component';
@@ -61,8 +63,6 @@ import { TipousuarioAdminEditRoutedComponent } from './components/tipousuario/ti
 import { TipousuarioAdminPlistRoutedComponent } from './components/tipousuario/tipousuario.admin.plist.routed/tipousuario.admin.plist.routed.component';
 import { TipousuarioAdminDeleteRoutedComponent } from './components/tipousuario/tipousuario.admin.delete.routed/tipousuario.admin.delete.routed.component';
 import { TipousuarioAdminViewRoutedComponent } from './components/tipousuario/tipousuario.admin.view.routed/tipousuario.admin.view.routed.component';
-import { FacturaClientViewRoutedComponent } from './components/factura/client/factura.client.view.routed/factura.client.view.routed.component';
-
 
 
 export const routes: Routes = [
@@ -85,6 +85,7 @@ export const routes: Routes = [
     {path: 'usuario/client/view/:id', component: UsuarioClientViewRoutedComponent, canActivate: [AdminOrClientGuard]},
     {path: 'usuario/client/create', component: UsuarioClientCreateRoutedComponent},
     {path: 'usuario/client/edit/:id', component: UsuarioClientEditRoutedComponent, canActivate: [AdminOrClientGuard]},
+    {path: 'usuario/client/changePass/:id', component: UsuarioClientChangePasswordRoutedComponent, canActivate: [AdminOrClientGuard]},
 
     //producto
     {path: 'producto/admin/create', component: ProductoAdminCreateRoutedComponent, canActivate: [AdminGuard]},
